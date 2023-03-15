@@ -1,77 +1,57 @@
 class Scanner:
-	def __init__(self, expression):
-		self.expression = expression.replace(' ', '')
-		self.idx = 0
-		self.token_ids = {
-			'+': 'plus',
-			'-': 'minus',
-			'*': 'multiply',
-			'/': 'divide',
-			'(': 'opening bracket',
-			')': 'closing bracket'
-		}
+  def __init__(self, expression):
+    self.expression = expression.replace(' ', '')
+    self.cursor = 0
 
+  def at_cursor(self) -> str:
+    return self.expression[self.cursor]
 
-	def scan(self):
-		expr = self.expression
-		start = self.idx
-		last_read = self.idx
+  def scan(self):
+    start = self.cursor
 
-		token_id = ''
-		token_value = expr[start]
+    token_id = ''
 
-		# jeśli token zaczyna się na cyfrę skanujemy kolejne cyfry
-		if token_value.isnumeric():
-			token_id = 'number'
+    # jeśli token zaczyna się na cyfrę skanujemy kolejne cyfry
+    if self.at_cursor().isnumeric():
+      token_id = 'number'
 
-			while token_value.isnumeric():
-				if last_read - 1 == len(expr):
-					self.idx = last_read
-					return token_id, token_value
+      self.cursor += 1
+      while self.at_cursor().isnumeric() and self.cursor < len(self.expression):
+        self.cursor += 1
+      token_value = self.expression[start:self.cursor]
 
-				last_read += 1
-				token_value = expr[start:last_read]
+    # jeśli token zaczyna się na literę skanujemy kolejne litery i cyfry
+    elif self.at_cursor().isalpha():
+      token_id = 'ID'
 
-		# jeśli token zaczyna się na literę skanujemy kolejne litery i cyfry
-		elif token_value.isalpha():
-			token_id = 'ID'
+      self.cursor += 1
+      while (self.at_cursor().isnumeric() or self.at_cursor().isalpha()) and self.cursor < len(self.expression):
+        self.cursor += 1
+      token_value = self.expression[start:self.cursor]
 
-			while token_value[-1].isnumeric() or token_value[-1].isalpha():
-				if last_read - 1 == len(expr):
-					self.idx = last_read
-					return token_id, token_value
+    # operatory binarne
+    elif (value := self.at_cursor()) in ['+', '-', '*', '/']:
+      self.cursor += 1
+      return "binary_op", value
 
-				last_read += 1
-				token_value = expr[start:last_read]
+    # nawiasy
+    elif (value := self.at_cursor()) in ['(', ')']:
+      self.cursor += 1
+      return 'parenthesis', value
 
-		# tokeny jednoliterowe
-		elif token_value in self.token_ids.keys():
-			self.idx += 1
-			return self.token_ids[token_value], token_value
+    # jeśli żaden token nie został dopasowany do pierwszej litery - wypisuje komunikat i skanuje dalej
+    else:
+      print(f'\'{self.at_cursor()}\' at position {start} isn\'t allowed in mathematical expression')
+      self.cursor += 1
+      return '', ''
 
-		# jeśli żaden token nie został dopasowany do pierwszej litery - wypisuje komunikat i skanuje dalej
-		else:
-			print(f'\'{token_value}\' in position {start} isn\'t allowed in mathematical expression')
-			self.idx += 1
-			return '', ''
+    return token_id, token_value
 
-
-		# obsługa przypadku ciąg cyfr + litera (np. '4278s')
-		if token_value[0].isnumeric() and token_value[-1].isalpha():
-			print(f'\'{token_value}\' in position {start} isn\'t allowed in mathematical expression')
-			self.idx = last_read - 1
-			return '', ''
-
-		self.idx = last_read - 1
-
-		return token_id, token_value[:-1]
-
-
-	def scan_expression(self):
-		while self.idx < len(self.expression):
-			token = self.scan()
-			if token[0] != '':
-				print(f'(kod: {token[0]}, value: {token[1]})')
+  def scan_expression(self):
+    while self.cursor < len(self.expression):
+      token = self.scan()
+      if token[0] != '':
+        print(f'(kod: {token[0]}, value: {token[1]})')
 
 
 expr1 = 'xd123+**123koks.d+\/;.pnobhddd+5'
