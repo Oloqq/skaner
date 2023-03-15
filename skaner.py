@@ -2,13 +2,20 @@ class Scanner:
   def __init__(self, expression):
     self.expression = expression.replace(' ', '')
     self.cursor = 0
+    self.binops = {
+      '+': 'plus',
+      '-': 'minus',
+      '*': 'mult',
+      '/': 'div',
+      '(': 'open_paren',
+      ')': 'close_paren'
+    }
 
   def at_cursor(self) -> str:
     return self.expression[self.cursor]
 
   def scan(self):
     start = self.cursor
-
     token_id = ''
 
     # jeśli token zaczyna się na cyfrę skanujemy kolejne cyfry
@@ -29,15 +36,10 @@ class Scanner:
         self.cursor += 1
       token_value = self.expression[start:self.cursor]
 
-    # operatory binarne
-    elif (value := self.at_cursor()) in ['+', '-', '*', '/']:
+    # operatory jednoznakowe
+    elif (key := self.at_cursor()) in self.binops.keys():
       self.cursor += 1
-      return "binary_op", value
-
-    # nawiasy
-    elif (value := self.at_cursor()) in ['(', ')']:
-      self.cursor += 1
-      return 'parenthesis', value
+      return self.binops[key], key
 
     # jeśli żaden token nie został dopasowany do pierwszej litery - wypisuje komunikat i skanuje dalej
     else:
