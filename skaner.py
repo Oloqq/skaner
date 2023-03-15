@@ -54,7 +54,7 @@ class Scanner:
         print(f'(kod: {token[0]}, value: {token[1]})')
 
 
-expr1 = 'xd123+**123koks.d+\/;.xyz+5abc'
+expr1 = 'xd123+**123koks.d+\/;.xyz+5abcd'
 expr2 = '2+3 *(* (76+8/)3)+pat3+  7 +3*(9-3)'
 scanner1 = Scanner(expr1)
 scanner1.scan_expression()
