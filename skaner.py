@@ -22,20 +22,16 @@ class Scanner:
     if self.at_cursor().isnumeric():
       token_id = 'number'
 
-      while self.at_cursor().isnumeric():
+      while self.cursor < len(self.expression) and self.at_cursor().isnumeric():
         self.cursor += 1
-        if self.cursor >= len(self.expression):
-          break
       token_value = self.expression[start:self.cursor]
 
     # jeśli token zaczyna się na literę skanujemy kolejne litery i cyfry
     elif self.at_cursor().isalpha():
       token_id = 'ID'
 
-      while (self.at_cursor().isnumeric() or self.at_cursor().isalpha()):
+      while self.cursor < len(self.expression) and (self.at_cursor().isnumeric() or self.at_cursor().isalpha()):
         self.cursor += 1
-        if self.cursor >= len(self.expression):
-          break
       token_value = self.expression[start:self.cursor]
 
     # operatory jednoznakowe
@@ -58,7 +54,7 @@ class Scanner:
         print(f'(kod: {token[0]}, value: {token[1]})')
 
 
-expr1 = 'xd123+**123koks.d+\/;.pnobhddd+5'
+expr1 = 'xd123+**123koks.d+\/;.xyz+5abc'
 expr2 = '2+3 *(* (76+8/)3)+pat3+  7 +3*(9-3)'
 scanner1 = Scanner(expr1)
 scanner1.scan_expression()
