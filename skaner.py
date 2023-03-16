@@ -22,6 +22,7 @@ class Scanner:
     if self.at_cursor().isnumeric():
       token_id = 'number'
 
+      self.cursor += 1
       while self.cursor < len(self.expression) and self.at_cursor().isnumeric():
         self.cursor += 1
       token_value = self.expression[start:self.cursor]
@@ -30,6 +31,7 @@ class Scanner:
     elif self.at_cursor().isalpha():
       token_id = 'ID'
 
+      self.cursor += 1
       while self.cursor < len(self.expression) and (self.at_cursor().isnumeric() or self.at_cursor().isalpha()):
         self.cursor += 1
       token_value = self.expression[start:self.cursor]
