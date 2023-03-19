@@ -139,7 +139,7 @@ export class Scanner {
       }
       this.advance();
     }
-    else if (["+", "-", "/", "*", ".", ":"].includes(this.current())) {
+    else if (["+", "/", "*", ".", ":"].includes(this.current())) {
       kind = "infixOperator";
       this.advance();
     }
@@ -168,6 +168,19 @@ export class Scanner {
     else if (this.current() == "#") {
       kind = "prefixOperator";
       this.advance();
+    }
+    else if (this.current() == "-") {
+      this.advance();
+      if (this.current() == "-") {
+        kind = "comment";
+        this.advance();
+        while (this.current() != "\n") {
+          this.advance();
+        }
+      }
+      else {
+        kind = "infixOperator";
+      }
     }
     else if (this.eof()) {
       kind = "eof";

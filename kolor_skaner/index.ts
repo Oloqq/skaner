@@ -14,7 +14,6 @@ const formatter = new Formatter();
   let result = `
   <style>
   html {
-    line-height: 50%;
     font-family: monospace;
   }
   .identifier {
@@ -34,6 +33,9 @@ const formatter = new Formatter();
   }
   .__identifier {
     color: darkblue
+  }
+  .comment {
+    color: gray
   }
   </style>
   `;

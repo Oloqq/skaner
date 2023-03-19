@@ -1,7 +1,6 @@
 
   <style>
   html {
-    line-height: 50%;
     font-family: monospace;
   }
   .identifier {
@@ -21,6 +20,9 @@
   }
   .__identifier {
     color: darkblue
+  }
+  .comment {
+    color: gray
   }
   </style>
   <span class=builtin>print</span><span class=openParen>(</span><span class=numberLiteral>420</span><span class=closeParen>)</span><br>
@@ -57,9 +59,9 @@
 &nbsp&nbsp<span class=builtin>print</span><span class=openParen>(</span><span class=identifier>i</span><span class=comma>,</span>&nbsp<span class=identifier>v</span><span class=closeParen>)</span><br>
 <span class=keyword>end</span><br>
 <br>
-<span class=infixOperator>-</span><span class=infixOperator>-</span>&nbsp<span class=identifier>comment</span><br>
-<span class=keyword>local</span>&nbsp<span class=identifier>tab</span>&nbsp<span class=assignment>=</span>&nbsp<span class=tableOpen>{</span><span class=identifier>a</span><span class=assignment>=</span><span class=numberLiteral>1</span><span class=comma>,</span>&nbsp<span class=identifier>b</span><span class=assignment>=</span><span class=numberLiteral>2</span><span class=tableClose>}</span>&nbsp<span class=infixOperator>-</span><span class=infixOperator>-</span>&nbsp<span class=identifier>inline</span>&nbsp<span class=identifier>comment</span><br>
-<span class=identifier>for</span>&nbsp<span class=identifier>k</span><span class=comma>,</span>&nbsp<span class=identifier>v</span>&nbsp<span class=identifier>in</span>&nbsp<span class=builtin>pairs</span><span class=openParen>(</span><span class=identifier>tab</span><span class=closeParen>)</span>&nbsp<span class=keyword>do</span><br>
+<span class=comment>-- comment</span><br>
+<span class=keyword>local</span>&nbsp<span class=identifier>tab</span>&nbsp<span class=assignment>=</span>&nbsp<span class=tableOpen>{</span><span class=identifier>a</span><span class=assignment>=</span><span class=numberLiteral>1</span><span class=comma>,</span>&nbsp<span class=identifier>b</span><span class=assignment>=</span><span class=numberLiteral>2</span><span class=tableClose>}</span>&nbsp<span class=comment>-- inline comment</span><br>
+<span class=identifier>for</span>&nbsp<span class=identifier>k</span><span class=comma>,</span>&nbsp<span class=identifier>v</span>&nbsp<span class=identifier>in</span>&nbsp<span class=builtin>pairs</span><span class=openParen>(</span><span class=identifier>tab</span><span class=closeParen>)</span>&nbsp<span class=keyword>do</span>&nbsp<span class=comment>-- comment with indent</span><br>
 &nbsp&nbsp<span class=builtin>print</span><span class=openParen>(</span><span class=identifier>k</span><span class=comma>,</span>&nbsp<span class=identifier>v</span><span class=closeParen>)</span><br>
 <span class=keyword>end</span><br>
 <br>

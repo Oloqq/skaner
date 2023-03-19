@@ -34,7 +34,7 @@ end
 
 -- comment
 local tab = {a=1, b=2} -- inline comment
-for k, v in pairs(tab) do
+for k, v in pairs(tab) do -- comment with indent
     print(k, v)
 end
 
