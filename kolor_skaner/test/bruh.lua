@@ -21,7 +21,7 @@ function Bruh:new(o)
 end
 
 function Bruh:yeet()
-    print("yeet")
+    print("yeet \" escaped \" yeet")
 end
 
 local uh = Bruh:new()

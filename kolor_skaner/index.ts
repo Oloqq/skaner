@@ -40,7 +40,7 @@ const formatter = new Formatter();
 
   while (!scanner.eof()) {
     const token = scanner.next();
-    if (token.kind == "wtf dude") {
+    if (token.kind == "Unexpected character") {
       console.log(token);
     }
 

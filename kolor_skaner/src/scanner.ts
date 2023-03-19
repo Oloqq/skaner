@@ -121,12 +121,22 @@ export class Scanner {
       let quote = this.current();
       kind = "stringLiteral";
       this.advance();
-      while (this.current() != quote) { // omitting quote escaping
-        this.advance();
+      while (this.current() != quote) {
+        if (this.current() == "\\") {
+          this.advance();
+          this.advance();
+        }
+        else if (this.eof()) {
+          kind = "unterminatedString";
+          break;
+        }
+        else {
+          this.advance();
+        }
       }
       this.advance();
     }
-    else if (["+", "-", "/", "*"].includes(this.current())) {
+    else if (["+", "-", "/", "*", ".", ":"].includes(this.current())) {
       kind = "infixOperator";
       this.advance();
     }
@@ -134,14 +144,30 @@ export class Scanner {
       this.advance();
       if (this.current() == "=") {
         this.advance();
-        kind = "comparison";
+        kind = "infixOperator";
       }
       else {
         kind = "assignment";
       }
     }
+    else if (this.current() == ",") {
+      kind = "comma";
+      this.advance();
+    }
+    else if (this.current() == "{") {
+      kind = "tableOpen";
+      this.advance();
+    }
+    else if (this.current() == "}") {
+      kind = "tableClose";
+      this.advance();
+    }
+    else if (this.current() == "#") {
+      kind = "prefixOperator";
+      this.advance();
+    }
     else {
-      kind = "wtf dude";
+      kind = "Unexpected character";
       this.advance();
     }
 
