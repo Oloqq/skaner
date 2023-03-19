@@ -94,11 +94,13 @@ export class Scanner {
       if (this.current() != '\n') {
         throw "no \\n after \\r ??????????";
       }
+      this.advance();
       this.row++;
       this.column = 0;
       while ([' ', '\t'].includes(this.current())) {
         this.column++;
         this.cursor++;
+        this.advance();
       }
       return this.next();
     }
@@ -109,6 +111,7 @@ export class Scanner {
       while ([' ', '\t'].includes(this.current())) {
         this.column++;
         this.cursor++;
+        this.advance();
       }
       return this.next();
     }
@@ -164,6 +167,10 @@ export class Scanner {
     }
     else if (this.current() == "#") {
       kind = "prefixOperator";
+      this.advance();
+    }
+    else if (this.eof()) {
+      kind = "eof";
       this.advance();
     }
     else {
