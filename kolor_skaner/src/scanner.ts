@@ -1,13 +1,13 @@
 export class Token {
   kind: string;
   value: string;
-  row: number;
+  line: number;
   column: number;
 
   constructor(kind: string, value: string, row: number, column: number) {
     this.kind = kind;
     this.value = value;
-    this.row = row;
+    this.line = row;
     this.column = column;
   }
 }
@@ -28,6 +28,14 @@ function alphanumeric(x: string): boolean {
 }
 
 const keywords = [
+  "local",
+  "if",
+  "then",
+  "elseif",
+  "else",
+  "end",
+  "function",
+  "do"
 ]
 
 export class Scanner {
@@ -55,7 +63,6 @@ export class Scanner {
   next(): Token {
     let kind: string;
     let start = this.cursor;
-    let newRow = false;
 
     if (numeric(this.current())) {
       kind = "numberLiteral";
@@ -63,12 +70,16 @@ export class Scanner {
         this.advance();
       }
     }
-    else if (alpha(this.current())) {
-      kind = "identifier";
-      while (alphanumeric(this.current())) {
+    else if (alpha(this.current()) || this.current() == "_") {
+      while (alphanumeric(this.current()) || this.current() == "_") {
         this.advance();
       }
-      // todo if in keywords return
+      if (keywords.includes(this.source.substring(start, this.cursor))) {
+        kind = "keyword";
+      }
+      else {
+        kind = "identifier";
+      }
     }
     else if (this.current() == '(') {
       kind = "openParen";
@@ -114,6 +125,20 @@ export class Scanner {
         this.advance();
       }
       this.advance();
+    }
+    else if (["+", "-", "/", "*"].includes(this.current())) {
+      kind = "infixOperator";
+      this.advance();
+    }
+    else if (this.current() == "=") {
+      this.advance();
+      if (this.current() == "=") {
+        this.advance();
+        kind = "comparison";
+      }
+      else {
+        kind = "assignment";
+      }
     }
     else {
       kind = "wtf dude";

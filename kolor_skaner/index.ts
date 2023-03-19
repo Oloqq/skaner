@@ -13,6 +13,10 @@ const formatter = new Formatter();
 (function formatAll() {
   let result = `
   <style>
+  html {
+    line-height: 50%;
+    font-family: monospace;
+  }
   .identifier {
     color: blue
   }
@@ -22,17 +26,28 @@ const formatter = new Formatter();
   .stringLiteral {
     color: green
   }
+  .keyword {
+    color: purple
+  }
+  .builtin {
+    color: cyan
+  }
+  .__identifier {
+    color: darkblue
+  }
   </style>
   `;
 
   while (!scanner.eof()) {
     const token = scanner.next();
-    console.log(token);
+    if (token.kind == "wtf dude") {
+      console.log(token);
+    }
 
     const html = formatter.format(token);
     result += html;
   }
 
-  console.log(result);
+  // console.log(result);
   fs.writeFileSync("./test/output.html", result);
 })();

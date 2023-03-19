@@ -1,5 +1,11 @@
 import { Token } from "./scanner";
 
+const builtins = [
+  "pairs",
+  "ipairs",
+  "print"
+]
+
 export class Formatter {
   column = 0;
   line = 0;
@@ -10,7 +16,7 @@ export class Formatter {
 
   format(token: Token) {
     let result: string = "";
-    while (this.line < token.row) {
+    while (this.line < token.line) {
       this.line++;
       this.column = 0;
       result += "<br>\n";
@@ -21,6 +27,16 @@ export class Formatter {
     }
     this.column = token.column + token.value.length;
 
-    return result + `<span class=${token.kind}>${token.value}</span>`;
+    let formatting: string = token.kind;
+    if (token.kind == "identifier") {
+      if (token.value.startsWith("__")) {
+        formatting = "__identifier";
+      }
+      else if (builtins.includes(token.value)) {
+        formatting = "builtin";
+      }
+    }
+
+    return result + `<span class=${formatting}>${token.value}</span>`;
   }
 }
