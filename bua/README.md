@@ -24,3 +24,8 @@ http://parrot.github.io/parrot-docs0/0.4.7/html/languages/lua/doc/lua51.bnf.html
     - "It is important to note that Chevrotain is NOT a parser generator. It solves the same kind of problems as a parser generator, just without any code generation"
     - comparison https://chevrotain.io/docs/FAQ.html#VS_GENERATORS
     - article/guide + extensive example https://tomassetti.me/parsing-in-javascript/#chevrotain
+
+### Peg.js
+https://pegjs.org/documentation
+
+Extension for highlighting grammar: SirTobi.pegjs-language
