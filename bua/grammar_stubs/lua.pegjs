@@ -3,119 +3,124 @@ chunk =
 
 block =
     chunk
+    { return { type: "block", value: text() }; }
 
 stat =
-    varlist '=' explist /
+    varlist _ '=' _ explist
+    { return { type: "stat", value: text() }; } /
     functioncall  /
-    do block end  /
-    while exp do block end  /
-    repeat block until exp  /
-    if exp then block (elseif exp then block)* (else block)? end  /
-    for Name '=' exp ',' exp (',' exp)? do block end  /
-    for namelist in explist do block end  /
-    function funcname funcbody  /
-    local function Name funcbody  /
-    local namelist ('=' explist)?
+    do _ block _ end  /
+    while _ exp _ do _ block _ end  /
+    repeat _ block _ until _ exp  /
+    if _ exp _ then _ block _ (elseif _ exp _ then _ block)* (else _ block)? _ end  /
+    for _ Name _ '=' _ exp _ ',' _ exp _ (',' _ exp)? _ do _ block _ end  /
+    for _ namelist _ in _ explist _ do _ block _ end  /
+    function _ funcname _ funcbody  /
+    local _ function _ Name _ funcbody  /
+    local _ namelist _ ('=' _ explist)?
 
 laststat =
-    return (explist)?  /  break
+    return _ (explist)?  /  break
 
 funcname =
-    Name ('.' Name)* (':' Name)?
+    Name _ ('.' _ Name)* _ (':' _ Name)?
 
 varlist =
-    var (',' var)*
+    var _ (',' _ var)*
 
 var =
-    prefix (suffix)* index / Name
+    prefix _ (suffix)* _ index / Name
 
 namelist =
-    Name (',' Name)*
+    Name _ (',' _ Name)*
 
 explist =
-    (exp ',')* exp
+    (exp ',')* _ exp
 
-value = 
+value =
     nil / false / true / Number / String / '...' / function /
     tableconstructor / functioncall / var / '(' exp ')'
 
 exp =
-    value (binop exp)?  /  unop exp
+    value _ (binop _ exp)?  /  unop _ exp
 
 prefix =
-    '(' exp ')' / Name
+    '(' _ exp _ ')' / Name
 
-index = 
-    '[' exp ']' / '.' Name
+index =
+    '[' _ exp _ ']' / '.' Name
 
 call =
-    args / ':' Name args
+    args / ':' _ Name _ args
 
 suffix =
     call / index
 
 prefixexp =
-    var  /  functioncall  /  '(' exp ')'
+    var  /  functioncall  /  '(' _ exp _ ')'
 
 functioncall =
-    prefix (suffix)* call
+    prefix _ (suffix)* _ call
 
 args =
-    '(' (explist)? ')'  /  tableconstructor  /  String
+    '(' _ (explist)? _ ')'  /  tableconstructor  /  String
 
 function =
-    function funcbody
+    'function' _ funcbody
 
 funcbody =
-    '(' (parlist1)? ')' block end
+    '(' _ (parlist1)? _ ')' _ block _ end
 
 parlist1 =
-    namelist (',' '...')?  /  '...'
+    namelist _ (',' '...')?  /  '...'
 
 tableconstructor =
-    '(' (fieldlist)? ')*'
+    '{' _ (fieldlist)? _ '}'
 
 fieldlist =
-    field (fieldsep field)* (fieldsep)?
+    field _ (fieldsep _ field)* _ (fieldsep)?
 
 field =
-    '(' exp ')?' '=' exp  /  Name '=' exp  /  exp
+    '(' _ exp _ ')' _ '=' _ exp  /  Name _ '=' _ exp  /  exp
 
 fieldsep =
     ','  /  ';'
+    { return { type: "fieldsep", value: text() }; }
 
 binop =
     '+'  /  '-'  /  '*'  /  '/'  /  '^'  /  '%'  /  '..'  /
             '<'  /  '<='  /  '>'  /  '>='  /  '=='  /  '~='  /
             and  /  or
+    { return { type: "binop", value: text() }; }
 
 unop =
     '-'  /  not  /  '#'
+    { return { type: "unop", value: text() }; }
 
-_ "whitespace"
+_ "(whitespace)*"
     = [ \t\n\r]*
 
 // keywords
-do = 'do'
-end = 'end'
-while = 'while'
-repeat = 'repeat'
-until = 'until'
-if = 'if'
-then = 'then'
-else = 'else'
-elseif = 'elseif'
-for = 'for'
-in = 'in'
-local = 'local'
-return = 'return'
-break = 'break'
-nil = 'nil'
-false = 'false'
-true = 'true'
-and = 'and'
-or = 'or'
-not = 'not'
+do = 'do' { return "keyword do"; }
+end = 'end' { return "keyword end"; }
+while = 'while' { return "keyword while"; }
+repeat = 'repeat' { return "keyword repeat"; }
+until = 'until' { return "keyword until"; }
+if = 'if' { return "keyword if"; }
+then = 'then' { return "keyword then"; }
+else = 'else' { return "keyword else"; }
+elseif = 'elseif' { return "keyword elseif"; }
+for = 'for' { return "keyword for"; }
+in = 'in' { return "keyword in"; }
+local = 'local' { return "keyword local"; }
+return = 'return' { return "keyword return"; }
+break = 'break' { return "keyword break"; }
+nil = 'nil' { return "keyword nil"; }
+false = 'false' { return "keyword false"; }
+true = 'true' { return "keyword true"; }
+and = 'and' { return "keyword and"; }
+or = 'or' { return "keyword or"; }
+not = 'not' { return "keyword not"; }
 
 // literals
 Name = [a-z_]i[a-z0-9_]i* { return text(); }
