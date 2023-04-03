@@ -27,7 +27,7 @@ varlist =
     var (',' var)*
 
 var =
-    Name  /  prefixexp '[' exp ']'  /  prefixexp '.' Name
+    prefix (suffix)* index / Name
 
 namelist =
     Name (',' Name)*
@@ -35,15 +35,30 @@ namelist =
 explist =
     (exp ',')* exp
 
+value = 
+    nil / false / true / Number / String / '...' / function /
+    tableconstructor / functioncall / var / '(' exp ')'
+
 exp =
-    nil  /  false  /  true  /  Number  /  String  /  '...'  /
-    function  /  prefixexp  /  tableconstructor  /  exp binop exp  /  unop exp
+    value (binop exp)?  /  unop exp
+
+prefix =
+    '(' exp ')' / Name
+
+index = 
+    '[' exp ']' / '.' Name
+
+call =
+    args / ':' Name args
+
+suffix =
+    call / index
 
 prefixexp =
     var  /  functioncall  /  '(' exp ')'
 
 functioncall =
-    prefixexp args  /  prefixexp ':' Name args
+    prefix (suffix)* call
 
 args =
     '(' (explist)? ')'  /  tableconstructor  /  String
