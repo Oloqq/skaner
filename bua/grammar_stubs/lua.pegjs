@@ -1,5 +1,18 @@
+/*
+return {
+    speak = function ()
+        print("meow")
+    end,
+    x = 3
+}
+
+comments
+*/
+
+{}
+
 chunk =
-    _ (stat ';'?)* _ (laststat ';'?)? _
+    _ (stat _ ';'? _ )* (laststat _ ';'? _ )?
 
 block =
     chunk
@@ -15,8 +28,8 @@ stat =
     if _ exp _ then _ block _ (elseif _ exp _ then _ block)* (else _ block)? _ end  /
     for _ Name _ '=' _ exp _ ',' _ exp _ (',' _ exp)? _ do _ block _ end  /
     for _ namelist _ in _ explist _ do _ block _ end  /
-    function _ funcname _ funcbody  /
-    local _ function _ Name _ funcbody  /
+    'function' _ funcname _ funcbody  /
+    local _ 'function' _ Name _ funcbody  /
     local _ namelist _ ('=' _ explist)?
 
 laststat =
@@ -26,16 +39,16 @@ funcname =
     Name _ ('.' _ Name)* _ (':' _ Name)?
 
 varlist =
-    var _ (',' _ var)*
+    var ( _ ',' _ var)*
 
 var =
-    prefix _ (suffix)* _ index / Name
+    prefix _ suffix+ / Name
 
 namelist =
-    Name _ (',' _ Name)*
+    Name ( _ ',' _ Name)*
 
 explist =
-    (exp ',')* _ exp
+    exp ( _ ',' _ exp)*
 
 value =
     nil / false / true / Number / String / '...' / function /
@@ -60,7 +73,7 @@ prefixexp =
     var  /  functioncall  /  '(' _ exp _ ')'
 
 functioncall =
-    prefix _ (suffix)* _ call
+    prefix _ (suffix)+
 
 args =
     '(' _ (explist)? _ ')'  /  tableconstructor  /  String
@@ -123,10 +136,32 @@ or = 'or' { return "keyword or"; }
 not = 'not' { return "keyword not"; }
 
 // literals
-Name = [a-z_]i[a-z0-9_]i* { return text(); }
+Name = [a-zA-Z_]i[a-zA-Z0-9_]i* { return text(); }
 Exponent = ('e''-'?[1-9][0-9]*)
 Number =
     [0-9]+'.'[0-9]+ Exponent? /
-    [1-9][0-9]* Exponent?
+    [0-9][0-9]* Exponent?
     { return text(); }
-String = '"'.*'"' { return text(); }
+    
+String	= 
+    '"' chars:DoubleStringCharacter* '"' { return chars.join(''); }
+  / "'" chars:SingleStringCharacter* "'" { return chars.join(''); }
+
+DoubleStringCharacter = 
+    !('"' / "\\") char:. { return char; }
+  / "\\" sequence:EscapeSequence { return sequence; }
+
+SingleStringCharacter = 
+    !("'" / "\\") char:. { return char; }
+  / "\\" sequence:EscapeSequence { return sequence; }
+
+EscapeSequence = 
+    "'"
+  / '"'
+  / "\\"
+  / "b"  { return "\b";   }
+  / "f"  { return "\f";   }
+  / "n"  { return "\n";   }
+  / "r"  { return "\r";   }
+  / "t"  { return "\t";   }
+  / "v"  { return "\x0B"; }
