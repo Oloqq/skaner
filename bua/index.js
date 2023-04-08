@@ -1,21 +1,25 @@
 import peg from "pegjs";
 import fs from "fs";
-import {format} from "pretty-format";
+import { program } from "commander";
 
-if (process.argv.length < 3) {
-  console.log("Pass a path to a Lua program as an argument.\n (npm start -- programs/smth.lua)");
-  process.exit(1);
-}
+program
+  .name("bua-compiler")
+  .version("0.0.1")
+  .description("Bread")
+  .argument("<source>", "Path to the Bua program")
+  .option("-t --trace", "Trace the parsing process")
 
-const programPath = process.argv[2];
+program.parse();
+
+const sourcePath = program.args[0];
 const outputPath = (() => {
-  let pathPieces = programPath.replaceAll("\\", "/").replaceAll(".lua", ".json").split("/");
+  let pathPieces = sourcePath.replaceAll("\\", "/").replaceAll(".lua", ".json").split("/");
   return "output/" + pathPieces[pathPieces.length - 1];
 })();
 
 let grammar = fs.readFileSync("grammar/lua.pegjs", "utf8");
-let parser = peg.generate(grammar, {"trace": false});
+let parser = peg.generate(grammar, {"trace": program.opts()["trace"]});
 
-let input = fs.readFileSync(programPath, "utf8");
+let input = fs.readFileSync(sourcePath, "utf8");
 let ast = parser.parse(input);
 fs.writeFileSync(outputPath, JSON.stringify(ast, null, 2));
