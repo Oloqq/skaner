@@ -1,122 +1,130 @@
-[
-  [],
-  [
-    [
-      [
-        "keyword local",
-        [
-          " "
-        ],
-        [
-          "alfa",
-          []
-        ],
-        [
-          " "
-        ],
-        [
-          "=",
-          [
-            " "
-          ],
-          {
-            "type": "explist",
-            "value": "1\r\n"
-          }
+{
+  "node": "chunk",
+  "body": [
+    {
+      "node": "declaration",
+      "lhs": {
+        "node": "namelist",
+        "value": [
+          "bruh"
         ]
-      ],
-      [],
-      null,
-      []
-    ],
-    [
-      [
-        "keyword local",
-        [
-          " "
-        ],
-        [
-          "beta",
-          []
-        ],
-        [
-          " "
-        ],
-        [
-          "=",
-          [
-            " "
-          ],
-          {
-            "type": "explist",
-            "value": "2\r\n"
-          }
+      }
+    },
+    {
+      "node": "declaration",
+      "lhs": {
+        "node": "namelist",
+        "value": [
+          "alfa"
         ]
-      ],
-      [],
-      null,
-      []
-    ],
-    [
-      [
-        "keyword local",
-        [
-          " "
-        ],
-        [
-          "ceta",
-          []
-        ],
-        [
-          " "
-        ],
-        [
-          "=",
-          [
-            " "
-          ],
-          {
-            "type": "explist",
-            "value": "\"Hello\"\r\n\r\n"
-          }
-        ]
-      ],
-      [],
-      null,
-      []
-    ],
-    [
-      {
-        "type": "assignment",
-        "lhs": [
-          "alfa",
-          []
-        ],
-        "rhs": {
-          "type": "explist",
-          "value": "beta\r\n"
-        }
       },
-      [],
-      null,
-      []
-    ],
-    [
-      {
-        "type": "assignment",
-        "lhs": [
-          "alfa",
-          []
-        ],
-        "rhs": {
-          "type": "explist",
-          "value": "ceta"
-        }
+      "rhs": {
+        "node": "explist",
+        "value": [
+          {
+            "value": "1"
+          }
+        ]
+      }
+    },
+    {
+      "node": "declaration",
+      "lhs": {
+        "node": "namelist",
+        "value": [
+          "beta"
+        ]
       },
-      [],
-      null,
-      []
-    ]
+      "rhs": {
+        "node": "explist",
+        "value": [
+          {
+            "value": "2"
+          }
+        ]
+      }
+    },
+    {
+      "node": "declaration",
+      "lhs": {
+        "node": "namelist",
+        "value": [
+          "ceta"
+        ]
+      },
+      "rhs": {
+        "node": "explist",
+        "value": [
+          {
+            "value": "Hello"
+          }
+        ]
+      }
+    },
+    {
+      "node": "declaration",
+      "lhs": {
+        "node": "namelist",
+        "value": [
+          "uwu",
+          "owo"
+        ]
+      },
+      "rhs": {
+        "node": "explist",
+        "value": [
+          {
+            "value": "4"
+          },
+          {
+            "value": "20"
+          }
+        ]
+      }
+    },
+    {
+      "node": "assignment",
+      "lhs": [
+        "alfa",
+        []
+      ],
+      "rhs": {
+        "node": "explist",
+        "value": [
+          {
+            "value": "beta"
+          }
+        ]
+      }
+    },
+    {
+      "node": "assignment",
+      "lhs": [
+        "alfa",
+        []
+      ],
+      "rhs": {
+        "node": "explist",
+        "value": [
+          {
+            "value": "ceta"
+          }
+        ]
+      }
+    }
   ],
-  null
-]
+  "laststat": [
+    "keyword return",
+    [
+      " "
+    ],
+    {
+      "node": "explist",
+      "value": [
+        {
+          "value": "bruh"
+        }
+      ]
+    }
+  ]
+}

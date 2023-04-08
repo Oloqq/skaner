@@ -12,15 +12,24 @@ comments
 {}
 
 chunk =
-    _ (stat _ ';'? _ )* (laststat _ ';'? _ )?
+    _ stats:(stat_semicolon)* laststat:(laststat_semicolon)?
+    { return { node: "chunk", body: stats, laststat: laststat }; }
+
+stat_semicolon =
+    s:stat _ ';'? _
+    { return s; }
+
+laststat_semicolon =
+    s:laststat _ ';'? _
+    { return s; }
 
 block =
-    chunk
-    { return { type: "block", value: text() }; }
+    c:chunk
+    { return { node: "block", value: c }; }
 
 stat =
-    varlist _ '=' _ explist
-    { return { type: "stat", value: text() }; } /
+    lhs:varlist _ '=' _ rhs:explist
+    { return { node: "assignment", lhs: lhs, rhs: rhs }; } /
     functioncall  /
     do _ block _ end  /
     while _ exp _ do _ block _ end  /
@@ -30,7 +39,10 @@ stat =
     for _ namelist _ in _ explist _ do _ block _ end  /
     'function' _ funcname _ funcbody  /
     local _ 'function' _ Name _ funcbody  /
-    local _ namelist _ ('=' _ explist)?
+    local _ lhs:namelist _ '=' _ rhs:explist
+    { return { node: "declaration", lhs: lhs, rhs: rhs }; } /
+    local _ lhs:namelist
+    { return { node: "declaration", lhs: lhs, rhs: undefined }; }
 
 laststat =
     return _ (explist)?  /  break
@@ -45,17 +57,39 @@ var =
     prefix _ suffix+ / Name
 
 namelist =
-    Name ( _ ',' _ Name)*
+    n1:Name namelist:(comma_name)*
+    {
+        if (!namelist) {
+            namelist = [];
+        }
+        namelist.unshift(n1);
+        return { node: "namelist", value: namelist };
+    }
+
+comma_name =
+    _ ',' _ n:Name { return n; }
 
 explist =
-    exp ( _ ',' _ exp)*
+    e1:exp explist:(comma_exp)*
+    {
+        if (!explist) {
+            explist = [];
+        }
+        explist.unshift(e1);
+        return { node: "explist", value: explist };
+    }
+
+comma_exp = _ ',' _ e:exp { return e; }
 
 value =
     nil / false / true / Number / String / '...' / function /
     tableconstructor / functioncall / var / '(' exp ')'
 
+// stub
 exp =
-    value _ (binop _ exp)?  /  unop _ exp
+    v:value _ (binop _ exp)?
+    { return { value: v }; } /
+    unop _ exp
 
 prefix =
     '(' _ exp _ ')' / Name
@@ -98,17 +132,17 @@ field =
 
 fieldsep =
     ','  /  ';'
-    { return { type: "fieldsep", value: text() }; }
+    { return { node: "fieldsep", value: text() }; }
 
 binop =
     '+'  /  '-'  /  '*'  /  '/'  /  '^'  /  '%'  /  '..'  /
             '<'  /  '<='  /  '>'  /  '>='  /  '=='  /  '~='  /
             and  /  or
-    { return { type: "binop", value: text() }; }
+    { return { node: "binop", value: text() }; }
 
 unop =
     '-'  /  not  /  '#'
-    { return { type: "unop", value: text() }; }
+    { return { node: "unop", value: text() }; }
 
 _ "(whitespace)*"
     = [ \t\n\r]*
