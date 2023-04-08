@@ -13,7 +13,7 @@ const outputPath = (() => {
   return "output/" + pathPieces[pathPieces.length - 1];
 })();
 
-let grammar = fs.readFileSync("grammar_stubs/lua.pegjs", "utf8");
+let grammar = fs.readFileSync("grammar/lua.pegjs", "utf8");
 let parser = peg.generate(grammar, {"trace": false});
 
 let input = fs.readFileSync(programPath, "utf8");
