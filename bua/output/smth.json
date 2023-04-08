@@ -84,10 +84,12 @@
     },
     {
       "node": "assignment",
-      "lhs": [
-        "alfa",
-        []
-      ],
+      "lhs": {
+        "node": "varlist",
+        "value": [
+          "alfa"
+        ]
+      },
       "rhs": {
         "node": "explist",
         "value": [
@@ -99,10 +101,12 @@
     },
     {
       "node": "assignment",
-      "lhs": [
-        "alfa",
-        []
-      ],
+      "lhs": {
+        "node": "varlist",
+        "value": [
+          "alfa"
+        ]
+      },
       "rhs": {
         "node": "explist",
         "value": [

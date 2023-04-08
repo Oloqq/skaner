@@ -51,7 +51,16 @@ funcname =
     Name _ ('.' _ Name)* _ (':' _ Name)?
 
 varlist =
-    var ( _ ',' _ var)*
+    v1:var varlist:(comma_var)*
+    {
+        if (!varlist) {
+            varlist = [];
+        }
+        varlist.unshift(v1);
+        return { node: "varlist", value: varlist };
+    }
+
+comma_var = _ ',' _ v:var { return v; }
 
 var =
     prefix _ suffix+ / Name
