@@ -29,3 +29,10 @@ http://parrot.github.io/parrot-docs0/0.4.7/html/languages/lua/doc/lua51.bnf.html
 https://pegjs.org/documentation
 
 Extension for highlighting grammar: SirTobi.pegjs-language
+
+## Tools
+### generate grammar documentation
+grammkit -t md .\grammar\lua.pegjs
+
+### save parser's trace to a file
+npm start -- .\programs\table.lua -t > .\grammar\debug.txt
