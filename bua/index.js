@@ -6,5 +6,5 @@ let grammar = fs.readFileSync('grammar_stubs/lua.pegjs', 'utf8');
 let input = fs.readFileSync('programs/smth.lua', 'utf8');
 
 let parser = peg.generate(grammar, {"trace": true});
-let res = parser.parse(input);
-console.log(format(res));
+let ast = parser.parse(input);
+console.log(format(ast));

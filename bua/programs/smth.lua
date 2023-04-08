@@ -1,2 +1,2 @@
-a = 4
-b = 6
+local a: int
+a = 1

@@ -142,20 +142,20 @@ Number =
     [0-9]+'.'[0-9]+ Exponent? /
     [0-9][0-9]* Exponent?
     { return text(); }
-    
-String	= 
+
+String	=
     '"' chars:DoubleStringCharacter* '"' { return chars.join(''); }
   / "'" chars:SingleStringCharacter* "'" { return chars.join(''); }
 
-DoubleStringCharacter = 
+DoubleStringCharacter =
     !('"' / "\\") char:. { return char; }
   / "\\" sequence:EscapeSequence { return sequence; }
 
-SingleStringCharacter = 
+SingleStringCharacter =
     !("'" / "\\") char:. { return char; }
   / "\\" sequence:EscapeSequence { return sequence; }
 
-EscapeSequence = 
+EscapeSequence =
     "'"
   / '"'
   / "\\"
