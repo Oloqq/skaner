@@ -137,7 +137,7 @@ fieldlist =
     field _ (fieldsep _ field)* _ (fieldsep)?
 
 field =
-    '(' _ exp _ ')' _ '=' _ exp  /  Name _ '=' _ exp  /  exp
+    '[' _ exp _ ']' _ '=' _ exp  /  Name _ '=' _ exp  /  exp
 
 fieldsep =
     ','  /  ';'
