@@ -156,27 +156,31 @@ unop =
 _ "(whitespace)*"
     = [ \t\n\r]*
 
+space "at least one whitespace"
+    = [ \t\n\r]+
+
 // keywords
-do = 'do' { return "keyword do"; }
-end = 'end' { return "keyword end"; }
-while = 'while' { return "keyword while"; }
-repeat = 'repeat' { return "keyword repeat"; }
-until = 'until' { return "keyword until"; }
-if = 'if' { return "keyword if"; }
-then = 'then' { return "keyword then"; }
-else = 'else' { return "keyword else"; }
-elseif = 'elseif' { return "keyword elseif"; }
-for = 'for' { return "keyword for"; }
-in = 'in' { return "keyword in"; }
-local = 'local' { return "keyword local"; }
-return = 'return' { return "keyword return"; }
-break = 'break' { return "keyword break"; }
-nil = 'nil' { return "keyword nil"; }
-false = 'false' { return "keyword false"; }
-true = 'true' { return "keyword true"; }
-and = 'and' { return "keyword and"; }
-or = 'or' { return "keyword or"; }
-not = 'not' { return "keyword not"; }
+keyword = do / end / while / repeat / until / if / then / else / elseif / for / in / local / return / break / nil / false / true / and / or / not
+do = space 'do' space { return "keyword do"; }
+end = space 'end' space { return "keyword end"; }
+while = space 'while' space { return "keyword while"; }
+repeat = space 'repeat' space { return "keyword repeat"; }
+until = space 'until' space { return "keyword until"; }
+if = space 'if' space { return "keyword if"; }
+then = space 'then' space { return "keyword then"; }
+else = space 'else' space { return "keyword else"; }
+elseif = space 'elseif' space { return "keyword elseif"; }
+for = space 'for' space { return "keyword for"; }
+in = space 'in' space { return "keyword in"; }
+local = space 'local' space { return "keyword local"; }
+return = space 'return' space { return "keyword return"; }
+break = space 'break' space { return "keyword break"; }
+nil = space 'nil' space { return "keyword nil"; }
+false = space 'false' space { return "keyword false"; }
+true = space 'true' space { return "keyword true"; }
+and = space 'and' space { return "keyword and"; }
+or = space 'or' space { return "keyword or"; }
+not = space 'not' space { return "keyword not"; }
 
 // literals
 Name = [a-zA-Z_]i[a-zA-Z0-9_]i* { return text(); }
