@@ -1,10 +1,21 @@
-import peg from 'pegjs';
-import fs from 'fs';
-import {format} from 'pretty-format';
+import peg from "pegjs";
+import fs from "fs";
+import {format} from "pretty-format";
 
-let grammar = fs.readFileSync('grammar_stubs/lua.pegjs', 'utf8');
-let input = fs.readFileSync('programs/smth.lua', 'utf8');
+if (process.argv.length < 3) {
+  console.log("Pass a path to a Lua program as an argument.\n (npm start -- programs/smth.lua)");
+  process.exit(1);
+}
 
-let parser = peg.generate(grammar, {"trace": true});
+const programPath = process.argv[2];
+const outputPath = (() => {
+  let pathPieces = programPath.replaceAll("\\", "/").replaceAll(".lua", ".json").split("/");
+  return "output/" + pathPieces[pathPieces.length - 1];
+})();
+
+let grammar = fs.readFileSync("grammar_stubs/lua.pegjs", "utf8");
+let parser = peg.generate(grammar, {"trace": false});
+
+let input = fs.readFileSync(programPath, "utf8");
 let ast = parser.parse(input);
-console.log(format(ast));
+fs.writeFileSync(outputPath, JSON.stringify(ast, null, 2));

@@ -1,0 +1,122 @@
+[
+  [],
+  [
+    [
+      [
+        "keyword local",
+        [
+          " "
+        ],
+        [
+          "alfa",
+          []
+        ],
+        [
+          " "
+        ],
+        [
+          "=",
+          [
+            " "
+          ],
+          {
+            "type": "explist",
+            "value": "1\r\n"
+          }
+        ]
+      ],
+      [],
+      null,
+      []
+    ],
+    [
+      [
+        "keyword local",
+        [
+          " "
+        ],
+        [
+          "beta",
+          []
+        ],
+        [
+          " "
+        ],
+        [
+          "=",
+          [
+            " "
+          ],
+          {
+            "type": "explist",
+            "value": "2\r\n"
+          }
+        ]
+      ],
+      [],
+      null,
+      []
+    ],
+    [
+      [
+        "keyword local",
+        [
+          " "
+        ],
+        [
+          "ceta",
+          []
+        ],
+        [
+          " "
+        ],
+        [
+          "=",
+          [
+            " "
+          ],
+          {
+            "type": "explist",
+            "value": "\"Hello\"\r\n\r\n"
+          }
+        ]
+      ],
+      [],
+      null,
+      []
+    ],
+    [
+      {
+        "type": "assignment",
+        "lhs": [
+          "alfa",
+          []
+        ],
+        "rhs": {
+          "type": "explist",
+          "value": "beta\r\n"
+        }
+      },
+      [],
+      null,
+      []
+    ],
+    [
+      {
+        "type": "assignment",
+        "lhs": [
+          "alfa",
+          []
+        ],
+        "rhs": {
+          "type": "explist",
+          "value": "ceta"
+        }
+      },
+      [],
+      null,
+      []
+    ]
+  ],
+  null
+]
