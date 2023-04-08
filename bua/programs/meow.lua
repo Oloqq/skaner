@@ -1,6 +1,6 @@
 return {
     speak = function ()
         print("meow")
-    end ,
+    end,
     x = 3
 }
