@@ -15,7 +15,8 @@ stat =
     if _ exp _ then _ block _ (elseif _ exp _ then _ block)* (else _ block)? _ end  /
     for _ Name _ '=' _ exp _ ',' _ exp _ (',' _ exp)? _ do _ block _ end  /
     for _ namelist _ in _ explist _ do _ block _ end  /
-    function _ funcname _ funcbody  /
+    'function' _ name:funcname _ body:funcbody
+    { return { type: "function declaration", name: name, body: body }; } /
     local _ function _ Name _ funcbody  /
     local _ namelist _ ('=' _ explist)?
 
