@@ -1,0 +1,7 @@
+function foo()
+    return 8
+end
+
+function boo()
+    return 8
+end
