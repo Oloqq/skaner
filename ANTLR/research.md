@@ -7,13 +7,15 @@
 Every time we change the grammar we need to run "antlr4 -Dlanguage=JavaScript -lib grammars -o generated -visitor -Xexact-output-dir <grammar_path>" to generate lexer and parser
 
 ## Generating trees in terminal:
+```
 antlr4-parse <grammar_path> chunk -tree <br />
 antlr4-parse <grammar_path> chunk -tokens -trace <br />
 antlr4-parse <grammar_path> chunk -gui
+```
 
 example:
 ```bash
->antlr4-parse grammars\Lua.g4 chunk -tree       
+antlr4-parse grammars\Lua.g4 chunk -tree       
 x = 10
 y = x + 5
 ^Z
