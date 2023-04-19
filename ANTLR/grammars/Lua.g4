@@ -63,6 +63,7 @@ block
 
 stat
     : ';'
+    | vartypedlist '=' explist
     | varlist '=' explist
     | functioncall
     | label
@@ -77,6 +78,28 @@ stat
     | 'function' funcname funcbody
     | 'local' 'function' NAME funcbody
     | 'local' attnamelist ('=' explist)?
+    ;
+
+vartypedlist
+    : nametype (',' nametype)*
+    ;
+
+nametype
+    : NAME '@' type
+    ;
+
+type
+    : NAME
+    | unionType
+    | listType
+    ;
+
+unionType
+    : 'Union' '[' type (',' type)+ ']'
+    ;
+
+listType
+    : 'List' '[' type ']'
     ;
 
 attnamelist
@@ -163,11 +186,15 @@ functiondef
     ;
 
 funcbody
-    : '(' parlist? ')' block 'end'
+    : '(' parlist? ')' '->' NAME block 'end'
     ;
 
 parlist
-    : namelist (',' '...')? | '...'
+    : typednamelist (',' '...')? | '...'
+    ;
+
+typednamelist
+    : nametype (',' nametype)*
     ;
 
 tableconstructor
@@ -277,7 +304,7 @@ HexExponentPart
 
 fragment
 EscapeSequence
-    : '\\' [abfnrtvz"'|$#\\]   // World of Warcraft Lua additionally escapes |$# 
+    : '\\' [abfnrtvz"'|$#\\]   // World of Warcraft Lua additionally escapes |$#
     | '\\' '\r'? '\n'
     | DecimalEscape
     | HexEscape

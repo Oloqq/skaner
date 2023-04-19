@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "run": "node index.js",
+    "tree": "antlr4-parse $1 chunk -tree",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -12,5 +14,5 @@
     "antlr4": "^4.12.0",
     "node-fetch": "^3.3.1"
   },
-  "type":"module"
+  "type": "module"
 }
