@@ -33,8 +33,11 @@ operator("st")
 --     wiek = 2
 -- }
 
+-- x @ Pies
+-- x.__index
+
 -- type Pies = {
---     wiek @int
+--     __index @int
 -- }
 
 -- local tab = {
