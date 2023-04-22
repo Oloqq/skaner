@@ -1,4 +1,4 @@
-grammar rdsp;
+grammar Rdsp;
 
 program 
     : block EOF
@@ -10,7 +10,7 @@ block
 
 //wywalamy tablice z różnym typami?
 stat
-    : vartype '=' exp
+    : nametype '=' exp
     | var '=' exp
     | functioncall
     | 'do' block 'end'
@@ -24,10 +24,6 @@ stat
 
 var
     : NAME suffix?
-    ;
-
-vartype
-    : nametype
     ;
 
 nametype
@@ -65,15 +61,12 @@ exp
     | 'nil'
     // | lambda
     | prefix
-    | logicalexp
+    | exp logicalop exp
+    | prefix binop exp
+    | unop exp
     | tableconstructor
     ;
 
-logicalexp
-    : exp logicalop exp
-    | prefix binop exp
-    | unop exp
-    ;
 
 // lambda
 //     : 'function' functionbody
