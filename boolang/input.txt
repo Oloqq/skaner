@@ -1,0 +1,6 @@
+x = true
+if x then
+  echo 1
+else
+  echo 0
+end
