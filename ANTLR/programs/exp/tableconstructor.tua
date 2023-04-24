@@ -1,0 +1,18 @@
+a = {}
+a = {1, 2, 3}
+a = {
+    ["broh"] = "bruh",
+    ["brih"] = "bruh",
+}
+a = {
+    brah = "bruh",
+    breh = "bruh"
+}
+a = {
+    1, 2, 3,
+    ["broh"] = "bruh",
+    ["brih"] = "bruh",
+    brah = "bruh",
+    breh = "bruh",
+    4, 5, 6
+}

@@ -1,0 +1,8 @@
+a = x
+a = x["broh"]
+a = bruh()
+a = bruh()["broh"]
+a = x.broh
+a = bruh().broh
+a = x.broh.broh.broh
+a = bruh().broh.broh.broh

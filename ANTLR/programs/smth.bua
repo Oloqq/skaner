@@ -1,9 +1,0 @@
-local bruh: int
-local alfa: int = 1
-local beta: int = 2
-local ceta: string = "Hello"
-
-alfa = beta
-alfa = ceta
-
-return bruh

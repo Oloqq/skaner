@@ -1,0 +1,2 @@
+--gramatycznie poprawne, dopiero interpreter wykryje niezadeklarowana zmienna
+a = 2

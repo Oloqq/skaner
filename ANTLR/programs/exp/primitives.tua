@@ -1,0 +1,9 @@
+a = 1
+a = 1.54
+a = 0
+a = 0.24
+a = "aasda"
+a = 'afafassfa'
+a = true
+a = false
+a = nil

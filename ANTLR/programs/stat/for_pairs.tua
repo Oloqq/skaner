@@ -1,0 +1,11 @@
+for k, v in pairs(bruh) do
+
+end
+
+for k, v in ipairs(bruh) do
+
+end
+
+for k, v in pairs(bruh, broh) do
+
+end
