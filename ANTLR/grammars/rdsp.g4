@@ -1,12 +1,12 @@
-grammar Rdsp;
+grammar rdsp;
 
-program 
+program
     : block EOF
     ;
 
-block 
+block
     : (stat ';'?)* laststat?
-    ; 
+    ;
 
 stat
     : nametype '=' exp // nowa zmienna
@@ -15,9 +15,8 @@ stat
     | 'do' block 'end'
     | 'while' exp 'do' block 'end'
     | 'if' exp 'then' block ('elseif' exp 'then' block)* ('else' block)? 'end'
-    | 'for' NAME '=' exp ',' exp (',' exp)? 'do' block 'end'
-    //typować element po którym iterujemy? NAME -> nametype?
-    | 'for' (NAME ',')? NAME 'in' prefix 'do' block 'end'
+    | 'for' NAME '=' exp ',' exp (',' exp)? 'do' block 'end' // over an integer range
+    | 'for' NAME ',' NAME 'in' functioncall 'do' block 'end' // where functioncall is an iterator like pairs
     | 'function' NAME functionbody
     ;
 
@@ -32,19 +31,20 @@ nametype
 type
     : NAME
     | listType
+    | unionType
     ;
-    
-union
+
+unionType
     : 'Union' '[' type (',' type)+ ']'
     ;
 
 listType
-    : 'List' '[' (type | union) ']'
+    : 'List' '[' (type | unionType) ']'
     ;
 
 prefix
     : var
-    | functioncall suffix? 
+    | functioncall suffix?
     ;
 
 suffix
@@ -57,20 +57,14 @@ exp
     | TRUE
     | FALSE
     | 'nil'
-    // | lambda
     | prefix
     | exp binop exp
     | unop exp
     | tableconstructor
     ;
 
-
-// lambda
-//     : 'function' functionbody
-//     ;
-
 functionbody
-    : '(' typednamelist? ')' '->' type block 'end' 
+    : '(' typednamelist? ')' '->' type block 'end'
     ;
 
 laststat
@@ -78,7 +72,7 @@ laststat
     ;
 
 typednamelist
-    : nametype (',' nametype)* 
+    : nametype (',' nametype)*
     ;
 
 functioncall
@@ -96,14 +90,14 @@ tableconstructor
 fieldlist
     : field (',' field)*
     ;
-    
+
 field
     : exp '=' exp
     | NAME '=' exp
     | exp
     ;
 
-binop       
+binop
     : '+'
     | '-'
     | '*'
@@ -123,7 +117,7 @@ binop
     | 'and'
     ;
 
-unop        
+unop
     : '-'
     | 'not'
     | '#'
@@ -143,11 +137,11 @@ NAME
     ;
 
 
-FALSE 
+FALSE
     : 'false'
     ;
 
-TRUE 
+TRUE
     : 'true'
     ;
 
@@ -172,7 +166,7 @@ SINGLEQUOTESTRING
 fragment Digit
     : [0-9]
     ;
-    
+
 fragment EscapeSequence
     : '\\' [abfnrtvz"'|\\]
     | '\\' '\r'? '\n'
