@@ -115,6 +115,7 @@ binop
     | '&'
     | 'or'
     | 'and'
+    | '..' // string concatenation
     ;
 
 unop
