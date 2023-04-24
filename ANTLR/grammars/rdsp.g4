@@ -92,9 +92,9 @@ fieldlist
     ;
 
 field
-    : exp '=' exp
-    | NAME '=' exp
-    | exp
+    : '[' exp ']' '=' exp
+    | NAME '=' exp // foo = "bar" === ["foo"] = "bar"
+    | exp // integer keys
     ;
 
 binop

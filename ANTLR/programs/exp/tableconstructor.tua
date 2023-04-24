@@ -1,18 +1,17 @@
-a = {}
-a = {1, 2, 3}
-a = {
-    ["broh"] = "bruh",
-    ["brih"] = "bruh",
+a: Table[int] = {1, 2, 3}
+a: Table = {
+    ["broh"]: string = "bruh",
+    ["brih"]: string = "bruh",
 }
-a = {
-    brah = "bruh",
-    breh = "bruh"
+a: Table = {
+    brah: string = "bruh",
+    breh: string = "bruh"
 }
-a = {
+a: Table[int] = {
     1, 2, 3,
-    ["broh"] = "bruh",
-    ["brih"] = "bruh",
-    brah = "bruh",
-    breh = "bruh",
+    ["broh"]: string = "bruh",
+    ["brih"]: string = "bruh",
+    brah: string = "bruh",
+    breh: string = "bruh",
     4, 5, 6
 }
