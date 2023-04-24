@@ -8,10 +8,10 @@ block
     : (stat ';'?)* laststat?
     ; 
 
-//wywalamy tablice z różnym typami?
+//wywalamy tablice z różnym typami? // og: generalnie bym zostawil bo znowu uslyszymy ze za prosty jezyk robimy
 stat
-    : nametype '=' exp
-    | var '=' exp
+    : nametype '=' exp // nowa zmienna
+    | var '=' exp // przypisanie
     | functioncall
     | 'do' block 'end'
     | 'while' exp 'do' block 'end'
@@ -35,7 +35,7 @@ type
     | listType
     ;
     
-//wywalamy to? xd
+//wywalamy to? xd // og: czemu
 union
     : 'Union' '[' type (',' type)+ ']'
     ;
@@ -117,7 +117,7 @@ binop
     | '>'
     ;
 
-logicalop
+logicalop // to to samo co binop
     : '|'
     | '&'
     | 'or'
