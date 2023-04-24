@@ -1,16 +1,20 @@
-local Object = {}
+Object = {}
 Object.__index = Object
+Object[a[6]] = 7
 
 
-function Object:new()
+function new() -> List[Union [int, List[string], List[Union[float,bool]]] ]
 end
 
+i: int = 5;
+i = i + 4
 
-function Object:extend()
-  local cls = {}
+function Objectextend() -> xd
+  cls = {x = 3, "xd"="xd", 5, {1,2} = {1,{2,3}}}
   for k, v in pairs(self) do
-    if k:find("__") == 1 then
+    if find("__") == 1 then
       cls[k] = v
+      return "error"
     end
   end
   cls.__index = cls
@@ -18,6 +22,8 @@ function Object:extend()
   setmetatable(cls, self)
   return cls
 end
+
+---------------
 
 function Object:implement(...)
   for _, cls in pairs({...}) do

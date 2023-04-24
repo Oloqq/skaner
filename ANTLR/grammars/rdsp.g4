@@ -8,7 +8,6 @@ block
     : (stat ';'?)* laststat?
     ; 
 
-//wywalamy tablice z różnym typami? // og: generalnie bym zostawil bo znowu uslyszymy ze za prosty jezyk robimy
 stat
     : nametype '=' exp // nowa zmienna
     | var '=' exp // przypisanie
@@ -27,7 +26,7 @@ var
     ;
 
 nametype
-    : NAME '@' type
+    : NAME ':' type
     ;
 
 type
@@ -35,22 +34,21 @@ type
     | listType
     ;
     
-//wywalamy to? xd // og: czemu
 union
     : 'Union' '[' type (',' type)+ ']'
     ;
 
 listType
-    : 'List' '[' type | union ']'
+    : 'List' '[' (type | union) ']'
     ;
 
 prefix
-    : NAME suffix?
+    : var
     | functioncall suffix? 
     ;
 
 suffix
-    : ('['exp']')+
+    : ('[' exp ']' | '.' NAME)+
     ;
 
 exp
@@ -61,8 +59,7 @@ exp
     | 'nil'
     // | lambda
     | prefix
-    | exp logicalop exp
-    | prefix binop exp
+    | exp binop exp
     | unop exp
     | tableconstructor
     ;
@@ -73,16 +70,11 @@ exp
 //     ;
 
 functionbody
-    : '(' parlist? ')' '->' type block 'end' 
+    : '(' typednamelist? ')' '->' type block 'end' 
     ;
 
 laststat
-    : 'return' explist? | 'break' | 'continue' ';'?
-    ;
-
-// usunąć ...?
-parlist
-    : typednamelist (',' '...')? | '...'
+    : ('return' explist? | 'break' | 'continue') ';'?
     ;
 
 typednamelist
@@ -90,7 +82,7 @@ typednamelist
     ;
 
 functioncall
-    : NAME'('explist?')'
+    : NAME '(' explist? ')'
     ;
 
 explist
@@ -98,7 +90,17 @@ explist
     ;
 
 tableconstructor
-    : '{' explist? '}'
+    : '{' fieldlist? '}'
+    ;
+
+fieldlist
+    : field (',' field)*
+    ;
+    
+field
+    : exp '=' exp
+    | NAME '=' exp
+    | exp
     ;
 
 binop       
@@ -115,10 +117,7 @@ binop
     | '>='
     | '<'
     | '>'
-    ;
-
-logicalop // to to samo co binop
-    : '|'
+    | '|'
     | '&'
     | 'or'
     | 'and'
@@ -130,13 +129,19 @@ unop
     | '#'
     ;
 
+string
+    : (DOUBLEQUOTESTRING | SINGLEQUOTESTRING) ('..' string)?
+    ;
+
+number
+    : INT
+    | FLOAT
+    ;
+
 NAME
     : [a-zA-Z_][a-zA-Z_0-9]*
     ;
 
-string
-    : (NORMALSTRING | CHARSTRING) ('..' string)?
-    ;
 
 FALSE 
     : 'false'
@@ -144,11 +149,6 @@ FALSE
 
 TRUE 
     : 'true'
-    ;
-
-number
-    : INT
-    | FLOAT
     ;
 
 INT
@@ -161,11 +161,11 @@ FLOAT
     | '.' Digit+
     ;
 
-NORMALSTRING
+DOUBLEQUOTESTRING
     : '"' ( EscapeSequence | ~('\\'|'"') )* '"'
     ;
 
-CHARSTRING
+SINGLEQUOTESTRING
     : '\'' ( EscapeSequence | ~('\''|'\\') )* '\''
     ;
 
@@ -176,4 +176,8 @@ fragment Digit
 fragment EscapeSequence
     : '\\' [abfnrtvz"'|\\]
     | '\\' '\r'? '\n'
+    ;
+
+WHITESPACE
+    : [ \t\u000C\r\n]+ -> skip
     ;
