@@ -32,6 +32,11 @@ type
     : NAME
     | listType
     | unionType
+    | tableType
+    ;
+
+tableType // type in square brackets defines type under integer keys
+    : 'Table' '[' type ']'
     ;
 
 unionType
@@ -39,7 +44,7 @@ unionType
     ;
 
 listType
-    : 'List' '[' (type | unionType) ']'
+    : 'List' '[' type ']'
     ;
 
 prefix
@@ -92,8 +97,8 @@ fieldlist
     ;
 
 field
-    : '[' exp ']' '=' exp
-    | NAME '=' exp // foo = "bar" === ["foo"] = "bar"
+    : '[' exp ']' ':' type '=' exp
+    | nametype '=' exp // foo: string = "bar" === ["foo"]: string = "bar"
     | exp // integer keys
     ;
 
