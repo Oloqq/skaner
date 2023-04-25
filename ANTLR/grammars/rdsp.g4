@@ -57,13 +57,21 @@ suffix
     ;
 
 exp
-    : number
+    : '('exp')'
+    | number
     | string
     | TRUE
     | FALSE
     | 'nil'
     | prefix
-    | exp binop exp
+    | <assoc=right> exp binopPower exp
+    | unop exp
+    | exp binopMulDivMod exp
+    | exp binopAddSub exp
+    | <assoc=right> exp binopConcat exp
+    | exp binopComparison exp
+    | exp binopAnd exp
+    | exp binopOr exp
     | unop exp
     | tableconstructor
     ;
@@ -102,25 +110,43 @@ field
     | exp // integer keys
     ;
 
-binop
+binopAddSub
     : '+'
     | '-'
-    | '*'
+    ;
+
+binopMulDivMod
+    :  '*'
     | '/'
     | '%'
-    | '^'
-    | '#'
-    | '=='
+    | '//'
+    ;
+
+binopComparison
+    : '=='
     | '~='
     | '<='
     | '>='
     | '<'
     | '>'
-    | '|'
+    ;
+
+binopConcat
+    : '..'
+    ;
+
+binopAnd
+    : 'and'
     | '&'
-    | 'or'
-    | 'and'
-    | '..' // string concatenation
+    ;
+
+binopOr
+    : 'or'
+    | '|'
+    ;
+
+binopPower
+    : '^'
     ;
 
 unop
