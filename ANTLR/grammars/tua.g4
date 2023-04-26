@@ -183,12 +183,12 @@ NIL
 
 INT
     : '0'
-    | [1-9] Digit*
+    | [1-9] [0-9]*
     ;
 
 FLOAT
-    : Digit+ '.' Digit*
-    | '.' Digit+
+    : [0-9]+ '.' [0-9]*
+    | '.' [0-9]+
     ;
 
 DOUBLEQUOTESTRING
@@ -197,10 +197,6 @@ DOUBLEQUOTESTRING
 
 SINGLEQUOTESTRING
     : '\'' ( EscapeSequence | ~('\''|'\\') )* '\''
-    ;
-
-fragment Digit
-    : [0-9]
     ;
 
 fragment EscapeSequence
