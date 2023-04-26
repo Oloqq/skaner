@@ -1,4 +1,4 @@
-grammar rdsp;
+grammar tua;
 
 program
     : block EOF
@@ -30,6 +30,7 @@ nametype
 
 type
     : NAME
+    | NIL
     | listType
     | unionType
     | tableType
@@ -62,7 +63,7 @@ exp
     | string
     | TRUE
     | FALSE
-    | 'nil'
+    | NIL
     | prefix
     | <assoc=right> exp binopPower exp
     | unop exp
@@ -175,6 +176,10 @@ FALSE
 
 TRUE
     : 'true'
+    ;
+
+NIL
+    : 'nil'
     ;
 
 INT

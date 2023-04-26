@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "run": "node index.js",
-    "tree": "antlr4-parse $1 chunk -tree",
+    "tree": "antlr4-parse $1 program -tree",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

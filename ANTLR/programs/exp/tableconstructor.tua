@@ -1,17 +1,17 @@
 a: Table[int] = {1, 2, 3}
 a: Table = {
-    ["broh"]: string = "bruh",
-    ["brih"]: string = "bruh",
+    ["a"]: string = "hello",
+    ["b"]: string = "hello",
 }
 a: Table = {
-    brah: string = "bruh",
-    breh: string = "bruh"
+    brah: string = "hello",
+    breh: string = "hello"
 }
 a: Table[int] = {
     1, 2, 3,
-    ["broh"]: string = "bruh",
-    ["brih"]: string = "bruh",
-    brah: string = "bruh",
-    breh: string = "bruh",
+    ["a"]: string = "hello",
+    ["b"]: string = "hello",
+    brah: string = "hello",
+    breh: string = "hello",
     4, 5, 6
 }

@@ -6,6 +6,8 @@ function bruh(broh: int) -> nil
 
 end
 
-function bruh(broh: int, breh: int) -> nil
-
+function fun(arg1: int, arg2: int) -> nil
+    for i = 0, 10, 2 do
+        print(i)
+    end
 end
