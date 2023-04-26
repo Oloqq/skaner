@@ -153,11 +153,10 @@ binopPower
 unop
     : '-'
     | 'not'
-    | '#'
     ;
 
 string
-    : (DOUBLEQUOTESTRING | SINGLEQUOTESTRING) ('..' string)?
+    : (DOUBLEQUOTESTRING | SINGLEQUOTESTRING)
     ;
 
 number
