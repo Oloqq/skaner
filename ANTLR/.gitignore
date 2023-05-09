@@ -1,2 +1,4 @@
 node_modules
 .antlr
+venv
+**/__pycache__
