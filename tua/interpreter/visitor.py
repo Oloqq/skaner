@@ -1,6 +1,7 @@
 from .generated.TuaVisitor import TuaVisitor
 from .generated.TuaParser import TuaParser
 from .log import log
+from .builtins import builtins
 
 class Tua(TuaVisitor):
     def __init__(self):
@@ -64,7 +65,10 @@ class Tua(TuaVisitor):
 
     def visitExp(self, ctx:TuaParser.ExpContext):
         log.info("Exp")
-        return self.visitChildren(ctx)
+        if len(ctx.children) == 1:
+            return self.visit(ctx.children[0])
+        else:
+            raise NotImplementedError
 
 
     def visitFunctionbody(self, ctx:TuaParser.FunctionbodyContext):
@@ -83,13 +87,22 @@ class Tua(TuaVisitor):
 
 
     def visitFunctioncall(self, ctx:TuaParser.FunctioncallContext):
-        log.info("Functioncall")
-        return self.visitChildren(ctx)
+        log.info(f"Functioncall")
+        name = ctx.getToken(TuaParser.NAME, 0).getText()
+        args = self.visit(ctx.explist())
+        if name in builtins:
+            builtins[name](*args)
+        else:
+            # return value returned by function
+            raise NotImplementedError
 
 
     def visitExplist(self, ctx:TuaParser.ExplistContext):
         log.info("Explist")
-        return self.visitChildren(ctx)
+        vals = []
+        for c in ctx.getChildren():
+            vals.append(self.visit(c))
+        return vals
 
 
     def visitTableconstructor(self, ctx:TuaParser.TableconstructorContext):
@@ -148,8 +161,7 @@ class Tua(TuaVisitor):
 
 
     def visitString(self, ctx:TuaParser.StringContext):
-        log.info("String")
-        return self.visitChildren(ctx)
+        return ctx.getText()[1:-1] # skip quotes
 
 
     def visitNumber(self, ctx:TuaParser.NumberContext):
