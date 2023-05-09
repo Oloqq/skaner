@@ -1,4 +1,4 @@
-# Generated from ../grammars/tua.g4 by ANTLR 4.12.0
+# Generated from ../grammars/Tua.g4 by ANTLR 4.12.0
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -134,9 +134,9 @@ def serializedATN():
         268,275,281,290,295,304,320
     ]
 
-class tuaParser ( Parser ):
+class TuaParser ( Parser ):
 
-    grammarFileName = "tua.g4"
+    grammarFileName = "Tua.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -283,14 +283,14 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def block(self):
-            return self.getTypedRuleContext(tuaParser.BlockContext,0)
+            return self.getTypedRuleContext(TuaParser.BlockContext,0)
 
 
         def EOF(self):
-            return self.getToken(tuaParser.EOF, 0)
+            return self.getToken(TuaParser.EOF, 0)
 
         def getRuleIndex(self):
-            return tuaParser.RULE_program
+            return TuaParser.RULE_program
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterProgram" ):
@@ -311,14 +311,14 @@ class tuaParser ( Parser ):
 
     def program(self):
 
-        localctx = tuaParser.ProgramContext(self, self._ctx, self.state)
+        localctx = TuaParser.ProgramContext(self, self._ctx, self.state)
         self.enterRule(localctx, 0, self.RULE_program)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 60
             self.block()
             self.state = 61
-            self.match(tuaParser.EOF)
+            self.match(TuaParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -337,17 +337,17 @@ class tuaParser ( Parser ):
 
         def stat(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tuaParser.StatContext)
+                return self.getTypedRuleContexts(TuaParser.StatContext)
             else:
-                return self.getTypedRuleContext(tuaParser.StatContext,i)
+                return self.getTypedRuleContext(TuaParser.StatContext,i)
 
 
         def laststat(self):
-            return self.getTypedRuleContext(tuaParser.LaststatContext,0)
+            return self.getTypedRuleContext(TuaParser.LaststatContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_block
+            return TuaParser.RULE_block
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBlock" ):
@@ -368,7 +368,7 @@ class tuaParser ( Parser ):
 
     def block(self):
 
-        localctx = tuaParser.BlockContext(self, self._ctx, self.state)
+        localctx = TuaParser.BlockContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_block)
         self._la = 0 # Token type
         try:
@@ -384,7 +384,7 @@ class tuaParser ( Parser ):
                 _la = self._input.LA(1)
                 if _la==1:
                     self.state = 64
-                    self.match(tuaParser.T__0)
+                    self.match(TuaParser.T__0)
 
 
                 self.state = 71
@@ -416,43 +416,43 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def nametype(self):
-            return self.getTypedRuleContext(tuaParser.NametypeContext,0)
+            return self.getTypedRuleContext(TuaParser.NametypeContext,0)
 
 
         def exp(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tuaParser.ExpContext)
+                return self.getTypedRuleContexts(TuaParser.ExpContext)
             else:
-                return self.getTypedRuleContext(tuaParser.ExpContext,i)
+                return self.getTypedRuleContext(TuaParser.ExpContext,i)
 
 
         def var(self):
-            return self.getTypedRuleContext(tuaParser.VarContext,0)
+            return self.getTypedRuleContext(TuaParser.VarContext,0)
 
 
         def functioncall(self):
-            return self.getTypedRuleContext(tuaParser.FunctioncallContext,0)
+            return self.getTypedRuleContext(TuaParser.FunctioncallContext,0)
 
 
         def block(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tuaParser.BlockContext)
+                return self.getTypedRuleContexts(TuaParser.BlockContext)
             else:
-                return self.getTypedRuleContext(tuaParser.BlockContext,i)
+                return self.getTypedRuleContext(TuaParser.BlockContext,i)
 
 
         def NAME(self, i:int=None):
             if i is None:
-                return self.getTokens(tuaParser.NAME)
+                return self.getTokens(TuaParser.NAME)
             else:
-                return self.getToken(tuaParser.NAME, i)
+                return self.getToken(TuaParser.NAME, i)
 
         def functionbody(self):
-            return self.getTypedRuleContext(tuaParser.FunctionbodyContext,0)
+            return self.getTypedRuleContext(TuaParser.FunctionbodyContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_stat
+            return TuaParser.RULE_stat
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterStat" ):
@@ -473,7 +473,7 @@ class tuaParser ( Parser ):
 
     def stat(self):
 
-        localctx = tuaParser.StatContext(self, self._ctx, self.state)
+        localctx = TuaParser.StatContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_stat)
         self._la = 0 # Token type
         try:
@@ -485,7 +485,7 @@ class tuaParser ( Parser ):
                 self.state = 75
                 self.nametype()
                 self.state = 76
-                self.match(tuaParser.T__1)
+                self.match(TuaParser.T__1)
                 self.state = 77
                 self.exp(0)
                 pass
@@ -495,7 +495,7 @@ class tuaParser ( Parser ):
                 self.state = 79
                 self.var()
                 self.state = 80
-                self.match(tuaParser.T__1)
+                self.match(TuaParser.T__1)
                 self.state = 81
                 self.exp(0)
                 pass
@@ -509,35 +509,35 @@ class tuaParser ( Parser ):
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
                 self.state = 84
-                self.match(tuaParser.T__2)
+                self.match(TuaParser.T__2)
                 self.state = 85
                 self.block()
                 self.state = 86
-                self.match(tuaParser.T__3)
+                self.match(TuaParser.T__3)
                 pass
 
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
                 self.state = 88
-                self.match(tuaParser.T__4)
+                self.match(TuaParser.T__4)
                 self.state = 89
                 self.exp(0)
                 self.state = 90
-                self.match(tuaParser.T__2)
+                self.match(TuaParser.T__2)
                 self.state = 91
                 self.block()
                 self.state = 92
-                self.match(tuaParser.T__3)
+                self.match(TuaParser.T__3)
                 pass
 
             elif la_ == 6:
                 self.enterOuterAlt(localctx, 6)
                 self.state = 94
-                self.match(tuaParser.T__5)
+                self.match(TuaParser.T__5)
                 self.state = 95
                 self.exp(0)
                 self.state = 96
-                self.match(tuaParser.T__6)
+                self.match(TuaParser.T__6)
                 self.state = 97
                 self.block()
                 self.state = 105
@@ -545,11 +545,11 @@ class tuaParser ( Parser ):
                 _la = self._input.LA(1)
                 while _la==8:
                     self.state = 98
-                    self.match(tuaParser.T__7)
+                    self.match(TuaParser.T__7)
                     self.state = 99
                     self.exp(0)
                     self.state = 100
-                    self.match(tuaParser.T__6)
+                    self.match(TuaParser.T__6)
                     self.state = 101
                     self.block()
                     self.state = 107
@@ -561,27 +561,27 @@ class tuaParser ( Parser ):
                 _la = self._input.LA(1)
                 if _la==9:
                     self.state = 108
-                    self.match(tuaParser.T__8)
+                    self.match(TuaParser.T__8)
                     self.state = 109
                     self.block()
 
 
                 self.state = 112
-                self.match(tuaParser.T__3)
+                self.match(TuaParser.T__3)
                 pass
 
             elif la_ == 7:
                 self.enterOuterAlt(localctx, 7)
                 self.state = 114
-                self.match(tuaParser.T__9)
+                self.match(TuaParser.T__9)
                 self.state = 115
-                self.match(tuaParser.NAME)
+                self.match(TuaParser.NAME)
                 self.state = 116
-                self.match(tuaParser.T__1)
+                self.match(TuaParser.T__1)
                 self.state = 117
                 self.exp(0)
                 self.state = 118
-                self.match(tuaParser.T__10)
+                self.match(TuaParser.T__10)
                 self.state = 119
                 self.exp(0)
                 self.state = 122
@@ -589,47 +589,47 @@ class tuaParser ( Parser ):
                 _la = self._input.LA(1)
                 if _la==11:
                     self.state = 120
-                    self.match(tuaParser.T__10)
+                    self.match(TuaParser.T__10)
                     self.state = 121
                     self.exp(0)
 
 
                 self.state = 124
-                self.match(tuaParser.T__2)
+                self.match(TuaParser.T__2)
                 self.state = 125
                 self.block()
                 self.state = 126
-                self.match(tuaParser.T__3)
+                self.match(TuaParser.T__3)
                 pass
 
             elif la_ == 8:
                 self.enterOuterAlt(localctx, 8)
                 self.state = 128
-                self.match(tuaParser.T__9)
+                self.match(TuaParser.T__9)
                 self.state = 129
-                self.match(tuaParser.NAME)
+                self.match(TuaParser.NAME)
                 self.state = 130
-                self.match(tuaParser.T__10)
+                self.match(TuaParser.T__10)
                 self.state = 131
-                self.match(tuaParser.NAME)
+                self.match(TuaParser.NAME)
                 self.state = 132
-                self.match(tuaParser.T__11)
+                self.match(TuaParser.T__11)
                 self.state = 133
                 self.functioncall()
                 self.state = 134
-                self.match(tuaParser.T__2)
+                self.match(TuaParser.T__2)
                 self.state = 135
                 self.block()
                 self.state = 136
-                self.match(tuaParser.T__3)
+                self.match(TuaParser.T__3)
                 pass
 
             elif la_ == 9:
                 self.enterOuterAlt(localctx, 9)
                 self.state = 138
-                self.match(tuaParser.T__12)
+                self.match(TuaParser.T__12)
                 self.state = 139
-                self.match(tuaParser.NAME)
+                self.match(TuaParser.NAME)
                 self.state = 140
                 self.functionbody()
                 pass
@@ -652,14 +652,14 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def NAME(self):
-            return self.getToken(tuaParser.NAME, 0)
+            return self.getToken(TuaParser.NAME, 0)
 
         def suffix(self):
-            return self.getTypedRuleContext(tuaParser.SuffixContext,0)
+            return self.getTypedRuleContext(TuaParser.SuffixContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_var
+            return TuaParser.RULE_var
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterVar" ):
@@ -680,12 +680,12 @@ class tuaParser ( Parser ):
 
     def var(self):
 
-        localctx = tuaParser.VarContext(self, self._ctx, self.state)
+        localctx = TuaParser.VarContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_var)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 143
-            self.match(tuaParser.NAME)
+            self.match(TuaParser.NAME)
             self.state = 145
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,7,self._ctx)
@@ -711,14 +711,14 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def NAME(self):
-            return self.getToken(tuaParser.NAME, 0)
+            return self.getToken(TuaParser.NAME, 0)
 
         def type_(self):
-            return self.getTypedRuleContext(tuaParser.TypeContext,0)
+            return self.getTypedRuleContext(TuaParser.TypeContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_nametype
+            return TuaParser.RULE_nametype
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterNametype" ):
@@ -739,14 +739,14 @@ class tuaParser ( Parser ):
 
     def nametype(self):
 
-        localctx = tuaParser.NametypeContext(self, self._ctx, self.state)
+        localctx = TuaParser.NametypeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_nametype)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 147
-            self.match(tuaParser.NAME)
+            self.match(TuaParser.NAME)
             self.state = 148
-            self.match(tuaParser.T__13)
+            self.match(TuaParser.T__13)
             self.state = 149
             self.type_()
         except RecognitionException as re:
@@ -766,25 +766,25 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def NAME(self):
-            return self.getToken(tuaParser.NAME, 0)
+            return self.getToken(TuaParser.NAME, 0)
 
         def NIL(self):
-            return self.getToken(tuaParser.NIL, 0)
+            return self.getToken(TuaParser.NIL, 0)
 
         def listType(self):
-            return self.getTypedRuleContext(tuaParser.ListTypeContext,0)
+            return self.getTypedRuleContext(TuaParser.ListTypeContext,0)
 
 
         def unionType(self):
-            return self.getTypedRuleContext(tuaParser.UnionTypeContext,0)
+            return self.getTypedRuleContext(TuaParser.UnionTypeContext,0)
 
 
         def tableType(self):
-            return self.getTypedRuleContext(tuaParser.TableTypeContext,0)
+            return self.getTypedRuleContext(TuaParser.TableTypeContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_type
+            return TuaParser.RULE_type
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterType" ):
@@ -805,7 +805,7 @@ class tuaParser ( Parser ):
 
     def type_(self):
 
-        localctx = tuaParser.TypeContext(self, self._ctx, self.state)
+        localctx = TuaParser.TypeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_type)
         try:
             self.state = 156
@@ -814,12 +814,12 @@ class tuaParser ( Parser ):
             if token in [48]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 151
-                self.match(tuaParser.NAME)
+                self.match(TuaParser.NAME)
                 pass
             elif token in [51]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 152
-                self.match(tuaParser.NIL)
+                self.match(TuaParser.NIL)
                 pass
             elif token in [19]:
                 self.enterOuterAlt(localctx, 3)
@@ -856,11 +856,11 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def type_(self):
-            return self.getTypedRuleContext(tuaParser.TypeContext,0)
+            return self.getTypedRuleContext(TuaParser.TypeContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_tableType
+            return TuaParser.RULE_tableType
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterTableType" ):
@@ -881,18 +881,18 @@ class tuaParser ( Parser ):
 
     def tableType(self):
 
-        localctx = tuaParser.TableTypeContext(self, self._ctx, self.state)
+        localctx = TuaParser.TableTypeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 12, self.RULE_tableType)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 158
-            self.match(tuaParser.T__14)
+            self.match(TuaParser.T__14)
             self.state = 159
-            self.match(tuaParser.T__15)
+            self.match(TuaParser.T__15)
             self.state = 160
             self.type_()
             self.state = 161
-            self.match(tuaParser.T__16)
+            self.match(TuaParser.T__16)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -911,13 +911,13 @@ class tuaParser ( Parser ):
 
         def type_(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tuaParser.TypeContext)
+                return self.getTypedRuleContexts(TuaParser.TypeContext)
             else:
-                return self.getTypedRuleContext(tuaParser.TypeContext,i)
+                return self.getTypedRuleContext(TuaParser.TypeContext,i)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_unionType
+            return TuaParser.RULE_unionType
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterUnionType" ):
@@ -938,15 +938,15 @@ class tuaParser ( Parser ):
 
     def unionType(self):
 
-        localctx = tuaParser.UnionTypeContext(self, self._ctx, self.state)
+        localctx = TuaParser.UnionTypeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 14, self.RULE_unionType)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 163
-            self.match(tuaParser.T__17)
+            self.match(TuaParser.T__17)
             self.state = 164
-            self.match(tuaParser.T__15)
+            self.match(TuaParser.T__15)
             self.state = 165
             self.type_()
             self.state = 168 
@@ -954,7 +954,7 @@ class tuaParser ( Parser ):
             _la = self._input.LA(1)
             while True:
                 self.state = 166
-                self.match(tuaParser.T__10)
+                self.match(TuaParser.T__10)
                 self.state = 167
                 self.type_()
                 self.state = 170 
@@ -964,7 +964,7 @@ class tuaParser ( Parser ):
                     break
 
             self.state = 172
-            self.match(tuaParser.T__16)
+            self.match(TuaParser.T__16)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -982,11 +982,11 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def type_(self):
-            return self.getTypedRuleContext(tuaParser.TypeContext,0)
+            return self.getTypedRuleContext(TuaParser.TypeContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_listType
+            return TuaParser.RULE_listType
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterListType" ):
@@ -1007,18 +1007,18 @@ class tuaParser ( Parser ):
 
     def listType(self):
 
-        localctx = tuaParser.ListTypeContext(self, self._ctx, self.state)
+        localctx = TuaParser.ListTypeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 16, self.RULE_listType)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 174
-            self.match(tuaParser.T__18)
+            self.match(TuaParser.T__18)
             self.state = 175
-            self.match(tuaParser.T__15)
+            self.match(TuaParser.T__15)
             self.state = 176
             self.type_()
             self.state = 177
-            self.match(tuaParser.T__16)
+            self.match(TuaParser.T__16)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1036,19 +1036,19 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def var(self):
-            return self.getTypedRuleContext(tuaParser.VarContext,0)
+            return self.getTypedRuleContext(TuaParser.VarContext,0)
 
 
         def functioncall(self):
-            return self.getTypedRuleContext(tuaParser.FunctioncallContext,0)
+            return self.getTypedRuleContext(TuaParser.FunctioncallContext,0)
 
 
         def suffix(self):
-            return self.getTypedRuleContext(tuaParser.SuffixContext,0)
+            return self.getTypedRuleContext(TuaParser.SuffixContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_prefix
+            return TuaParser.RULE_prefix
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterPrefix" ):
@@ -1069,7 +1069,7 @@ class tuaParser ( Parser ):
 
     def prefix(self):
 
-        localctx = tuaParser.PrefixContext(self, self._ctx, self.state)
+        localctx = TuaParser.PrefixContext(self, self._ctx, self.state)
         self.enterRule(localctx, 18, self.RULE_prefix)
         try:
             self.state = 184
@@ -1114,19 +1114,19 @@ class tuaParser ( Parser ):
 
         def exp(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tuaParser.ExpContext)
+                return self.getTypedRuleContexts(TuaParser.ExpContext)
             else:
-                return self.getTypedRuleContext(tuaParser.ExpContext,i)
+                return self.getTypedRuleContext(TuaParser.ExpContext,i)
 
 
         def NAME(self, i:int=None):
             if i is None:
-                return self.getTokens(tuaParser.NAME)
+                return self.getTokens(TuaParser.NAME)
             else:
-                return self.getToken(tuaParser.NAME, i)
+                return self.getToken(TuaParser.NAME, i)
 
         def getRuleIndex(self):
-            return tuaParser.RULE_suffix
+            return TuaParser.RULE_suffix
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSuffix" ):
@@ -1147,7 +1147,7 @@ class tuaParser ( Parser ):
 
     def suffix(self):
 
-        localctx = tuaParser.SuffixContext(self, self._ctx, self.state)
+        localctx = TuaParser.SuffixContext(self, self._ctx, self.state)
         self.enterRule(localctx, 20, self.RULE_suffix)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -1161,17 +1161,17 @@ class tuaParser ( Parser ):
                     token = self._input.LA(1)
                     if token in [16]:
                         self.state = 186
-                        self.match(tuaParser.T__15)
+                        self.match(TuaParser.T__15)
                         self.state = 187
                         self.exp(0)
                         self.state = 188
-                        self.match(tuaParser.T__16)
+                        self.match(TuaParser.T__16)
                         pass
                     elif token in [20]:
                         self.state = 190
-                        self.match(tuaParser.T__19)
+                        self.match(TuaParser.T__19)
                         self.state = 191
-                        self.match(tuaParser.NAME)
+                        self.match(TuaParser.NAME)
                         pass
                     else:
                         raise NoViableAltException(self)
@@ -1201,70 +1201,70 @@ class tuaParser ( Parser ):
 
         def exp(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tuaParser.ExpContext)
+                return self.getTypedRuleContexts(TuaParser.ExpContext)
             else:
-                return self.getTypedRuleContext(tuaParser.ExpContext,i)
+                return self.getTypedRuleContext(TuaParser.ExpContext,i)
 
 
         def number(self):
-            return self.getTypedRuleContext(tuaParser.NumberContext,0)
+            return self.getTypedRuleContext(TuaParser.NumberContext,0)
 
 
         def string(self):
-            return self.getTypedRuleContext(tuaParser.StringContext,0)
+            return self.getTypedRuleContext(TuaParser.StringContext,0)
 
 
         def TRUE(self):
-            return self.getToken(tuaParser.TRUE, 0)
+            return self.getToken(TuaParser.TRUE, 0)
 
         def FALSE(self):
-            return self.getToken(tuaParser.FALSE, 0)
+            return self.getToken(TuaParser.FALSE, 0)
 
         def NIL(self):
-            return self.getToken(tuaParser.NIL, 0)
+            return self.getToken(TuaParser.NIL, 0)
 
         def prefix(self):
-            return self.getTypedRuleContext(tuaParser.PrefixContext,0)
+            return self.getTypedRuleContext(TuaParser.PrefixContext,0)
 
 
         def unop(self):
-            return self.getTypedRuleContext(tuaParser.UnopContext,0)
+            return self.getTypedRuleContext(TuaParser.UnopContext,0)
 
 
         def tableconstructor(self):
-            return self.getTypedRuleContext(tuaParser.TableconstructorContext,0)
+            return self.getTypedRuleContext(TuaParser.TableconstructorContext,0)
 
 
         def binopPower(self):
-            return self.getTypedRuleContext(tuaParser.BinopPowerContext,0)
+            return self.getTypedRuleContext(TuaParser.BinopPowerContext,0)
 
 
         def binopMulDivMod(self):
-            return self.getTypedRuleContext(tuaParser.BinopMulDivModContext,0)
+            return self.getTypedRuleContext(TuaParser.BinopMulDivModContext,0)
 
 
         def binopAddSub(self):
-            return self.getTypedRuleContext(tuaParser.BinopAddSubContext,0)
+            return self.getTypedRuleContext(TuaParser.BinopAddSubContext,0)
 
 
         def binopConcat(self):
-            return self.getTypedRuleContext(tuaParser.BinopConcatContext,0)
+            return self.getTypedRuleContext(TuaParser.BinopConcatContext,0)
 
 
         def binopComparison(self):
-            return self.getTypedRuleContext(tuaParser.BinopComparisonContext,0)
+            return self.getTypedRuleContext(TuaParser.BinopComparisonContext,0)
 
 
         def binopAnd(self):
-            return self.getTypedRuleContext(tuaParser.BinopAndContext,0)
+            return self.getTypedRuleContext(TuaParser.BinopAndContext,0)
 
 
         def binopOr(self):
-            return self.getTypedRuleContext(tuaParser.BinopOrContext,0)
+            return self.getTypedRuleContext(TuaParser.BinopOrContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_exp
+            return TuaParser.RULE_exp
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterExp" ):
@@ -1285,7 +1285,7 @@ class tuaParser ( Parser ):
     def exp(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = tuaParser.ExpContext(self, self._ctx, _parentState)
+        localctx = TuaParser.ExpContext(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 22
         self.enterRecursionRule(localctx, 22, self.RULE_exp, _p)
@@ -1296,11 +1296,11 @@ class tuaParser ( Parser ):
             la_ = self._interp.adaptivePredict(self._input,14,self._ctx)
             if la_ == 1:
                 self.state = 197
-                self.match(tuaParser.T__20)
+                self.match(TuaParser.T__20)
                 self.state = 198
                 self.exp(0)
                 self.state = 199
-                self.match(tuaParser.T__21)
+                self.match(TuaParser.T__21)
                 pass
 
             elif la_ == 2:
@@ -1315,17 +1315,17 @@ class tuaParser ( Parser ):
 
             elif la_ == 4:
                 self.state = 203
-                self.match(tuaParser.TRUE)
+                self.match(TuaParser.TRUE)
                 pass
 
             elif la_ == 5:
                 self.state = 204
-                self.match(tuaParser.FALSE)
+                self.match(TuaParser.FALSE)
                 pass
 
             elif la_ == 6:
                 self.state = 205
-                self.match(tuaParser.NIL)
+                self.match(TuaParser.NIL)
                 pass
 
             elif la_ == 7:
@@ -1366,7 +1366,7 @@ class tuaParser ( Parser ):
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
                     if la_ == 1:
-                        localctx = tuaParser.ExpContext(self, _parentctx, _parentState)
+                        localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
                         self.state = 216
                         if not self.precpred(self._ctx, 10):
@@ -1379,7 +1379,7 @@ class tuaParser ( Parser ):
                         pass
 
                     elif la_ == 2:
-                        localctx = tuaParser.ExpContext(self, _parentctx, _parentState)
+                        localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
                         self.state = 220
                         if not self.precpred(self._ctx, 8):
@@ -1392,7 +1392,7 @@ class tuaParser ( Parser ):
                         pass
 
                     elif la_ == 3:
-                        localctx = tuaParser.ExpContext(self, _parentctx, _parentState)
+                        localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
                         self.state = 224
                         if not self.precpred(self._ctx, 7):
@@ -1405,7 +1405,7 @@ class tuaParser ( Parser ):
                         pass
 
                     elif la_ == 4:
-                        localctx = tuaParser.ExpContext(self, _parentctx, _parentState)
+                        localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
                         self.state = 228
                         if not self.precpred(self._ctx, 6):
@@ -1418,7 +1418,7 @@ class tuaParser ( Parser ):
                         pass
 
                     elif la_ == 5:
-                        localctx = tuaParser.ExpContext(self, _parentctx, _parentState)
+                        localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
                         self.state = 232
                         if not self.precpred(self._ctx, 5):
@@ -1431,7 +1431,7 @@ class tuaParser ( Parser ):
                         pass
 
                     elif la_ == 6:
-                        localctx = tuaParser.ExpContext(self, _parentctx, _parentState)
+                        localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
                         self.state = 236
                         if not self.precpred(self._ctx, 4):
@@ -1444,7 +1444,7 @@ class tuaParser ( Parser ):
                         pass
 
                     elif la_ == 7:
-                        localctx = tuaParser.ExpContext(self, _parentctx, _parentState)
+                        localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
                         self.state = 240
                         if not self.precpred(self._ctx, 3):
@@ -1478,19 +1478,19 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def type_(self):
-            return self.getTypedRuleContext(tuaParser.TypeContext,0)
+            return self.getTypedRuleContext(TuaParser.TypeContext,0)
 
 
         def block(self):
-            return self.getTypedRuleContext(tuaParser.BlockContext,0)
+            return self.getTypedRuleContext(TuaParser.BlockContext,0)
 
 
         def typednamelist(self):
-            return self.getTypedRuleContext(tuaParser.TypednamelistContext,0)
+            return self.getTypedRuleContext(TuaParser.TypednamelistContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_functionbody
+            return TuaParser.RULE_functionbody
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFunctionbody" ):
@@ -1511,13 +1511,13 @@ class tuaParser ( Parser ):
 
     def functionbody(self):
 
-        localctx = tuaParser.FunctionbodyContext(self, self._ctx, self.state)
+        localctx = TuaParser.FunctionbodyContext(self, self._ctx, self.state)
         self.enterRule(localctx, 24, self.RULE_functionbody)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 249
-            self.match(tuaParser.T__20)
+            self.match(TuaParser.T__20)
             self.state = 251
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -1527,15 +1527,15 @@ class tuaParser ( Parser ):
 
 
             self.state = 253
-            self.match(tuaParser.T__21)
+            self.match(TuaParser.T__21)
             self.state = 254
-            self.match(tuaParser.T__22)
+            self.match(TuaParser.T__22)
             self.state = 255
             self.type_()
             self.state = 256
             self.block()
             self.state = 257
-            self.match(tuaParser.T__3)
+            self.match(TuaParser.T__3)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1553,11 +1553,11 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def explist(self):
-            return self.getTypedRuleContext(tuaParser.ExplistContext,0)
+            return self.getTypedRuleContext(TuaParser.ExplistContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_laststat
+            return TuaParser.RULE_laststat
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterLaststat" ):
@@ -1578,7 +1578,7 @@ class tuaParser ( Parser ):
 
     def laststat(self):
 
-        localctx = tuaParser.LaststatContext(self, self._ctx, self.state)
+        localctx = TuaParser.LaststatContext(self, self._ctx, self.state)
         self.enterRule(localctx, 26, self.RULE_laststat)
         self._la = 0 # Token type
         try:
@@ -1588,7 +1588,7 @@ class tuaParser ( Parser ):
             token = self._input.LA(1)
             if token in [24]:
                 self.state = 259
-                self.match(tuaParser.T__23)
+                self.match(TuaParser.T__23)
                 self.state = 261
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -1600,11 +1600,11 @@ class tuaParser ( Parser ):
                 pass
             elif token in [25]:
                 self.state = 263
-                self.match(tuaParser.T__24)
+                self.match(TuaParser.T__24)
                 pass
             elif token in [26]:
                 self.state = 264
-                self.match(tuaParser.T__25)
+                self.match(TuaParser.T__25)
                 pass
             else:
                 raise NoViableAltException(self)
@@ -1614,7 +1614,7 @@ class tuaParser ( Parser ):
             _la = self._input.LA(1)
             if _la==1:
                 self.state = 267
-                self.match(tuaParser.T__0)
+                self.match(TuaParser.T__0)
 
 
         except RecognitionException as re:
@@ -1635,13 +1635,13 @@ class tuaParser ( Parser ):
 
         def nametype(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tuaParser.NametypeContext)
+                return self.getTypedRuleContexts(TuaParser.NametypeContext)
             else:
-                return self.getTypedRuleContext(tuaParser.NametypeContext,i)
+                return self.getTypedRuleContext(TuaParser.NametypeContext,i)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_typednamelist
+            return TuaParser.RULE_typednamelist
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterTypednamelist" ):
@@ -1662,7 +1662,7 @@ class tuaParser ( Parser ):
 
     def typednamelist(self):
 
-        localctx = tuaParser.TypednamelistContext(self, self._ctx, self.state)
+        localctx = TuaParser.TypednamelistContext(self, self._ctx, self.state)
         self.enterRule(localctx, 28, self.RULE_typednamelist)
         self._la = 0 # Token type
         try:
@@ -1674,7 +1674,7 @@ class tuaParser ( Parser ):
             _la = self._input.LA(1)
             while _la==11:
                 self.state = 271
-                self.match(tuaParser.T__10)
+                self.match(TuaParser.T__10)
                 self.state = 272
                 self.nametype()
                 self.state = 277
@@ -1698,14 +1698,14 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def NAME(self):
-            return self.getToken(tuaParser.NAME, 0)
+            return self.getToken(TuaParser.NAME, 0)
 
         def explist(self):
-            return self.getTypedRuleContext(tuaParser.ExplistContext,0)
+            return self.getTypedRuleContext(TuaParser.ExplistContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_functioncall
+            return TuaParser.RULE_functioncall
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFunctioncall" ):
@@ -1726,15 +1726,15 @@ class tuaParser ( Parser ):
 
     def functioncall(self):
 
-        localctx = tuaParser.FunctioncallContext(self, self._ctx, self.state)
+        localctx = TuaParser.FunctioncallContext(self, self._ctx, self.state)
         self.enterRule(localctx, 30, self.RULE_functioncall)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 278
-            self.match(tuaParser.NAME)
+            self.match(TuaParser.NAME)
             self.state = 279
-            self.match(tuaParser.T__20)
+            self.match(TuaParser.T__20)
             self.state = 281
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -1744,7 +1744,7 @@ class tuaParser ( Parser ):
 
 
             self.state = 283
-            self.match(tuaParser.T__21)
+            self.match(TuaParser.T__21)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1763,13 +1763,13 @@ class tuaParser ( Parser ):
 
         def exp(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tuaParser.ExpContext)
+                return self.getTypedRuleContexts(TuaParser.ExpContext)
             else:
-                return self.getTypedRuleContext(tuaParser.ExpContext,i)
+                return self.getTypedRuleContext(TuaParser.ExpContext,i)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_explist
+            return TuaParser.RULE_explist
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterExplist" ):
@@ -1790,7 +1790,7 @@ class tuaParser ( Parser ):
 
     def explist(self):
 
-        localctx = tuaParser.ExplistContext(self, self._ctx, self.state)
+        localctx = TuaParser.ExplistContext(self, self._ctx, self.state)
         self.enterRule(localctx, 32, self.RULE_explist)
         self._la = 0 # Token type
         try:
@@ -1802,7 +1802,7 @@ class tuaParser ( Parser ):
             _la = self._input.LA(1)
             while _la==11:
                 self.state = 286
-                self.match(tuaParser.T__10)
+                self.match(TuaParser.T__10)
                 self.state = 287
                 self.exp(0)
                 self.state = 292
@@ -1826,11 +1826,11 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def fieldlist(self):
-            return self.getTypedRuleContext(tuaParser.FieldlistContext,0)
+            return self.getTypedRuleContext(TuaParser.FieldlistContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_tableconstructor
+            return TuaParser.RULE_tableconstructor
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterTableconstructor" ):
@@ -1851,13 +1851,13 @@ class tuaParser ( Parser ):
 
     def tableconstructor(self):
 
-        localctx = tuaParser.TableconstructorContext(self, self._ctx, self.state)
+        localctx = TuaParser.TableconstructorContext(self, self._ctx, self.state)
         self.enterRule(localctx, 34, self.RULE_tableconstructor)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 293
-            self.match(tuaParser.T__26)
+            self.match(TuaParser.T__26)
             self.state = 295
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -1867,7 +1867,7 @@ class tuaParser ( Parser ):
 
 
             self.state = 297
-            self.match(tuaParser.T__27)
+            self.match(TuaParser.T__27)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1886,13 +1886,13 @@ class tuaParser ( Parser ):
 
         def field(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tuaParser.FieldContext)
+                return self.getTypedRuleContexts(TuaParser.FieldContext)
             else:
-                return self.getTypedRuleContext(tuaParser.FieldContext,i)
+                return self.getTypedRuleContext(TuaParser.FieldContext,i)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_fieldlist
+            return TuaParser.RULE_fieldlist
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFieldlist" ):
@@ -1913,7 +1913,7 @@ class tuaParser ( Parser ):
 
     def fieldlist(self):
 
-        localctx = tuaParser.FieldlistContext(self, self._ctx, self.state)
+        localctx = TuaParser.FieldlistContext(self, self._ctx, self.state)
         self.enterRule(localctx, 36, self.RULE_fieldlist)
         self._la = 0 # Token type
         try:
@@ -1925,7 +1925,7 @@ class tuaParser ( Parser ):
             _la = self._input.LA(1)
             while _la==11:
                 self.state = 300
-                self.match(tuaParser.T__10)
+                self.match(TuaParser.T__10)
                 self.state = 301
                 self.field()
                 self.state = 306
@@ -1950,21 +1950,21 @@ class tuaParser ( Parser ):
 
         def exp(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(tuaParser.ExpContext)
+                return self.getTypedRuleContexts(TuaParser.ExpContext)
             else:
-                return self.getTypedRuleContext(tuaParser.ExpContext,i)
+                return self.getTypedRuleContext(TuaParser.ExpContext,i)
 
 
         def type_(self):
-            return self.getTypedRuleContext(tuaParser.TypeContext,0)
+            return self.getTypedRuleContext(TuaParser.TypeContext,0)
 
 
         def nametype(self):
-            return self.getTypedRuleContext(tuaParser.NametypeContext,0)
+            return self.getTypedRuleContext(TuaParser.NametypeContext,0)
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_field
+            return TuaParser.RULE_field
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterField" ):
@@ -1985,7 +1985,7 @@ class tuaParser ( Parser ):
 
     def field(self):
 
-        localctx = tuaParser.FieldContext(self, self._ctx, self.state)
+        localctx = TuaParser.FieldContext(self, self._ctx, self.state)
         self.enterRule(localctx, 38, self.RULE_field)
         try:
             self.state = 320
@@ -1994,17 +1994,17 @@ class tuaParser ( Parser ):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 307
-                self.match(tuaParser.T__15)
+                self.match(TuaParser.T__15)
                 self.state = 308
                 self.exp(0)
                 self.state = 309
-                self.match(tuaParser.T__16)
+                self.match(TuaParser.T__16)
                 self.state = 310
-                self.match(tuaParser.T__13)
+                self.match(TuaParser.T__13)
                 self.state = 311
                 self.type_()
                 self.state = 312
-                self.match(tuaParser.T__1)
+                self.match(TuaParser.T__1)
                 self.state = 313
                 self.exp(0)
                 pass
@@ -2014,7 +2014,7 @@ class tuaParser ( Parser ):
                 self.state = 315
                 self.nametype()
                 self.state = 316
-                self.match(tuaParser.T__1)
+                self.match(TuaParser.T__1)
                 self.state = 317
                 self.exp(0)
                 pass
@@ -2044,7 +2044,7 @@ class tuaParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_binopAddSub
+            return TuaParser.RULE_binopAddSub
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBinopAddSub" ):
@@ -2065,7 +2065,7 @@ class tuaParser ( Parser ):
 
     def binopAddSub(self):
 
-        localctx = tuaParser.BinopAddSubContext(self, self._ctx, self.state)
+        localctx = TuaParser.BinopAddSubContext(self, self._ctx, self.state)
         self.enterRule(localctx, 40, self.RULE_binopAddSub)
         self._la = 0 # Token type
         try:
@@ -2095,7 +2095,7 @@ class tuaParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_binopMulDivMod
+            return TuaParser.RULE_binopMulDivMod
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBinopMulDivMod" ):
@@ -2116,7 +2116,7 @@ class tuaParser ( Parser ):
 
     def binopMulDivMod(self):
 
-        localctx = tuaParser.BinopMulDivModContext(self, self._ctx, self.state)
+        localctx = TuaParser.BinopMulDivModContext(self, self._ctx, self.state)
         self.enterRule(localctx, 42, self.RULE_binopMulDivMod)
         self._la = 0 # Token type
         try:
@@ -2146,7 +2146,7 @@ class tuaParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_binopComparison
+            return TuaParser.RULE_binopComparison
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBinopComparison" ):
@@ -2167,7 +2167,7 @@ class tuaParser ( Parser ):
 
     def binopComparison(self):
 
-        localctx = tuaParser.BinopComparisonContext(self, self._ctx, self.state)
+        localctx = TuaParser.BinopComparisonContext(self, self._ctx, self.state)
         self.enterRule(localctx, 44, self.RULE_binopComparison)
         self._la = 0 # Token type
         try:
@@ -2197,7 +2197,7 @@ class tuaParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_binopConcat
+            return TuaParser.RULE_binopConcat
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBinopConcat" ):
@@ -2218,12 +2218,12 @@ class tuaParser ( Parser ):
 
     def binopConcat(self):
 
-        localctx = tuaParser.BinopConcatContext(self, self._ctx, self.state)
+        localctx = TuaParser.BinopConcatContext(self, self._ctx, self.state)
         self.enterRule(localctx, 46, self.RULE_binopConcat)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 328
-            self.match(tuaParser.T__40)
+            self.match(TuaParser.T__40)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2242,7 +2242,7 @@ class tuaParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_binopAnd
+            return TuaParser.RULE_binopAnd
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBinopAnd" ):
@@ -2263,7 +2263,7 @@ class tuaParser ( Parser ):
 
     def binopAnd(self):
 
-        localctx = tuaParser.BinopAndContext(self, self._ctx, self.state)
+        localctx = TuaParser.BinopAndContext(self, self._ctx, self.state)
         self.enterRule(localctx, 48, self.RULE_binopAnd)
         self._la = 0 # Token type
         try:
@@ -2293,7 +2293,7 @@ class tuaParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_binopOr
+            return TuaParser.RULE_binopOr
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBinopOr" ):
@@ -2314,7 +2314,7 @@ class tuaParser ( Parser ):
 
     def binopOr(self):
 
-        localctx = tuaParser.BinopOrContext(self, self._ctx, self.state)
+        localctx = TuaParser.BinopOrContext(self, self._ctx, self.state)
         self.enterRule(localctx, 50, self.RULE_binopOr)
         self._la = 0 # Token type
         try:
@@ -2344,7 +2344,7 @@ class tuaParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_binopPower
+            return TuaParser.RULE_binopPower
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBinopPower" ):
@@ -2365,12 +2365,12 @@ class tuaParser ( Parser ):
 
     def binopPower(self):
 
-        localctx = tuaParser.BinopPowerContext(self, self._ctx, self.state)
+        localctx = TuaParser.BinopPowerContext(self, self._ctx, self.state)
         self.enterRule(localctx, 52, self.RULE_binopPower)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 334
-            self.match(tuaParser.T__45)
+            self.match(TuaParser.T__45)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2389,7 +2389,7 @@ class tuaParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return tuaParser.RULE_unop
+            return TuaParser.RULE_unop
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterUnop" ):
@@ -2410,7 +2410,7 @@ class tuaParser ( Parser ):
 
     def unop(self):
 
-        localctx = tuaParser.UnopContext(self, self._ctx, self.state)
+        localctx = TuaParser.UnopContext(self, self._ctx, self.state)
         self.enterRule(localctx, 54, self.RULE_unop)
         self._la = 0 # Token type
         try:
@@ -2439,13 +2439,13 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def DOUBLEQUOTESTRING(self):
-            return self.getToken(tuaParser.DOUBLEQUOTESTRING, 0)
+            return self.getToken(TuaParser.DOUBLEQUOTESTRING, 0)
 
         def SINGLEQUOTESTRING(self):
-            return self.getToken(tuaParser.SINGLEQUOTESTRING, 0)
+            return self.getToken(TuaParser.SINGLEQUOTESTRING, 0)
 
         def getRuleIndex(self):
-            return tuaParser.RULE_string
+            return TuaParser.RULE_string
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterString" ):
@@ -2466,7 +2466,7 @@ class tuaParser ( Parser ):
 
     def string(self):
 
-        localctx = tuaParser.StringContext(self, self._ctx, self.state)
+        localctx = TuaParser.StringContext(self, self._ctx, self.state)
         self.enterRule(localctx, 56, self.RULE_string)
         self._la = 0 # Token type
         try:
@@ -2495,13 +2495,13 @@ class tuaParser ( Parser ):
             self.parser = parser
 
         def INT(self):
-            return self.getToken(tuaParser.INT, 0)
+            return self.getToken(TuaParser.INT, 0)
 
         def FLOAT(self):
-            return self.getToken(tuaParser.FLOAT, 0)
+            return self.getToken(TuaParser.FLOAT, 0)
 
         def getRuleIndex(self):
-            return tuaParser.RULE_number
+            return TuaParser.RULE_number
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterNumber" ):
@@ -2522,7 +2522,7 @@ class tuaParser ( Parser ):
 
     def number(self):
 
-        localctx = tuaParser.NumberContext(self, self._ctx, self.state)
+        localctx = TuaParser.NumberContext(self, self._ctx, self.state)
         self.enterRule(localctx, 58, self.RULE_number)
         self._la = 0 # Token type
         try:

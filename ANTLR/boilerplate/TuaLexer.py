@@ -1,4 +1,4 @@
-# Generated from ../grammars/tua.g4 by ANTLR 4.12.0
+# Generated from ../grammars/Tua.g4 by ANTLR 4.12.0
 from antlr4 import *
 from io import StringIO
 import sys
@@ -143,7 +143,7 @@ def serializedATN():
         304,307,312,318,325,327,332,334,342,344,353,356,361,1,6,0,0
     ]
 
-class tuaLexer(Lexer):
+class TuaLexer(Lexer):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -234,7 +234,7 @@ class tuaLexer(Lexer):
                   "INT", "FLOAT", "DOUBLEQUOTESTRING", "SINGLEQUOTESTRING", 
                   "EscapeSequence", "WHITESPACE" ]
 
-    grammarFileName = "tua.g4"
+    grammarFileName = "Tua.g4"
 
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)

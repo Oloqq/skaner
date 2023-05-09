@@ -1,4 +1,4 @@
-grammar tua;
+grammar Tua;
 
 program
     : block EOF
