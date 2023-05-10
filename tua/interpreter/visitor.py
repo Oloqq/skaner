@@ -91,7 +91,7 @@ class Tua(TuaVisitor):
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         args = self.visit(ctx.explist())
         if name in builtins:
-            builtins[name](*args)
+            return builtins[name](*args)
         else:
             # return value returned by function
             raise NotImplementedError
