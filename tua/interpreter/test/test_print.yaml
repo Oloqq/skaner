@@ -1,0 +1,7 @@
+program: |
+  print("yee")
+
+output: |
+  yee
+
+skip: false

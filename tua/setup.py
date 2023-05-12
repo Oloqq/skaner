@@ -6,7 +6,8 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'tua = interpreter.main:run_interpreter',
+            'tua = interpreter.main:cli_run_interpreter',
+            'tuatest = interpreter.test.run_tests:run_tests'
         ],
     },
 )

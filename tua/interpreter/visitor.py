@@ -165,5 +165,4 @@ class Tua(TuaVisitor):
 
 
     def visitNumber(self, ctx:TuaParser.NumberContext):
-        log.info("Number")
-        return self.visitChildren(ctx)
+        return float(ctx.getText())

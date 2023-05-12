@@ -8,22 +8,11 @@ import logging
 
 import click
 
-@click.command()
-@click.argument("input_file", type=click.Path(exists=True))
-@click.option("-d", "--debug", is_flag=True)
-def run_interpreter(input_file, debug):
+def run_interpreter(program, debug):
     init_log(logging.DEBUG if debug else logging.WARNING)
 
-    # log.debug("bruu")
-    # log.info("bruh")
-    # log.warning("brrr")
-    # log.error("bbbb")
-
-    # Read input from a file or user input.
-    input_stream = FileStream(input_file)
-
     # Initialize the lexer and parser.
-    lexer = TuaLexer(input_stream)
+    lexer = TuaLexer(program)
     tokens = CommonTokenStream(lexer)
     parser = TuaParser(tokens)
 
@@ -33,3 +22,10 @@ def run_interpreter(input_file, debug):
 
     # Visit the parse tree using the visitor.
     visitor.visit(tree)
+
+@click.command()
+@click.argument("input_file", type=click.Path(exists=True))
+@click.option("-d", "--debug", is_flag=True)
+def cli_run_interpreter(input_file, debug):
+    program = FileStream(input_file)
+    run_interpreter(program, debug)

@@ -1,0 +1,7 @@
+program:
+  print("yee")
+
+output:
+  yooo
+
+fail: true
