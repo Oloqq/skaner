@@ -10,128 +10,130 @@ else:
 
 def serializedATN():
     return [
-        4,1,56,343,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,56,349,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
         7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
-        2,27,7,27,2,28,7,28,2,29,7,29,1,0,1,0,1,0,1,1,1,1,3,1,66,8,1,5,1,
-        68,8,1,10,1,12,1,71,9,1,1,1,3,1,74,8,1,1,2,1,2,1,2,1,2,1,2,1,2,1,
-        2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,
-        2,1,2,1,2,1,2,1,2,1,2,5,2,104,8,2,10,2,12,2,107,9,2,1,2,1,2,3,2,
-        111,8,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,123,8,2,1,2,
+        2,27,7,27,2,28,7,28,2,29,7,29,2,30,7,30,2,31,7,31,1,0,1,0,1,0,1,
+        1,1,1,3,1,70,8,1,5,1,72,8,1,10,1,12,1,75,9,1,1,1,3,1,78,8,1,1,2,
         1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,
-        3,2,142,8,2,1,3,1,3,3,3,146,8,3,1,4,1,4,1,4,1,4,1,5,1,5,1,5,1,5,
-        1,5,3,5,157,8,5,1,6,1,6,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,4,7,169,
-        8,7,11,7,12,7,170,1,7,1,7,1,8,1,8,1,8,1,8,1,8,1,9,1,9,1,9,3,9,183,
-        8,9,3,9,185,8,9,1,10,1,10,1,10,1,10,1,10,1,10,4,10,193,8,10,11,10,
-        12,10,194,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,
-        1,11,1,11,1,11,1,11,1,11,1,11,1,11,3,11,215,8,11,1,11,1,11,1,11,
-        1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,
-        1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,5,11,
-        245,8,11,10,11,12,11,248,9,11,1,12,1,12,3,12,252,8,12,1,12,1,12,
-        1,12,1,12,1,12,1,12,1,13,1,13,3,13,262,8,13,1,13,1,13,3,13,266,8,
-        13,1,13,3,13,269,8,13,1,14,1,14,1,14,5,14,274,8,14,10,14,12,14,277,
-        9,14,1,15,1,15,1,15,3,15,282,8,15,1,15,1,15,1,16,1,16,1,16,5,16,
-        289,8,16,10,16,12,16,292,9,16,1,17,1,17,3,17,296,8,17,1,17,1,17,
-        1,18,1,18,1,18,5,18,303,8,18,10,18,12,18,306,9,18,1,19,1,19,1,19,
-        1,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,3,19,321,8,19,
-        1,20,1,20,1,21,1,21,1,22,1,22,1,23,1,23,1,24,1,24,1,25,1,25,1,26,
-        1,26,1,27,1,27,1,28,1,28,1,29,1,29,1,29,0,1,22,30,0,2,4,6,8,10,12,
-        14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,
-        58,0,8,1,0,29,30,1,0,31,34,1,0,35,40,1,0,42,43,1,0,44,45,2,0,30,
-        30,47,47,1,0,54,55,1,0,52,53,364,0,60,1,0,0,0,2,69,1,0,0,0,4,141,
-        1,0,0,0,6,143,1,0,0,0,8,147,1,0,0,0,10,156,1,0,0,0,12,158,1,0,0,
-        0,14,163,1,0,0,0,16,174,1,0,0,0,18,184,1,0,0,0,20,192,1,0,0,0,22,
-        214,1,0,0,0,24,249,1,0,0,0,26,265,1,0,0,0,28,270,1,0,0,0,30,278,
-        1,0,0,0,32,285,1,0,0,0,34,293,1,0,0,0,36,299,1,0,0,0,38,320,1,0,
-        0,0,40,322,1,0,0,0,42,324,1,0,0,0,44,326,1,0,0,0,46,328,1,0,0,0,
-        48,330,1,0,0,0,50,332,1,0,0,0,52,334,1,0,0,0,54,336,1,0,0,0,56,338,
-        1,0,0,0,58,340,1,0,0,0,60,61,3,2,1,0,61,62,5,0,0,1,62,1,1,0,0,0,
-        63,65,3,4,2,0,64,66,5,1,0,0,65,64,1,0,0,0,65,66,1,0,0,0,66,68,1,
-        0,0,0,67,63,1,0,0,0,68,71,1,0,0,0,69,67,1,0,0,0,69,70,1,0,0,0,70,
-        73,1,0,0,0,71,69,1,0,0,0,72,74,3,26,13,0,73,72,1,0,0,0,73,74,1,0,
-        0,0,74,3,1,0,0,0,75,76,3,8,4,0,76,77,5,2,0,0,77,78,3,22,11,0,78,
-        142,1,0,0,0,79,80,3,6,3,0,80,81,5,2,0,0,81,82,3,22,11,0,82,142,1,
-        0,0,0,83,142,3,30,15,0,84,85,5,3,0,0,85,86,3,2,1,0,86,87,5,4,0,0,
-        87,142,1,0,0,0,88,89,5,5,0,0,89,90,3,22,11,0,90,91,5,3,0,0,91,92,
-        3,2,1,0,92,93,5,4,0,0,93,142,1,0,0,0,94,95,5,6,0,0,95,96,3,22,11,
-        0,96,97,5,7,0,0,97,105,3,2,1,0,98,99,5,8,0,0,99,100,3,22,11,0,100,
-        101,5,7,0,0,101,102,3,2,1,0,102,104,1,0,0,0,103,98,1,0,0,0,104,107,
-        1,0,0,0,105,103,1,0,0,0,105,106,1,0,0,0,106,110,1,0,0,0,107,105,
-        1,0,0,0,108,109,5,9,0,0,109,111,3,2,1,0,110,108,1,0,0,0,110,111,
-        1,0,0,0,111,112,1,0,0,0,112,113,5,4,0,0,113,142,1,0,0,0,114,115,
-        5,10,0,0,115,116,5,48,0,0,116,117,5,2,0,0,117,118,3,22,11,0,118,
-        119,5,11,0,0,119,122,3,22,11,0,120,121,5,11,0,0,121,123,3,22,11,
-        0,122,120,1,0,0,0,122,123,1,0,0,0,123,124,1,0,0,0,124,125,5,3,0,
-        0,125,126,3,2,1,0,126,127,5,4,0,0,127,142,1,0,0,0,128,129,5,10,0,
-        0,129,130,5,48,0,0,130,131,5,11,0,0,131,132,5,48,0,0,132,133,5,12,
-        0,0,133,134,3,30,15,0,134,135,5,3,0,0,135,136,3,2,1,0,136,137,5,
-        4,0,0,137,142,1,0,0,0,138,139,5,13,0,0,139,140,5,48,0,0,140,142,
-        3,24,12,0,141,75,1,0,0,0,141,79,1,0,0,0,141,83,1,0,0,0,141,84,1,
-        0,0,0,141,88,1,0,0,0,141,94,1,0,0,0,141,114,1,0,0,0,141,128,1,0,
-        0,0,141,138,1,0,0,0,142,5,1,0,0,0,143,145,5,48,0,0,144,146,3,20,
-        10,0,145,144,1,0,0,0,145,146,1,0,0,0,146,7,1,0,0,0,147,148,5,48,
-        0,0,148,149,5,14,0,0,149,150,3,10,5,0,150,9,1,0,0,0,151,157,5,48,
-        0,0,152,157,5,51,0,0,153,157,3,16,8,0,154,157,3,14,7,0,155,157,3,
-        12,6,0,156,151,1,0,0,0,156,152,1,0,0,0,156,153,1,0,0,0,156,154,1,
-        0,0,0,156,155,1,0,0,0,157,11,1,0,0,0,158,159,5,15,0,0,159,160,5,
-        16,0,0,160,161,3,10,5,0,161,162,5,17,0,0,162,13,1,0,0,0,163,164,
-        5,18,0,0,164,165,5,16,0,0,165,168,3,10,5,0,166,167,5,11,0,0,167,
-        169,3,10,5,0,168,166,1,0,0,0,169,170,1,0,0,0,170,168,1,0,0,0,170,
-        171,1,0,0,0,171,172,1,0,0,0,172,173,5,17,0,0,173,15,1,0,0,0,174,
-        175,5,19,0,0,175,176,5,16,0,0,176,177,3,10,5,0,177,178,5,17,0,0,
-        178,17,1,0,0,0,179,185,3,6,3,0,180,182,3,30,15,0,181,183,3,20,10,
-        0,182,181,1,0,0,0,182,183,1,0,0,0,183,185,1,0,0,0,184,179,1,0,0,
-        0,184,180,1,0,0,0,185,19,1,0,0,0,186,187,5,16,0,0,187,188,3,22,11,
-        0,188,189,5,17,0,0,189,193,1,0,0,0,190,191,5,20,0,0,191,193,5,48,
-        0,0,192,186,1,0,0,0,192,190,1,0,0,0,193,194,1,0,0,0,194,192,1,0,
-        0,0,194,195,1,0,0,0,195,21,1,0,0,0,196,197,6,11,-1,0,197,198,5,21,
-        0,0,198,199,3,22,11,0,199,200,5,22,0,0,200,215,1,0,0,0,201,215,3,
-        58,29,0,202,215,3,56,28,0,203,215,5,50,0,0,204,215,5,49,0,0,205,
-        215,5,51,0,0,206,215,3,18,9,0,207,208,3,54,27,0,208,209,3,22,11,
-        9,209,215,1,0,0,0,210,211,3,54,27,0,211,212,3,22,11,2,212,215,1,
-        0,0,0,213,215,3,34,17,0,214,196,1,0,0,0,214,201,1,0,0,0,214,202,
-        1,0,0,0,214,203,1,0,0,0,214,204,1,0,0,0,214,205,1,0,0,0,214,206,
-        1,0,0,0,214,207,1,0,0,0,214,210,1,0,0,0,214,213,1,0,0,0,215,246,
-        1,0,0,0,216,217,10,10,0,0,217,218,3,52,26,0,218,219,3,22,11,10,219,
-        245,1,0,0,0,220,221,10,8,0,0,221,222,3,42,21,0,222,223,3,22,11,9,
-        223,245,1,0,0,0,224,225,10,7,0,0,225,226,3,40,20,0,226,227,3,22,
-        11,8,227,245,1,0,0,0,228,229,10,6,0,0,229,230,3,46,23,0,230,231,
-        3,22,11,6,231,245,1,0,0,0,232,233,10,5,0,0,233,234,3,44,22,0,234,
-        235,3,22,11,6,235,245,1,0,0,0,236,237,10,4,0,0,237,238,3,48,24,0,
-        238,239,3,22,11,5,239,245,1,0,0,0,240,241,10,3,0,0,241,242,3,50,
-        25,0,242,243,3,22,11,4,243,245,1,0,0,0,244,216,1,0,0,0,244,220,1,
-        0,0,0,244,224,1,0,0,0,244,228,1,0,0,0,244,232,1,0,0,0,244,236,1,
-        0,0,0,244,240,1,0,0,0,245,248,1,0,0,0,246,244,1,0,0,0,246,247,1,
-        0,0,0,247,23,1,0,0,0,248,246,1,0,0,0,249,251,5,21,0,0,250,252,3,
-        28,14,0,251,250,1,0,0,0,251,252,1,0,0,0,252,253,1,0,0,0,253,254,
-        5,22,0,0,254,255,5,23,0,0,255,256,3,10,5,0,256,257,3,2,1,0,257,258,
-        5,4,0,0,258,25,1,0,0,0,259,261,5,24,0,0,260,262,3,32,16,0,261,260,
-        1,0,0,0,261,262,1,0,0,0,262,266,1,0,0,0,263,266,5,25,0,0,264,266,
-        5,26,0,0,265,259,1,0,0,0,265,263,1,0,0,0,265,264,1,0,0,0,266,268,
-        1,0,0,0,267,269,5,1,0,0,268,267,1,0,0,0,268,269,1,0,0,0,269,27,1,
-        0,0,0,270,275,3,8,4,0,271,272,5,11,0,0,272,274,3,8,4,0,273,271,1,
-        0,0,0,274,277,1,0,0,0,275,273,1,0,0,0,275,276,1,0,0,0,276,29,1,0,
-        0,0,277,275,1,0,0,0,278,279,5,48,0,0,279,281,5,21,0,0,280,282,3,
-        32,16,0,281,280,1,0,0,0,281,282,1,0,0,0,282,283,1,0,0,0,283,284,
-        5,22,0,0,284,31,1,0,0,0,285,290,3,22,11,0,286,287,5,11,0,0,287,289,
-        3,22,11,0,288,286,1,0,0,0,289,292,1,0,0,0,290,288,1,0,0,0,290,291,
-        1,0,0,0,291,33,1,0,0,0,292,290,1,0,0,0,293,295,5,27,0,0,294,296,
-        3,36,18,0,295,294,1,0,0,0,295,296,1,0,0,0,296,297,1,0,0,0,297,298,
-        5,28,0,0,298,35,1,0,0,0,299,304,3,38,19,0,300,301,5,11,0,0,301,303,
-        3,38,19,0,302,300,1,0,0,0,303,306,1,0,0,0,304,302,1,0,0,0,304,305,
-        1,0,0,0,305,37,1,0,0,0,306,304,1,0,0,0,307,308,5,16,0,0,308,309,
-        3,22,11,0,309,310,5,17,0,0,310,311,5,14,0,0,311,312,3,10,5,0,312,
-        313,5,2,0,0,313,314,3,22,11,0,314,321,1,0,0,0,315,316,3,8,4,0,316,
-        317,5,2,0,0,317,318,3,22,11,0,318,321,1,0,0,0,319,321,3,22,11,0,
-        320,307,1,0,0,0,320,315,1,0,0,0,320,319,1,0,0,0,321,39,1,0,0,0,322,
-        323,7,0,0,0,323,41,1,0,0,0,324,325,7,1,0,0,325,43,1,0,0,0,326,327,
-        7,2,0,0,327,45,1,0,0,0,328,329,5,41,0,0,329,47,1,0,0,0,330,331,7,
-        3,0,0,331,49,1,0,0,0,332,333,7,4,0,0,333,51,1,0,0,0,334,335,5,46,
-        0,0,335,53,1,0,0,0,336,337,7,5,0,0,337,55,1,0,0,0,338,339,7,6,0,
-        0,339,57,1,0,0,0,340,341,7,7,0,0,341,59,1,0,0,0,27,65,69,73,105,
-        110,122,141,145,156,170,182,184,192,194,214,244,246,251,261,265,
-        268,275,281,290,295,304,320
+        1,2,1,2,1,2,1,2,1,2,5,2,102,8,2,10,2,12,2,105,9,2,1,2,1,2,3,2,109,
+        8,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,121,8,2,1,2,1,2,
+        1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,
+        140,8,2,1,3,1,3,1,3,1,3,1,4,1,4,1,4,1,4,1,5,1,5,3,5,152,8,5,1,6,
+        1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,3,7,163,8,7,1,8,1,8,1,8,1,8,1,8,
+        1,9,1,9,1,9,1,9,1,9,4,9,175,8,9,11,9,12,9,176,1,9,1,9,1,10,1,10,
+        1,10,1,10,1,10,1,11,1,11,1,11,3,11,189,8,11,3,11,191,8,11,1,12,1,
+        12,1,12,1,12,1,12,1,12,4,12,199,8,12,11,12,12,12,200,1,13,1,13,1,
+        13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,
+        13,1,13,1,13,3,13,221,8,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,
+        13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,1,
+        13,1,13,1,13,1,13,1,13,1,13,1,13,1,13,5,13,251,8,13,10,13,12,13,
+        254,9,13,1,14,1,14,3,14,258,8,14,1,14,1,14,1,14,1,14,1,14,1,14,1,
+        15,1,15,3,15,268,8,15,1,15,1,15,3,15,272,8,15,1,15,3,15,275,8,15,
+        1,16,1,16,1,16,5,16,280,8,16,10,16,12,16,283,9,16,1,17,1,17,1,17,
+        3,17,288,8,17,1,17,1,17,1,18,1,18,1,18,5,18,295,8,18,10,18,12,18,
+        298,9,18,1,19,1,19,3,19,302,8,19,1,19,1,19,1,20,1,20,1,20,5,20,309,
+        8,20,10,20,12,20,312,9,20,1,21,1,21,1,21,1,21,1,21,1,21,1,21,1,21,
+        1,21,1,21,1,21,1,21,1,21,3,21,327,8,21,1,22,1,22,1,23,1,23,1,24,
+        1,24,1,25,1,25,1,26,1,26,1,27,1,27,1,28,1,28,1,29,1,29,1,30,1,30,
+        1,31,1,31,1,31,0,1,26,32,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,
+        30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,0,8,1,0,29,30,
+        1,0,31,34,1,0,35,40,1,0,42,43,1,0,44,45,2,0,30,30,47,47,1,0,54,55,
+        1,0,52,53,368,0,64,1,0,0,0,2,73,1,0,0,0,4,139,1,0,0,0,6,141,1,0,
+        0,0,8,145,1,0,0,0,10,149,1,0,0,0,12,153,1,0,0,0,14,162,1,0,0,0,16,
+        164,1,0,0,0,18,169,1,0,0,0,20,180,1,0,0,0,22,190,1,0,0,0,24,198,
+        1,0,0,0,26,220,1,0,0,0,28,255,1,0,0,0,30,271,1,0,0,0,32,276,1,0,
+        0,0,34,284,1,0,0,0,36,291,1,0,0,0,38,299,1,0,0,0,40,305,1,0,0,0,
+        42,326,1,0,0,0,44,328,1,0,0,0,46,330,1,0,0,0,48,332,1,0,0,0,50,334,
+        1,0,0,0,52,336,1,0,0,0,54,338,1,0,0,0,56,340,1,0,0,0,58,342,1,0,
+        0,0,60,344,1,0,0,0,62,346,1,0,0,0,64,65,3,2,1,0,65,66,5,0,0,1,66,
+        1,1,0,0,0,67,69,3,4,2,0,68,70,5,1,0,0,69,68,1,0,0,0,69,70,1,0,0,
+        0,70,72,1,0,0,0,71,67,1,0,0,0,72,75,1,0,0,0,73,71,1,0,0,0,73,74,
+        1,0,0,0,74,77,1,0,0,0,75,73,1,0,0,0,76,78,3,30,15,0,77,76,1,0,0,
+        0,77,78,1,0,0,0,78,3,1,0,0,0,79,140,3,8,4,0,80,140,3,6,3,0,81,140,
+        3,34,17,0,82,83,5,2,0,0,83,84,3,2,1,0,84,85,5,3,0,0,85,140,1,0,0,
+        0,86,87,5,4,0,0,87,88,3,26,13,0,88,89,5,2,0,0,89,90,3,2,1,0,90,91,
+        5,3,0,0,91,140,1,0,0,0,92,93,5,5,0,0,93,94,3,26,13,0,94,95,5,6,0,
+        0,95,103,3,2,1,0,96,97,5,7,0,0,97,98,3,26,13,0,98,99,5,6,0,0,99,
+        100,3,2,1,0,100,102,1,0,0,0,101,96,1,0,0,0,102,105,1,0,0,0,103,101,
+        1,0,0,0,103,104,1,0,0,0,104,108,1,0,0,0,105,103,1,0,0,0,106,107,
+        5,8,0,0,107,109,3,2,1,0,108,106,1,0,0,0,108,109,1,0,0,0,109,110,
+        1,0,0,0,110,111,5,3,0,0,111,140,1,0,0,0,112,113,5,9,0,0,113,114,
+        5,48,0,0,114,115,5,10,0,0,115,116,3,26,13,0,116,117,5,11,0,0,117,
+        120,3,26,13,0,118,119,5,11,0,0,119,121,3,26,13,0,120,118,1,0,0,0,
+        120,121,1,0,0,0,121,122,1,0,0,0,122,123,5,2,0,0,123,124,3,2,1,0,
+        124,125,5,3,0,0,125,140,1,0,0,0,126,127,5,9,0,0,127,128,5,48,0,0,
+        128,129,5,11,0,0,129,130,5,48,0,0,130,131,5,12,0,0,131,132,3,34,
+        17,0,132,133,5,2,0,0,133,134,3,2,1,0,134,135,5,3,0,0,135,140,1,0,
+        0,0,136,137,5,13,0,0,137,138,5,48,0,0,138,140,3,28,14,0,139,79,1,
+        0,0,0,139,80,1,0,0,0,139,81,1,0,0,0,139,82,1,0,0,0,139,86,1,0,0,
+        0,139,92,1,0,0,0,139,112,1,0,0,0,139,126,1,0,0,0,139,136,1,0,0,0,
+        140,5,1,0,0,0,141,142,3,10,5,0,142,143,5,10,0,0,143,144,3,26,13,
+        0,144,7,1,0,0,0,145,146,3,12,6,0,146,147,5,10,0,0,147,148,3,26,13,
+        0,148,9,1,0,0,0,149,151,5,48,0,0,150,152,3,24,12,0,151,150,1,0,0,
+        0,151,152,1,0,0,0,152,11,1,0,0,0,153,154,5,48,0,0,154,155,5,14,0,
+        0,155,156,3,14,7,0,156,13,1,0,0,0,157,163,5,48,0,0,158,163,5,51,
+        0,0,159,163,3,20,10,0,160,163,3,18,9,0,161,163,3,16,8,0,162,157,
+        1,0,0,0,162,158,1,0,0,0,162,159,1,0,0,0,162,160,1,0,0,0,162,161,
+        1,0,0,0,163,15,1,0,0,0,164,165,5,15,0,0,165,166,5,16,0,0,166,167,
+        3,14,7,0,167,168,5,17,0,0,168,17,1,0,0,0,169,170,5,18,0,0,170,171,
+        5,16,0,0,171,174,3,14,7,0,172,173,5,11,0,0,173,175,3,14,7,0,174,
+        172,1,0,0,0,175,176,1,0,0,0,176,174,1,0,0,0,176,177,1,0,0,0,177,
+        178,1,0,0,0,178,179,5,17,0,0,179,19,1,0,0,0,180,181,5,19,0,0,181,
+        182,5,16,0,0,182,183,3,14,7,0,183,184,5,17,0,0,184,21,1,0,0,0,185,
+        191,3,10,5,0,186,188,3,34,17,0,187,189,3,24,12,0,188,187,1,0,0,0,
+        188,189,1,0,0,0,189,191,1,0,0,0,190,185,1,0,0,0,190,186,1,0,0,0,
+        191,23,1,0,0,0,192,193,5,16,0,0,193,194,3,26,13,0,194,195,5,17,0,
+        0,195,199,1,0,0,0,196,197,5,20,0,0,197,199,5,48,0,0,198,192,1,0,
+        0,0,198,196,1,0,0,0,199,200,1,0,0,0,200,198,1,0,0,0,200,201,1,0,
+        0,0,201,25,1,0,0,0,202,203,6,13,-1,0,203,204,5,21,0,0,204,205,3,
+        26,13,0,205,206,5,22,0,0,206,221,1,0,0,0,207,221,3,62,31,0,208,221,
+        3,60,30,0,209,221,5,50,0,0,210,221,5,49,0,0,211,221,5,51,0,0,212,
+        221,3,22,11,0,213,214,3,58,29,0,214,215,3,26,13,9,215,221,1,0,0,
+        0,216,217,3,58,29,0,217,218,3,26,13,2,218,221,1,0,0,0,219,221,3,
+        38,19,0,220,202,1,0,0,0,220,207,1,0,0,0,220,208,1,0,0,0,220,209,
+        1,0,0,0,220,210,1,0,0,0,220,211,1,0,0,0,220,212,1,0,0,0,220,213,
+        1,0,0,0,220,216,1,0,0,0,220,219,1,0,0,0,221,252,1,0,0,0,222,223,
+        10,10,0,0,223,224,3,56,28,0,224,225,3,26,13,10,225,251,1,0,0,0,226,
+        227,10,8,0,0,227,228,3,46,23,0,228,229,3,26,13,9,229,251,1,0,0,0,
+        230,231,10,7,0,0,231,232,3,44,22,0,232,233,3,26,13,8,233,251,1,0,
+        0,0,234,235,10,6,0,0,235,236,3,50,25,0,236,237,3,26,13,6,237,251,
+        1,0,0,0,238,239,10,5,0,0,239,240,3,48,24,0,240,241,3,26,13,6,241,
+        251,1,0,0,0,242,243,10,4,0,0,243,244,3,52,26,0,244,245,3,26,13,5,
+        245,251,1,0,0,0,246,247,10,3,0,0,247,248,3,54,27,0,248,249,3,26,
+        13,4,249,251,1,0,0,0,250,222,1,0,0,0,250,226,1,0,0,0,250,230,1,0,
+        0,0,250,234,1,0,0,0,250,238,1,0,0,0,250,242,1,0,0,0,250,246,1,0,
+        0,0,251,254,1,0,0,0,252,250,1,0,0,0,252,253,1,0,0,0,253,27,1,0,0,
+        0,254,252,1,0,0,0,255,257,5,21,0,0,256,258,3,32,16,0,257,256,1,0,
+        0,0,257,258,1,0,0,0,258,259,1,0,0,0,259,260,5,22,0,0,260,261,5,23,
+        0,0,261,262,3,14,7,0,262,263,3,2,1,0,263,264,5,3,0,0,264,29,1,0,
+        0,0,265,267,5,24,0,0,266,268,3,36,18,0,267,266,1,0,0,0,267,268,1,
+        0,0,0,268,272,1,0,0,0,269,272,5,25,0,0,270,272,5,26,0,0,271,265,
+        1,0,0,0,271,269,1,0,0,0,271,270,1,0,0,0,272,274,1,0,0,0,273,275,
+        5,1,0,0,274,273,1,0,0,0,274,275,1,0,0,0,275,31,1,0,0,0,276,281,3,
+        12,6,0,277,278,5,11,0,0,278,280,3,12,6,0,279,277,1,0,0,0,280,283,
+        1,0,0,0,281,279,1,0,0,0,281,282,1,0,0,0,282,33,1,0,0,0,283,281,1,
+        0,0,0,284,285,5,48,0,0,285,287,5,21,0,0,286,288,3,36,18,0,287,286,
+        1,0,0,0,287,288,1,0,0,0,288,289,1,0,0,0,289,290,5,22,0,0,290,35,
+        1,0,0,0,291,296,3,26,13,0,292,293,5,11,0,0,293,295,3,26,13,0,294,
+        292,1,0,0,0,295,298,1,0,0,0,296,294,1,0,0,0,296,297,1,0,0,0,297,
+        37,1,0,0,0,298,296,1,0,0,0,299,301,5,27,0,0,300,302,3,40,20,0,301,
+        300,1,0,0,0,301,302,1,0,0,0,302,303,1,0,0,0,303,304,5,28,0,0,304,
+        39,1,0,0,0,305,310,3,42,21,0,306,307,5,11,0,0,307,309,3,42,21,0,
+        308,306,1,0,0,0,309,312,1,0,0,0,310,308,1,0,0,0,310,311,1,0,0,0,
+        311,41,1,0,0,0,312,310,1,0,0,0,313,314,5,16,0,0,314,315,3,26,13,
+        0,315,316,5,17,0,0,316,317,5,14,0,0,317,318,3,14,7,0,318,319,5,10,
+        0,0,319,320,3,26,13,0,320,327,1,0,0,0,321,322,3,12,6,0,322,323,5,
+        10,0,0,323,324,3,26,13,0,324,327,1,0,0,0,325,327,3,26,13,0,326,313,
+        1,0,0,0,326,321,1,0,0,0,326,325,1,0,0,0,327,43,1,0,0,0,328,329,7,
+        0,0,0,329,45,1,0,0,0,330,331,7,1,0,0,331,47,1,0,0,0,332,333,7,2,
+        0,0,333,49,1,0,0,0,334,335,5,41,0,0,335,51,1,0,0,0,336,337,7,3,0,
+        0,337,53,1,0,0,0,338,339,7,4,0,0,339,55,1,0,0,0,340,341,5,46,0,0,
+        341,57,1,0,0,0,342,343,7,5,0,0,343,59,1,0,0,0,344,345,7,6,0,0,345,
+        61,1,0,0,0,346,347,7,7,0,0,347,63,1,0,0,0,27,69,73,77,103,108,120,
+        139,151,162,176,188,190,198,200,220,250,252,257,267,271,274,281,
+        287,296,301,310,326
     ]
 
 class TuaParser ( Parser ):
@@ -144,8 +146,8 @@ class TuaParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "';'", "'='", "'do'", "'end'", "'while'", 
-                     "'if'", "'then'", "'elseif'", "'else'", "'for'", "','", 
+    literalNames = [ "<INVALID>", "';'", "'do'", "'end'", "'while'", "'if'", 
+                     "'then'", "'elseif'", "'else'", "'for'", "'='", "','", 
                      "'in'", "'function'", "':'", "'Table'", "'['", "']'", 
                      "'Union'", "'List'", "'.'", "'('", "')'", "'->'", "'return'", 
                      "'break'", "'continue'", "'{'", "'}'", "'+'", "'-'", 
@@ -172,41 +174,43 @@ class TuaParser ( Parser ):
     RULE_program = 0
     RULE_block = 1
     RULE_stat = 2
-    RULE_var = 3
-    RULE_nametype = 4
-    RULE_type = 5
-    RULE_tableType = 6
-    RULE_unionType = 7
-    RULE_listType = 8
-    RULE_prefix = 9
-    RULE_suffix = 10
-    RULE_exp = 11
-    RULE_functionbody = 12
-    RULE_laststat = 13
-    RULE_typednamelist = 14
-    RULE_functioncall = 15
-    RULE_explist = 16
-    RULE_tableconstructor = 17
-    RULE_fieldlist = 18
-    RULE_field = 19
-    RULE_binopAddSub = 20
-    RULE_binopMulDivMod = 21
-    RULE_binopComparison = 22
-    RULE_binopConcat = 23
-    RULE_binopAnd = 24
-    RULE_binopOr = 25
-    RULE_binopPower = 26
-    RULE_unop = 27
-    RULE_string = 28
-    RULE_number = 29
+    RULE_assignment = 3
+    RULE_newvariable = 4
+    RULE_var = 5
+    RULE_nametype = 6
+    RULE_type = 7
+    RULE_tableType = 8
+    RULE_unionType = 9
+    RULE_listType = 10
+    RULE_prefix = 11
+    RULE_suffix = 12
+    RULE_exp = 13
+    RULE_functionbody = 14
+    RULE_laststat = 15
+    RULE_typednamelist = 16
+    RULE_functioncall = 17
+    RULE_explist = 18
+    RULE_tableconstructor = 19
+    RULE_fieldlist = 20
+    RULE_field = 21
+    RULE_binopAddSub = 22
+    RULE_binopMulDivMod = 23
+    RULE_binopComparison = 24
+    RULE_binopConcat = 25
+    RULE_binopAnd = 26
+    RULE_binopOr = 27
+    RULE_binopPower = 28
+    RULE_unop = 29
+    RULE_string = 30
+    RULE_number = 31
 
-    ruleNames =  [ "program", "block", "stat", "var", "nametype", "type", 
-                   "tableType", "unionType", "listType", "prefix", "suffix", 
-                   "exp", "functionbody", "laststat", "typednamelist", "functioncall", 
-                   "explist", "tableconstructor", "fieldlist", "field", 
-                   "binopAddSub", "binopMulDivMod", "binopComparison", "binopConcat", 
-                   "binopAnd", "binopOr", "binopPower", "unop", "string", 
-                   "number" ]
+    ruleNames =  [ "program", "block", "stat", "assignment", "newvariable", 
+                   "var", "nametype", "type", "tableType", "unionType", 
+                   "listType", "prefix", "suffix", "exp", "functionbody", 
+                   "laststat", "typednamelist", "functioncall", "explist", 
+                   "tableconstructor", "fieldlist", "field", "binopAddSub", 
+                   "binopMulDivMod", "binopComparison", "binopConcat", "binopAnd", 
+                   "binopOr", "binopPower", "unop", "string", "number" ]
 
     EOF = Token.EOF
     T__0=1
@@ -315,9 +319,9 @@ class TuaParser ( Parser ):
         self.enterRule(localctx, 0, self.RULE_program)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 60
+            self.state = 64
             self.block()
-            self.state = 61
+            self.state = 65
             self.match(TuaParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
@@ -373,29 +377,29 @@ class TuaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 69
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 281474976719976) != 0):
-                self.state = 63
-                self.stat()
-                self.state = 65
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                if _la==1:
-                    self.state = 64
-                    self.match(TuaParser.T__0)
-
-
-                self.state = 71
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-
             self.state = 73
             self._errHandler.sync(self)
             _la = self._input.LA(1)
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 281474976719412) != 0):
+                self.state = 67
+                self.stat()
+                self.state = 69
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+                if _la==1:
+                    self.state = 68
+                    self.match(TuaParser.T__0)
+
+
+                self.state = 75
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+
+            self.state = 77
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & 117440512) != 0):
-                self.state = 72
+                self.state = 76
                 self.laststat()
 
 
@@ -415,19 +419,12 @@ class TuaParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def nametype(self):
-            return self.getTypedRuleContext(TuaParser.NametypeContext,0)
+        def newvariable(self):
+            return self.getTypedRuleContext(TuaParser.NewvariableContext,0)
 
 
-        def exp(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(TuaParser.ExpContext)
-            else:
-                return self.getTypedRuleContext(TuaParser.ExpContext,i)
-
-
-        def var(self):
-            return self.getTypedRuleContext(TuaParser.VarContext,0)
+        def assignment(self):
+            return self.getTypedRuleContext(TuaParser.AssignmentContext,0)
 
 
         def functioncall(self):
@@ -439,6 +436,13 @@ class TuaParser ( Parser ):
                 return self.getTypedRuleContexts(TuaParser.BlockContext)
             else:
                 return self.getTypedRuleContext(TuaParser.BlockContext,i)
+
+
+        def exp(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(TuaParser.ExpContext)
+            else:
+                return self.getTypedRuleContext(TuaParser.ExpContext,i)
 
 
         def NAME(self, i:int=None):
@@ -477,164 +481,268 @@ class TuaParser ( Parser ):
         self.enterRule(localctx, 4, self.RULE_stat)
         self._la = 0 # Token type
         try:
-            self.state = 141
+            self.state = 139
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 75
-                self.nametype()
-                self.state = 76
-                self.match(TuaParser.T__1)
-                self.state = 77
-                self.exp(0)
+                self.state = 79
+                self.newvariable()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 79
-                self.var()
                 self.state = 80
-                self.match(TuaParser.T__1)
-                self.state = 81
-                self.exp(0)
+                self.assignment()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 83
+                self.state = 81
                 self.functioncall()
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
+                self.state = 82
+                self.match(TuaParser.T__1)
+                self.state = 83
+                self.block()
                 self.state = 84
                 self.match(TuaParser.T__2)
-                self.state = 85
-                self.block()
-                self.state = 86
-                self.match(TuaParser.T__3)
                 pass
 
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
-                self.state = 88
-                self.match(TuaParser.T__4)
-                self.state = 89
+                self.state = 86
+                self.match(TuaParser.T__3)
+                self.state = 87
                 self.exp(0)
+                self.state = 88
+                self.match(TuaParser.T__1)
+                self.state = 89
+                self.block()
                 self.state = 90
                 self.match(TuaParser.T__2)
-                self.state = 91
-                self.block()
-                self.state = 92
-                self.match(TuaParser.T__3)
                 pass
 
             elif la_ == 6:
                 self.enterOuterAlt(localctx, 6)
+                self.state = 92
+                self.match(TuaParser.T__4)
+                self.state = 93
+                self.exp(0)
                 self.state = 94
                 self.match(TuaParser.T__5)
                 self.state = 95
-                self.exp(0)
-                self.state = 96
-                self.match(TuaParser.T__6)
-                self.state = 97
                 self.block()
-                self.state = 105
+                self.state = 103
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==8:
-                    self.state = 98
-                    self.match(TuaParser.T__7)
-                    self.state = 99
-                    self.exp(0)
-                    self.state = 100
+                while _la==7:
+                    self.state = 96
                     self.match(TuaParser.T__6)
-                    self.state = 101
+                    self.state = 97
+                    self.exp(0)
+                    self.state = 98
+                    self.match(TuaParser.T__5)
+                    self.state = 99
                     self.block()
-                    self.state = 107
+                    self.state = 105
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 110
+                self.state = 108
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==9:
-                    self.state = 108
-                    self.match(TuaParser.T__8)
-                    self.state = 109
+                if _la==8:
+                    self.state = 106
+                    self.match(TuaParser.T__7)
+                    self.state = 107
                     self.block()
 
 
-                self.state = 112
-                self.match(TuaParser.T__3)
+                self.state = 110
+                self.match(TuaParser.T__2)
                 pass
 
             elif la_ == 7:
                 self.enterOuterAlt(localctx, 7)
+                self.state = 112
+                self.match(TuaParser.T__8)
+                self.state = 113
+                self.match(TuaParser.NAME)
                 self.state = 114
                 self.match(TuaParser.T__9)
                 self.state = 115
-                self.match(TuaParser.NAME)
+                self.exp(0)
                 self.state = 116
-                self.match(TuaParser.T__1)
+                self.match(TuaParser.T__10)
                 self.state = 117
                 self.exp(0)
-                self.state = 118
-                self.match(TuaParser.T__10)
-                self.state = 119
-                self.exp(0)
-                self.state = 122
+                self.state = 120
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==11:
-                    self.state = 120
+                    self.state = 118
                     self.match(TuaParser.T__10)
-                    self.state = 121
+                    self.state = 119
                     self.exp(0)
 
 
+                self.state = 122
+                self.match(TuaParser.T__1)
+                self.state = 123
+                self.block()
                 self.state = 124
                 self.match(TuaParser.T__2)
-                self.state = 125
-                self.block()
-                self.state = 126
-                self.match(TuaParser.T__3)
                 pass
 
             elif la_ == 8:
                 self.enterOuterAlt(localctx, 8)
+                self.state = 126
+                self.match(TuaParser.T__8)
+                self.state = 127
+                self.match(TuaParser.NAME)
                 self.state = 128
-                self.match(TuaParser.T__9)
+                self.match(TuaParser.T__10)
                 self.state = 129
                 self.match(TuaParser.NAME)
                 self.state = 130
-                self.match(TuaParser.T__10)
-                self.state = 131
-                self.match(TuaParser.NAME)
-                self.state = 132
                 self.match(TuaParser.T__11)
-                self.state = 133
+                self.state = 131
                 self.functioncall()
+                self.state = 132
+                self.match(TuaParser.T__1)
+                self.state = 133
+                self.block()
                 self.state = 134
                 self.match(TuaParser.T__2)
-                self.state = 135
-                self.block()
-                self.state = 136
-                self.match(TuaParser.T__3)
                 pass
 
             elif la_ == 9:
                 self.enterOuterAlt(localctx, 9)
-                self.state = 138
+                self.state = 136
                 self.match(TuaParser.T__12)
-                self.state = 139
+                self.state = 137
                 self.match(TuaParser.NAME)
-                self.state = 140
+                self.state = 138
                 self.functionbody()
                 pass
 
 
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class AssignmentContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def var(self):
+            return self.getTypedRuleContext(TuaParser.VarContext,0)
+
+
+        def exp(self):
+            return self.getTypedRuleContext(TuaParser.ExpContext,0)
+
+
+        def getRuleIndex(self):
+            return TuaParser.RULE_assignment
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAssignment" ):
+                listener.enterAssignment(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAssignment" ):
+                listener.exitAssignment(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAssignment" ):
+                return visitor.visitAssignment(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def assignment(self):
+
+        localctx = TuaParser.AssignmentContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 6, self.RULE_assignment)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 141
+            self.var()
+            self.state = 142
+            self.match(TuaParser.T__9)
+            self.state = 143
+            self.exp(0)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class NewvariableContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def nametype(self):
+            return self.getTypedRuleContext(TuaParser.NametypeContext,0)
+
+
+        def exp(self):
+            return self.getTypedRuleContext(TuaParser.ExpContext,0)
+
+
+        def getRuleIndex(self):
+            return TuaParser.RULE_newvariable
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNewvariable" ):
+                listener.enterNewvariable(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNewvariable" ):
+                listener.exitNewvariable(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNewvariable" ):
+                return visitor.visitNewvariable(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def newvariable(self):
+
+        localctx = TuaParser.NewvariableContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 8, self.RULE_newvariable)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 145
+            self.nametype()
+            self.state = 146
+            self.match(TuaParser.T__9)
+            self.state = 147
+            self.exp(0)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -681,16 +789,16 @@ class TuaParser ( Parser ):
     def var(self):
 
         localctx = TuaParser.VarContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 6, self.RULE_var)
+        self.enterRule(localctx, 10, self.RULE_var)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 143
+            self.state = 149
             self.match(TuaParser.NAME)
-            self.state = 145
+            self.state = 151
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,7,self._ctx)
             if la_ == 1:
-                self.state = 144
+                self.state = 150
                 self.suffix()
 
 
@@ -740,14 +848,14 @@ class TuaParser ( Parser ):
     def nametype(self):
 
         localctx = TuaParser.NametypeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 8, self.RULE_nametype)
+        self.enterRule(localctx, 12, self.RULE_nametype)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 147
+            self.state = 153
             self.match(TuaParser.NAME)
-            self.state = 148
+            self.state = 154
             self.match(TuaParser.T__13)
-            self.state = 149
+            self.state = 155
             self.type_()
         except RecognitionException as re:
             localctx.exception = re
@@ -806,34 +914,34 @@ class TuaParser ( Parser ):
     def type_(self):
 
         localctx = TuaParser.TypeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 10, self.RULE_type)
+        self.enterRule(localctx, 14, self.RULE_type)
         try:
-            self.state = 156
+            self.state = 162
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [48]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 151
+                self.state = 157
                 self.match(TuaParser.NAME)
                 pass
             elif token in [51]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 152
+                self.state = 158
                 self.match(TuaParser.NIL)
                 pass
             elif token in [19]:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 153
+                self.state = 159
                 self.listType()
                 pass
             elif token in [18]:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 154
+                self.state = 160
                 self.unionType()
                 pass
             elif token in [15]:
                 self.enterOuterAlt(localctx, 5)
-                self.state = 155
+                self.state = 161
                 self.tableType()
                 pass
             else:
@@ -882,16 +990,16 @@ class TuaParser ( Parser ):
     def tableType(self):
 
         localctx = TuaParser.TableTypeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 12, self.RULE_tableType)
+        self.enterRule(localctx, 16, self.RULE_tableType)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 158
+            self.state = 164
             self.match(TuaParser.T__14)
-            self.state = 159
+            self.state = 165
             self.match(TuaParser.T__15)
-            self.state = 160
+            self.state = 166
             self.type_()
-            self.state = 161
+            self.state = 167
             self.match(TuaParser.T__16)
         except RecognitionException as re:
             localctx.exception = re
@@ -939,31 +1047,31 @@ class TuaParser ( Parser ):
     def unionType(self):
 
         localctx = TuaParser.UnionTypeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 14, self.RULE_unionType)
+        self.enterRule(localctx, 18, self.RULE_unionType)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 163
+            self.state = 169
             self.match(TuaParser.T__17)
-            self.state = 164
+            self.state = 170
             self.match(TuaParser.T__15)
-            self.state = 165
+            self.state = 171
             self.type_()
-            self.state = 168 
+            self.state = 174 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 166
+                self.state = 172
                 self.match(TuaParser.T__10)
-                self.state = 167
+                self.state = 173
                 self.type_()
-                self.state = 170 
+                self.state = 176 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==11):
                     break
 
-            self.state = 172
+            self.state = 178
             self.match(TuaParser.T__16)
         except RecognitionException as re:
             localctx.exception = re
@@ -1008,16 +1116,16 @@ class TuaParser ( Parser ):
     def listType(self):
 
         localctx = TuaParser.ListTypeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 16, self.RULE_listType)
+        self.enterRule(localctx, 20, self.RULE_listType)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 174
+            self.state = 180
             self.match(TuaParser.T__18)
-            self.state = 175
+            self.state = 181
             self.match(TuaParser.T__15)
-            self.state = 176
+            self.state = 182
             self.type_()
-            self.state = 177
+            self.state = 183
             self.match(TuaParser.T__16)
         except RecognitionException as re:
             localctx.exception = re
@@ -1070,26 +1178,26 @@ class TuaParser ( Parser ):
     def prefix(self):
 
         localctx = TuaParser.PrefixContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_prefix)
+        self.enterRule(localctx, 22, self.RULE_prefix)
         try:
-            self.state = 184
+            self.state = 190
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,11,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 179
+                self.state = 185
                 self.var()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 180
+                self.state = 186
                 self.functioncall()
-                self.state = 182
+                self.state = 188
                 self._errHandler.sync(self)
                 la_ = self._interp.adaptivePredict(self._input,10,self._ctx)
                 if la_ == 1:
-                    self.state = 181
+                    self.state = 187
                     self.suffix()
 
 
@@ -1148,29 +1256,29 @@ class TuaParser ( Parser ):
     def suffix(self):
 
         localctx = TuaParser.SuffixContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_suffix)
+        self.enterRule(localctx, 24, self.RULE_suffix)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 192 
+            self.state = 198 
             self._errHandler.sync(self)
             _alt = 1
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
-                    self.state = 192
+                    self.state = 198
                     self._errHandler.sync(self)
                     token = self._input.LA(1)
                     if token in [16]:
-                        self.state = 186
+                        self.state = 192
                         self.match(TuaParser.T__15)
-                        self.state = 187
+                        self.state = 193
                         self.exp(0)
-                        self.state = 188
+                        self.state = 194
                         self.match(TuaParser.T__16)
                         pass
                     elif token in [20]:
-                        self.state = 190
+                        self.state = 196
                         self.match(TuaParser.T__19)
-                        self.state = 191
+                        self.state = 197
                         self.match(TuaParser.NAME)
                         pass
                     else:
@@ -1179,7 +1287,7 @@ class TuaParser ( Parser ):
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 194 
+                self.state = 200 
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,13,self._ctx)
 
@@ -1287,74 +1395,74 @@ class TuaParser ( Parser ):
         _parentState = self.state
         localctx = TuaParser.ExpContext(self, self._ctx, _parentState)
         _prevctx = localctx
-        _startState = 22
-        self.enterRecursionRule(localctx, 22, self.RULE_exp, _p)
+        _startState = 26
+        self.enterRecursionRule(localctx, 26, self.RULE_exp, _p)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 214
+            self.state = 220
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,14,self._ctx)
             if la_ == 1:
-                self.state = 197
+                self.state = 203
                 self.match(TuaParser.T__20)
-                self.state = 198
+                self.state = 204
                 self.exp(0)
-                self.state = 199
+                self.state = 205
                 self.match(TuaParser.T__21)
                 pass
 
             elif la_ == 2:
-                self.state = 201
+                self.state = 207
                 self.number()
                 pass
 
             elif la_ == 3:
-                self.state = 202
+                self.state = 208
                 self.string()
                 pass
 
             elif la_ == 4:
-                self.state = 203
+                self.state = 209
                 self.match(TuaParser.TRUE)
                 pass
 
             elif la_ == 5:
-                self.state = 204
+                self.state = 210
                 self.match(TuaParser.FALSE)
                 pass
 
             elif la_ == 6:
-                self.state = 205
+                self.state = 211
                 self.match(TuaParser.NIL)
                 pass
 
             elif la_ == 7:
-                self.state = 206
+                self.state = 212
                 self.prefix()
                 pass
 
             elif la_ == 8:
-                self.state = 207
+                self.state = 213
                 self.unop()
-                self.state = 208
+                self.state = 214
                 self.exp(9)
                 pass
 
             elif la_ == 9:
-                self.state = 210
+                self.state = 216
                 self.unop()
-                self.state = 211
+                self.state = 217
                 self.exp(2)
                 pass
 
             elif la_ == 10:
-                self.state = 213
+                self.state = 219
                 self.tableconstructor()
                 pass
 
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 246
+            self.state = 252
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,16,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
@@ -1362,102 +1470,102 @@ class TuaParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 244
+                    self.state = 250
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
                     if la_ == 1:
                         localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 216
+                        self.state = 222
                         if not self.precpred(self._ctx, 10):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
-                        self.state = 217
+                        self.state = 223
                         self.binopPower()
-                        self.state = 218
+                        self.state = 224
                         self.exp(10)
                         pass
 
                     elif la_ == 2:
                         localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 220
+                        self.state = 226
                         if not self.precpred(self._ctx, 8):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
-                        self.state = 221
+                        self.state = 227
                         self.binopMulDivMod()
-                        self.state = 222
+                        self.state = 228
                         self.exp(9)
                         pass
 
                     elif la_ == 3:
                         localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 224
+                        self.state = 230
                         if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
-                        self.state = 225
+                        self.state = 231
                         self.binopAddSub()
-                        self.state = 226
+                        self.state = 232
                         self.exp(8)
                         pass
 
                     elif la_ == 4:
                         localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 228
+                        self.state = 234
                         if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
-                        self.state = 229
+                        self.state = 235
                         self.binopConcat()
-                        self.state = 230
+                        self.state = 236
                         self.exp(6)
                         pass
 
                     elif la_ == 5:
                         localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 232
+                        self.state = 238
                         if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
-                        self.state = 233
+                        self.state = 239
                         self.binopComparison()
-                        self.state = 234
+                        self.state = 240
                         self.exp(6)
                         pass
 
                     elif la_ == 6:
                         localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 236
+                        self.state = 242
                         if not self.precpred(self._ctx, 4):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
-                        self.state = 237
+                        self.state = 243
                         self.binopAnd()
-                        self.state = 238
+                        self.state = 244
                         self.exp(5)
                         pass
 
                     elif la_ == 7:
                         localctx = TuaParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 240
+                        self.state = 246
                         if not self.precpred(self._ctx, 3):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
-                        self.state = 241
+                        self.state = 247
                         self.binopOr()
-                        self.state = 242
+                        self.state = 248
                         self.exp(4)
                         pass
 
              
-                self.state = 248
+                self.state = 254
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,16,self._ctx)
 
@@ -1512,30 +1620,30 @@ class TuaParser ( Parser ):
     def functionbody(self):
 
         localctx = TuaParser.FunctionbodyContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_functionbody)
+        self.enterRule(localctx, 28, self.RULE_functionbody)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 249
+            self.state = 255
             self.match(TuaParser.T__20)
-            self.state = 251
+            self.state = 257
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==48:
-                self.state = 250
+                self.state = 256
                 self.typednamelist()
 
 
-            self.state = 253
+            self.state = 259
             self.match(TuaParser.T__21)
-            self.state = 254
+            self.state = 260
             self.match(TuaParser.T__22)
-            self.state = 255
+            self.state = 261
             self.type_()
-            self.state = 256
+            self.state = 262
             self.block()
-            self.state = 257
-            self.match(TuaParser.T__3)
+            self.state = 263
+            self.match(TuaParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1579,41 +1687,41 @@ class TuaParser ( Parser ):
     def laststat(self):
 
         localctx = TuaParser.LaststatContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_laststat)
+        self.enterRule(localctx, 30, self.RULE_laststat)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 265
+            self.state = 271
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [24]:
-                self.state = 259
+                self.state = 265
                 self.match(TuaParser.T__23)
-                self.state = 261
+                self.state = 267
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if (((_la) & ~0x3f) == 0 and ((1 << _la) & 71916857759629312) != 0):
-                    self.state = 260
+                    self.state = 266
                     self.explist()
 
 
                 pass
             elif token in [25]:
-                self.state = 263
+                self.state = 269
                 self.match(TuaParser.T__24)
                 pass
             elif token in [26]:
-                self.state = 264
+                self.state = 270
                 self.match(TuaParser.T__25)
                 pass
             else:
                 raise NoViableAltException(self)
 
-            self.state = 268
+            self.state = 274
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==1:
-                self.state = 267
+                self.state = 273
                 self.match(TuaParser.T__0)
 
 
@@ -1663,21 +1771,21 @@ class TuaParser ( Parser ):
     def typednamelist(self):
 
         localctx = TuaParser.TypednamelistContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_typednamelist)
+        self.enterRule(localctx, 32, self.RULE_typednamelist)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 270
+            self.state = 276
             self.nametype()
-            self.state = 275
+            self.state = 281
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==11:
-                self.state = 271
-                self.match(TuaParser.T__10)
-                self.state = 272
-                self.nametype()
                 self.state = 277
+                self.match(TuaParser.T__10)
+                self.state = 278
+                self.nametype()
+                self.state = 283
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -1727,23 +1835,23 @@ class TuaParser ( Parser ):
     def functioncall(self):
 
         localctx = TuaParser.FunctioncallContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_functioncall)
+        self.enterRule(localctx, 34, self.RULE_functioncall)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 278
+            self.state = 284
             self.match(TuaParser.NAME)
-            self.state = 279
+            self.state = 285
             self.match(TuaParser.T__20)
-            self.state = 281
+            self.state = 287
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & 71916857759629312) != 0):
-                self.state = 280
+                self.state = 286
                 self.explist()
 
 
-            self.state = 283
+            self.state = 289
             self.match(TuaParser.T__21)
         except RecognitionException as re:
             localctx.exception = re
@@ -1791,21 +1899,21 @@ class TuaParser ( Parser ):
     def explist(self):
 
         localctx = TuaParser.ExplistContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_explist)
+        self.enterRule(localctx, 36, self.RULE_explist)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 285
+            self.state = 291
             self.exp(0)
-            self.state = 290
+            self.state = 296
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==11:
-                self.state = 286
-                self.match(TuaParser.T__10)
-                self.state = 287
-                self.exp(0)
                 self.state = 292
+                self.match(TuaParser.T__10)
+                self.state = 293
+                self.exp(0)
+                self.state = 298
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -1852,21 +1960,21 @@ class TuaParser ( Parser ):
     def tableconstructor(self):
 
         localctx = TuaParser.TableconstructorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_tableconstructor)
+        self.enterRule(localctx, 38, self.RULE_tableconstructor)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 293
+            self.state = 299
             self.match(TuaParser.T__26)
-            self.state = 295
+            self.state = 301
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & 71916857759694848) != 0):
-                self.state = 294
+                self.state = 300
                 self.fieldlist()
 
 
-            self.state = 297
+            self.state = 303
             self.match(TuaParser.T__27)
         except RecognitionException as re:
             localctx.exception = re
@@ -1914,21 +2022,21 @@ class TuaParser ( Parser ):
     def fieldlist(self):
 
         localctx = TuaParser.FieldlistContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 36, self.RULE_fieldlist)
+        self.enterRule(localctx, 40, self.RULE_fieldlist)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 299
+            self.state = 305
             self.field()
-            self.state = 304
+            self.state = 310
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==11:
-                self.state = 300
-                self.match(TuaParser.T__10)
-                self.state = 301
-                self.field()
                 self.state = 306
+                self.match(TuaParser.T__10)
+                self.state = 307
+                self.field()
+                self.state = 312
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -1986,42 +2094,42 @@ class TuaParser ( Parser ):
     def field(self):
 
         localctx = TuaParser.FieldContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 38, self.RULE_field)
+        self.enterRule(localctx, 42, self.RULE_field)
         try:
-            self.state = 320
+            self.state = 326
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,26,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 307
-                self.match(TuaParser.T__15)
-                self.state = 308
-                self.exp(0)
-                self.state = 309
-                self.match(TuaParser.T__16)
-                self.state = 310
-                self.match(TuaParser.T__13)
-                self.state = 311
-                self.type_()
-                self.state = 312
-                self.match(TuaParser.T__1)
                 self.state = 313
+                self.match(TuaParser.T__15)
+                self.state = 314
+                self.exp(0)
+                self.state = 315
+                self.match(TuaParser.T__16)
+                self.state = 316
+                self.match(TuaParser.T__13)
+                self.state = 317
+                self.type_()
+                self.state = 318
+                self.match(TuaParser.T__9)
+                self.state = 319
                 self.exp(0)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 315
+                self.state = 321
                 self.nametype()
-                self.state = 316
-                self.match(TuaParser.T__1)
-                self.state = 317
+                self.state = 322
+                self.match(TuaParser.T__9)
+                self.state = 323
                 self.exp(0)
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 319
+                self.state = 325
                 self.exp(0)
                 pass
 
@@ -2066,11 +2174,11 @@ class TuaParser ( Parser ):
     def binopAddSub(self):
 
         localctx = TuaParser.BinopAddSubContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_binopAddSub)
+        self.enterRule(localctx, 44, self.RULE_binopAddSub)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 322
+            self.state = 328
             _la = self._input.LA(1)
             if not(_la==29 or _la==30):
                 self._errHandler.recoverInline(self)
@@ -2117,11 +2225,11 @@ class TuaParser ( Parser ):
     def binopMulDivMod(self):
 
         localctx = TuaParser.BinopMulDivModContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 42, self.RULE_binopMulDivMod)
+        self.enterRule(localctx, 46, self.RULE_binopMulDivMod)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 324
+            self.state = 330
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 32212254720) != 0)):
                 self._errHandler.recoverInline(self)
@@ -2168,11 +2276,11 @@ class TuaParser ( Parser ):
     def binopComparison(self):
 
         localctx = TuaParser.BinopComparisonContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 44, self.RULE_binopComparison)
+        self.enterRule(localctx, 48, self.RULE_binopComparison)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 326
+            self.state = 332
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 2164663517184) != 0)):
                 self._errHandler.recoverInline(self)
@@ -2219,10 +2327,10 @@ class TuaParser ( Parser ):
     def binopConcat(self):
 
         localctx = TuaParser.BinopConcatContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 46, self.RULE_binopConcat)
+        self.enterRule(localctx, 50, self.RULE_binopConcat)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 328
+            self.state = 334
             self.match(TuaParser.T__40)
         except RecognitionException as re:
             localctx.exception = re
@@ -2264,11 +2372,11 @@ class TuaParser ( Parser ):
     def binopAnd(self):
 
         localctx = TuaParser.BinopAndContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 48, self.RULE_binopAnd)
+        self.enterRule(localctx, 52, self.RULE_binopAnd)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 330
+            self.state = 336
             _la = self._input.LA(1)
             if not(_la==42 or _la==43):
                 self._errHandler.recoverInline(self)
@@ -2315,11 +2423,11 @@ class TuaParser ( Parser ):
     def binopOr(self):
 
         localctx = TuaParser.BinopOrContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 50, self.RULE_binopOr)
+        self.enterRule(localctx, 54, self.RULE_binopOr)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 332
+            self.state = 338
             _la = self._input.LA(1)
             if not(_la==44 or _la==45):
                 self._errHandler.recoverInline(self)
@@ -2366,10 +2474,10 @@ class TuaParser ( Parser ):
     def binopPower(self):
 
         localctx = TuaParser.BinopPowerContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 52, self.RULE_binopPower)
+        self.enterRule(localctx, 56, self.RULE_binopPower)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 334
+            self.state = 340
             self.match(TuaParser.T__45)
         except RecognitionException as re:
             localctx.exception = re
@@ -2411,11 +2519,11 @@ class TuaParser ( Parser ):
     def unop(self):
 
         localctx = TuaParser.UnopContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 54, self.RULE_unop)
+        self.enterRule(localctx, 58, self.RULE_unop)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 336
+            self.state = 342
             _la = self._input.LA(1)
             if not(_la==30 or _la==47):
                 self._errHandler.recoverInline(self)
@@ -2467,11 +2575,11 @@ class TuaParser ( Parser ):
     def string(self):
 
         localctx = TuaParser.StringContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 56, self.RULE_string)
+        self.enterRule(localctx, 60, self.RULE_string)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 338
+            self.state = 344
             _la = self._input.LA(1)
             if not(_la==54 or _la==55):
                 self._errHandler.recoverInline(self)
@@ -2523,11 +2631,11 @@ class TuaParser ( Parser ):
     def number(self):
 
         localctx = TuaParser.NumberContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 58, self.RULE_number)
+        self.enterRule(localctx, 62, self.RULE_number)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 340
+            self.state = 346
             _la = self._input.LA(1)
             if not(_la==52 or _la==53):
                 self._errHandler.recoverInline(self)
@@ -2547,7 +2655,7 @@ class TuaParser ( Parser ):
     def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
         if self._predicates == None:
             self._predicates = dict()
-        self._predicates[11] = self.exp_sempred
+        self._predicates[13] = self.exp_sempred
         pred = self._predicates.get(ruleIndex, None)
         if pred is None:
             raise Exception("No predicate with index:" + str(ruleIndex))

@@ -24,6 +24,16 @@ class TuaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by TuaParser#assignment.
+    def visitAssignment(self, ctx:TuaParser.AssignmentContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by TuaParser#newvariable.
+    def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by TuaParser#var.
     def visitVar(self, ctx:TuaParser.VarContext):
         return self.visitChildren(ctx)

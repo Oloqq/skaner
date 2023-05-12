@@ -22,6 +22,13 @@ class Tua(TuaVisitor):
         log.info("Stat")
         return self.visitChildren(ctx)
 
+    def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
+        log.info("Newvariable")
+        return self.visitChildren(ctx)
+
+    def visitAssignment(self, ctx:TuaParser.AssignmentContext):
+        log.info("Assignment")
+        return self.visitChildren(ctx)
 
     def visitVar(self, ctx:TuaParser.VarContext):
         log.info("Var")

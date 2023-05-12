@@ -9,8 +9,8 @@ block
     ;
 
 stat
-    : nametype '=' exp // nowa zmienna
-    | var '=' exp // przypisanie
+    : newvariable
+    | assignment
     | functioncall
     | 'do' block 'end'
     | 'while' exp 'do' block 'end'
@@ -18,6 +18,14 @@ stat
     | 'for' NAME '=' exp ',' exp (',' exp)? 'do' block 'end' // over an integer range
     | 'for' NAME ',' NAME 'in' functioncall 'do' block 'end' // where functioncall is an iterator like pairs
     | 'function' NAME functionbody
+    ;
+
+assignment
+    : var '=' exp
+    ;
+
+newvariable
+    : nametype '=' exp
     ;
 
 var

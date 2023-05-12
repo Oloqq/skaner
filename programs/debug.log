@@ -1,6 +1,13 @@
 INFO - Program
 INFO - Block
 INFO - Stat
+INFO - Newvariable
+INFO - Nametype
+INFO - Type
+INFO - Exp
+INFO - Stat
 INFO - Functioncall
 INFO - Explist
 INFO - Exp
+INFO - Prefix
+INFO - Var

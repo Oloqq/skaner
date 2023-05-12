@@ -35,6 +35,24 @@ class TuaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by TuaParser#assignment.
+    def enterAssignment(self, ctx:TuaParser.AssignmentContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#assignment.
+    def exitAssignment(self, ctx:TuaParser.AssignmentContext):
+        pass
+
+
+    # Enter a parse tree produced by TuaParser#newvariable.
+    def enterNewvariable(self, ctx:TuaParser.NewvariableContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#newvariable.
+    def exitNewvariable(self, ctx:TuaParser.NewvariableContext):
+        pass
+
+
     # Enter a parse tree produced by TuaParser#var.
     def enterVar(self, ctx:TuaParser.VarContext):
         pass
