@@ -2,10 +2,11 @@ from .generated.TuaVisitor import TuaVisitor
 from .generated.TuaParser import TuaParser
 from .log import log
 from .builtins import builtins
+from .scope import ScopeStack, Atom
 
 class Tua(TuaVisitor):
     def __init__(self):
-        self.variables = {}
+        self.scope: ScopeStack = ScopeStack()
 
 
     def visitProgram(self, ctx:TuaParser.ProgramContext):
@@ -15,7 +16,10 @@ class Tua(TuaVisitor):
 
     def visitBlock(self, ctx:TuaParser.BlockContext):
         log.info("Block")
-        return self.visitChildren(ctx)
+        self.scope.push()
+        result = self.visitChildren(ctx)
+        self.scope.pop()
+        return result
 
 
     def visitStat(self, ctx:TuaParser.StatContext):
@@ -24,6 +28,9 @@ class Tua(TuaVisitor):
 
     def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
         log.info("Newvariable")
+        lhs, type = self.visit(ctx.nametype())
+        rhs = self.visit(ctx.exp())
+        self.scope.set(lhs, type, rhs)
         return self.visitChildren(ctx)
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
@@ -32,17 +39,25 @@ class Tua(TuaVisitor):
 
     def visitVar(self, ctx:TuaParser.VarContext):
         log.info("Var")
-        return self.visitChildren(ctx)
+        name = ctx.getToken(TuaParser.NAME, 0).getText()
+        if ctx.suffix():
+            # suffix = self.visit(ctx.suffix())
+            raise NotImplementedError
+        return name
 
 
     def visitNametype(self, ctx:TuaParser.NametypeContext):
         log.info("Nametype")
-        return self.visitChildren(ctx)
+        name = ctx.getToken(TuaParser.NAME, 0).getText()
+        type = self.visit(ctx.type_())
+        return (name, type)
 
 
     def visitType(self, ctx:TuaParser.TypeContext):
         log.info("Type")
-        return self.visitChildren(ctx)
+        name = ctx.getToken(TuaParser.NAME, 0).getText()
+        # TODO implement non-NAME productions
+        return name
 
 
     def visitTableType(self, ctx:TuaParser.TableTypeContext):
@@ -73,7 +88,8 @@ class Tua(TuaVisitor):
     def visitExp(self, ctx:TuaParser.ExpContext):
         log.info("Exp")
         if len(ctx.children) == 1:
-            return self.visit(ctx.children[0])
+            value = self.visit(ctx.children[0])
+            return Atom(None, "int", value)
         else:
             raise NotImplementedError
 
@@ -96,9 +112,17 @@ class Tua(TuaVisitor):
     def visitFunctioncall(self, ctx:TuaParser.FunctioncallContext):
         log.info(f"Functioncall")
         name = ctx.getToken(TuaParser.NAME, 0).getText()
-        args = self.visit(ctx.explist())
+        args: list[Atom] = self.visit(ctx.explist())
+        passed = []
+        for arg in args:
+            if arg.type == "int":
+                passed.append(arg.value) # copy values of primitive types
+            else:
+                # passed.append(arg) # pass references to non-primitive types
+                raise NotImplementedError
+
         if name in builtins:
-            return builtins[name](*args)
+            return builtins[name](*passed)
         else:
             # return value returned by function
             raise NotImplementedError
