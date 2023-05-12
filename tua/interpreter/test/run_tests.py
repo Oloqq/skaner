@@ -32,10 +32,13 @@ def run_tests():
                 run_interpreter(InputStream(program), False)
 
                 # Get the captured output
-                output = stdout_capture.getvalue()
+                output = stdout_capture.getvalue() or ""
 
                 # Restore the original stdout
                 sys.stdout = sys.__stdout__
+
+                if not expected.endswith("\n"):
+                    expected += "\n"
 
                 is_failed = output != expected
                 should_fail = test.get("fail", False)
