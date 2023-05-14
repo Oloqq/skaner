@@ -1,4 +1,7 @@
-builtins = {
-    "print": lambda *args: print(*args),
-    "dump_stack": lambda: print("Stack:", stack),
-}
+from .visitor import Tua
+
+def print_(_: Tua, *args):
+    print(*args)
+
+def dump_stack(visitor: Tua, *args):
+    print(f"Stack: ", visitor.scope)

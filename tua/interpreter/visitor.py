@@ -1,13 +1,22 @@
 from .generated.TuaVisitor import TuaVisitor
 from .generated.TuaParser import TuaParser
 from .log import log
-from .builtins import builtins
 from .scope import ScopeStack, Atom
 
 class Tua(TuaVisitor):
     def __init__(self):
         self.scope: ScopeStack = ScopeStack()
+        from . import builtins
+        self.builtins = {
+            "print": builtins.print_,
+            "dump_stack": builtins.dump_stack,
+        }
 
+    def builtin_print(self, *args):
+        print(*args)
+
+    def builtin_dump_stack(self, *args):
+        print("Stack:", *args)
 
     def visitProgram(self, ctx:TuaParser.ProgramContext):
         log.info("Program")
@@ -121,8 +130,8 @@ class Tua(TuaVisitor):
                 # passed.append(arg) # pass references to non-primitive types
                 raise NotImplementedError
 
-        if name in builtins:
-            return builtins[name](*passed)
+        if name in self.builtins:
+            return self.builtins[name](self, *passed)
         else:
             # return value returned by function
             raise NotImplementedError

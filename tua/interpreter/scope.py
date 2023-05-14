@@ -1,8 +1,13 @@
+from pprint import pformat
+
 class Atom:
     def __init__(self, name, type, value) -> None:
         self.name: str|None = name
         self.type: str = type
         self.value: any = value
+
+    def __repr__(self):
+        return f"Atom({self.name}: {self.type} = {self.value})"
 
 Scope = dict[str, Atom]
 
@@ -11,6 +16,9 @@ class ScopeStack:
         self.scopes: list[Scope] = []
         self.current: Scope
         self.push()
+
+    def __repr__(self):
+        return f"ScopeStack({pformat(self.scopes)})"
 
     def push(self):
         self.current = Scope()
