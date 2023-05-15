@@ -157,25 +157,27 @@ class Tua(TuaVisitor):
         log.info("Typednamelist")
         return self.visitChildren(ctx)
 
+    def get_args(self, ctx:TuaParser.FunctioncallContext) -> list[Value]:
+        if not ctx.explist():
+            return []
 
-    def visitFunctioncall(self, ctx:TuaParser.FunctioncallContext):
-        log.info(f"Functioncall")
-        name = ctx.getToken(TuaParser.NAME, 0).getText()
         args: list[Value] = self.visit(ctx.explist())
         passed = []
         for arg in args:
             if arg.type.id == "int":
-                # print(arg, arg.value)
-                # print(arg.value, arg.name, arg.type)
                 passed.append(arg.value) # copy values of primitive types
             else:
                 # passed.append(arg) # pass references to non-primitive types
                 raise NotImplementedError
+        return passed
 
-        # print(passed)
+    def visitFunctioncall(self, ctx:TuaParser.FunctioncallContext):
+        log.info(f"Functioncall")
+        name = ctx.getToken(TuaParser.NAME, 0).getText()
+        args = self.get_args(ctx)
 
         if name in self.builtins:
-            return self.builtins[name](self, *passed)
+            return self.builtins[name](self, *args)
         else:
             # return value returned by function
             raise NotImplementedError

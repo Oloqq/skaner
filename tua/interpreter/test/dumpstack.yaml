@@ -1,6 +1,6 @@
 program: |
   x: int = 17
-  dump_stack(1)
+  dump_stack()
 
 output: |
   Stack:  ScopeStack([{}, {'x': int = 17}])
