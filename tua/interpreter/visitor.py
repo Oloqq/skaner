@@ -39,14 +39,15 @@ class Tua(TuaVisitor):
         log.info("Newvariable")
         lhs, type = self.visit(ctx.nametype())
         rhs = self.visit(ctx.exp())
-        self.scope.setval(lhs, type, rhs) # TEMP int
-        return self.visitChildren(ctx)
+        self.scope.new_atom(lhs, type, rhs)
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
         log.info("Assignment")
-        return self.visitChildren(ctx)
+        identifier = self.visit(ctx.var())
+        value = self.visit(ctx.exp())
+        self.scope.set_exiting_atom(identifier, value)
 
-    def visitVar(self, ctx:TuaParser.VarContext):
+    def visitVar(self, ctx:TuaParser.VarContext) -> str:
         log.info("Var")
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         if ctx.suffix():
@@ -86,7 +87,10 @@ class Tua(TuaVisitor):
 
     def visitPrefix(self, ctx:TuaParser.PrefixContext):
         log.info("Prefix")
-        return self.visitChildren(ctx)
+        if ctx.var():
+            return self.visit(ctx.var())
+        else:
+            return NotImplementedError # functioncall
 
 
     def visitSuffix(self, ctx:TuaParser.SuffixContext):
@@ -97,10 +101,11 @@ class Tua(TuaVisitor):
     def visitExp(self, ctx:TuaParser.ExpContext):
         log.info("Exp")
         if ctx.prefix():
-            return self.scope.get("x") # FIXME hardcoded
-        elif len(ctx.children) == 1:
-            value = self.visit(ctx.children[0])
-            return Atom(None, "int", value) # TEMP int
+            identifier = self.visit(ctx.prefix())
+            return self.scope.get(identifier)
+        elif ctx.number():
+            value, type = self.visit(ctx.number())
+            return Atom(None, type, value)
         else:
             raise NotImplementedError
 
@@ -127,14 +132,14 @@ class Tua(TuaVisitor):
         passed = []
         for arg in args:
             if arg.type == "int":
-                print(arg, arg.value)
+                # print(arg, arg.value)
                 # print(arg.value, arg.name, arg.type)
                 passed.append(arg.value) # copy values of primitive types
             else:
                 # passed.append(arg) # pass references to non-primitive types
                 raise NotImplementedError
 
-        print(passed)
+        # print(passed)
 
         if name in self.builtins:
             return self.builtins[name](self, *passed)
@@ -211,4 +216,9 @@ class Tua(TuaVisitor):
 
 
     def visitNumber(self, ctx:TuaParser.NumberContext):
-        return float(ctx.getText())
+        if ctx.INT():
+            return int(ctx.getText()), "int"
+        elif ctx.FLOAT():
+            return float(ctx.getText()), "float"
+        else:
+            log.error("Unknown number type")

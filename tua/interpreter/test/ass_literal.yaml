@@ -1,0 +1,9 @@
+program: |
+  x: int = 17
+  print(x)
+  x = 8
+  print(x)
+
+output: |
+  17
+  8

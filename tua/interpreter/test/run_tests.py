@@ -31,7 +31,11 @@ def run_test(dir: str, case: str) -> bool|None:
     # Redirect the stdout to the StringIO object
     sys.stdout = stdout_capture
 
-    run_interpreter(InputStream(program), False)
+    try:
+        run_interpreter(InputStream(program), False)
+        threw = False
+    except Exception as e:
+        threw = True
 
     # Get the captured output
     output = stdout_capture.getvalue() or ""
@@ -42,7 +46,7 @@ def run_test(dir: str, case: str) -> bool|None:
     if not expected.endswith("\n"):
         expected += "\n"
 
-    is_failed = output != expected
+    is_failed = threw or output != expected
     should_fail = test.get("fail", False)
     if is_failed != should_fail:
         if should_fail:

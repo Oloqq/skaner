@@ -36,12 +36,14 @@ class ScopeStack:
     def get(self, identifier: str) -> Atom:
         return self.current[identifier]
 
-    def setval(self, identifier: str, type: str, rhs: Atom):
-        atom = self.current.get(identifier)
-        if atom:
-            # TODO assert type is not violated
-            atom.value = rhs
-            raise NotImplementedError
-        else: # uhuuhhu new variable incoming :DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-            value = rhs.value if rhs.is_literal() else rhs
-            self.current[identifier] = Atom(identifier, type, value)
+    def set_exiting_atom(self, identifier: str, rhs: Atom):
+        # TODO assert it exists?
+        # existing_atom = self.current.get(identifier)
+
+        # TODO assert rhs.type == self.current[identifier].type?
+
+        self.current[identifier].value = rhs.value
+
+    def new_atom(self, identifier: str, type: str, rhs: Atom):
+        value = rhs.value if rhs.is_literal() else rhs
+        self.current[identifier] = Atom(identifier, type, value)
