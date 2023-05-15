@@ -5,4 +5,4 @@ output:
   yooo
 
 fail: true
-skip: true
+skip: true # TEMP skipping bcs string isnt implemented in exp

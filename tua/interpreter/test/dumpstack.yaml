@@ -3,4 +3,4 @@ program: |
   dump_stack(1)
 
 output: |
-  Stack:  ScopeStack([{}, {'x': int(17)}])
+  Stack:  ScopeStack([{}, {'x': int = 17}])

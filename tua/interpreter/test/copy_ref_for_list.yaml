@@ -1,0 +1,22 @@
+program: |
+  x: List[int] = {0, 1}
+  y: List[int] = {2, 3}
+  print(x)
+  print(y)
+
+  x = y
+  y[0] = 8
+  print(x)
+  print(y)
+
+  dump_stack(0)
+
+
+output: |
+  {0, 1}
+  {2, 3}
+  {8, 3}
+  {8, 3}
+  Stack:  ScopeStack([{}, {'x': List[int] = [8, 3], 'y': List[int] = [8, 3]])
+
+skip: true

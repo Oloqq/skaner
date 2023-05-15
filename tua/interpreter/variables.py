@@ -11,4 +11,4 @@ class Value:
         self.value: any = value
 
     def __repr__(self):
-        return f"{self.type.id}({self.value})"
+        return f"{self.type.id} = {self.value}"

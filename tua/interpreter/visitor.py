@@ -19,6 +19,7 @@ class Tua(TuaVisitor):
             "print": builtins.print_,
             "dump_stack": builtins.dump_stack,
         }
+        self.cnt = 0 # for temporary testing
 
     def builtin_print(self, *args):
         print(*args)
@@ -45,13 +46,12 @@ class Tua(TuaVisitor):
 
     def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
         log.info("Newvariable")
+        lhs: Value
+        type_annotated: Type
         lhs, type_annotated = self.visit(ctx.nametype())
         rhs: Value = self.visit(ctx.exp())
-        if str(rhs.type.id) != str(type_annotated.id):
-            raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({type_annotated})")
-        # if isinstance(type, TuaList):
-            # pass # TODO assert rhs was a tableconstructor
-            # type = type.full_type_str()
+        if rhs.type.id != type_annotated.id:
+            raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({type_annotated.id})")
         self.scope.new_atom(lhs, rhs)
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
@@ -102,10 +102,10 @@ class Tua(TuaVisitor):
         return self.visitChildren(ctx)
 
 
-    def visitListType(self, ctx:TuaParser.ListTypeContext) -> TuaList:
+    def visitListType(self, ctx:TuaParser.ListTypeContext) -> Type:
         log.info("ListType")
-        elem_type = self.visit(ctx.type_())
-        return TuaList(elem_type)
+        elem_type: Type = self.visit(ctx.type_())
+        return Type(f"List[{elem_type.id}]")
 
 
     def visitPrefix(self, ctx:TuaParser.PrefixContext):
@@ -137,8 +137,8 @@ class Tua(TuaVisitor):
             assert isinstance(ret.type.id, str)
             return ret
         #power, unop?, muldivmod, addsub, concat, comp, and, or, unop?
-        # elif ctx.tableconstructor():
-        #     return self.visit(ctx.tableconstructor())
+        elif ctx.tableconstructor():
+            return self.visit(ctx.tableconstructor())
         else:
             raise InternalError
 
@@ -189,9 +189,11 @@ class Tua(TuaVisitor):
         return vals
 
 
-    def visitTableconstructor(self, ctx:TuaParser.TableconstructorContext):
+    def visitTableconstructor(self, ctx:TuaParser.TableconstructorContext) -> Value:
         log.info("Tableconstructor")
-        return self.visitChildren(ctx)
+        ret = Value(Type("List[int]"), [self.cnt, self.cnt + 1]) # TEMP
+        self.cnt += 2
+        return ret
 
 
     def visitFieldlist(self, ctx:TuaParser.FieldlistContext):

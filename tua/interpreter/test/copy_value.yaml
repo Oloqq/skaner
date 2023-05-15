@@ -1,0 +1,15 @@
+program: |
+  x: int = 1
+  y: int = 2
+  x = y
+  print(x)
+  print(y)
+  y = 3
+  print(x)
+  print(y)
+
+output: |
+  2
+  2
+  2
+  3

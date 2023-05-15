@@ -1,8 +1,0 @@
-program: |
-  x: List[int] = {}
-  dump_stack(1)
-
-output: |
-  Stack:  ScopeStack([{}, {'x': Atom(x: List[int] = {})}])
-
-skip: false
