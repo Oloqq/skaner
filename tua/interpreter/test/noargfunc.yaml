@@ -1,0 +1,11 @@
+program: |
+  print(1)
+  print()
+  print(1)
+
+output: |
+  1
+
+  1
+
+skip: true

@@ -24,7 +24,7 @@ class ScopeStack:
     def get(self, identifier: str) -> Value:
         return self.current[identifier]
 
-    def set_exiting_atom(self, identifier: str, rhs: Value):
+    def set_existing_atom(self, identifier: str, rhs: Value):
         # TODO assert it exists?
         # existing_atom = self.current.get(identifier)
 

@@ -58,7 +58,7 @@ class Tua(TuaVisitor):
         log.info("Assignment")
         identifier = self.visit(ctx.var())
         value = self.visit(ctx.exp())
-        self.scope.set_exiting_atom(identifier, value)
+        self.scope.set_existing_atom(identifier, value)
 
     def visitVar(self, ctx:TuaParser.VarContext) -> str:
         log.info("Var")
