@@ -39,7 +39,7 @@ class Tua(TuaVisitor):
         log.info("Newvariable")
         lhs, type = self.visit(ctx.nametype())
         rhs = self.visit(ctx.exp())
-        self.scope.set(lhs, type, rhs)
+        self.scope.setval(lhs, type, rhs) # TEMP int
         return self.visitChildren(ctx)
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
@@ -96,9 +96,11 @@ class Tua(TuaVisitor):
 
     def visitExp(self, ctx:TuaParser.ExpContext):
         log.info("Exp")
-        if len(ctx.children) == 1:
+        if ctx.prefix():
+            return self.scope.get("x") # FIXME hardcoded
+        elif len(ctx.children) == 1:
             value = self.visit(ctx.children[0])
-            return Atom(None, "int", value)
+            return Atom(None, "int", value) # TEMP int
         else:
             raise NotImplementedError
 
@@ -125,10 +127,14 @@ class Tua(TuaVisitor):
         passed = []
         for arg in args:
             if arg.type == "int":
+                print(arg, arg.value)
+                # print(arg.value, arg.name, arg.type)
                 passed.append(arg.value) # copy values of primitive types
             else:
                 # passed.append(arg) # pass references to non-primitive types
                 raise NotImplementedError
+
+        print(passed)
 
         if name in self.builtins:
             return self.builtins[name](self, *passed)

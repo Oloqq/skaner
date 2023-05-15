@@ -1,5 +1,7 @@
 from pprint import pformat
 
+# any identifiable value: variable, function, element of list, etc.
+# literal is an atom with no name (name = None)
 class Atom:
     def __init__(self, name, type, value) -> None:
         self.name: str|None = name
@@ -8,6 +10,9 @@ class Atom:
 
     def __repr__(self):
         return f"Atom({self.name}: {self.type} = {self.value})"
+
+    def is_literal(self) -> bool:
+        return self.name == None
 
 Scope = dict[str, Atom]
 
@@ -31,5 +36,12 @@ class ScopeStack:
     def get(self, identifier: str) -> Atom:
         return self.current[identifier]
 
-    def set(self, identifier: str, type: str, value: any):
-        self.current[identifier] = Atom(identifier, type, value)
+    def setval(self, identifier: str, type: str, rhs: Atom):
+        atom = self.current.get(identifier)
+        if atom:
+            # TODO assert type is not violated
+            atom.value = rhs
+            raise NotImplementedError
+        else: # uhuuhhu new variable incoming :DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+            value = rhs.value if rhs.is_literal() else rhs
+            self.current[identifier] = Atom(identifier, type, value)
