@@ -5,4 +5,4 @@ program: |
 output: |
   Stack:  ScopeStack([{}, {'x': Atom(x: List[int] = {})}])
 
-skip: true
+skip: false

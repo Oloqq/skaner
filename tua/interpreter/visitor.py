@@ -47,8 +47,8 @@ class Tua(TuaVisitor):
         log.info("Newvariable")
         lhs, type_annotated = self.visit(ctx.nametype())
         rhs: Value = self.visit(ctx.exp())
-        if rhs.type.id != type_annotated:
-            raise SemanticError("Type mismatch")
+        if str(rhs.type.id) != str(type_annotated.id):
+            raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({type_annotated})")
         # if isinstance(type, TuaList):
             # pass # TODO assert rhs was a tableconstructor
             # type = type.full_type_str()
@@ -69,19 +69,19 @@ class Tua(TuaVisitor):
         return name
 
 
-    def visitNametype(self, ctx:TuaParser.NametypeContext):
+    def visitNametype(self, ctx:TuaParser.NametypeContext) -> tuple[str, Type]:
         log.info("Nametype")
         name = ctx.NAME().getText()
         type = self.visit(ctx.type_())
         return (name, type)
 
 
-    def visitType(self, ctx:TuaParser.TypeContext) -> str|TuaList:
+    def visitType(self, ctx:TuaParser.TypeContext) -> Type:
         log.info("Type")
         if ctx.NAME():
-            return ctx.NAME().getText()
+            return Type(ctx.NAME().getText())
         elif ctx.NIL():
-            return "nil"
+            return Type("nil")
         elif ctx.listType():
             return self.visit(ctx.listType())
         elif ctx.unionType():
@@ -125,11 +125,17 @@ class Tua(TuaVisitor):
         log.info("Exp")
         if ctx.number():
             value, type = self.visit(ctx.number())
+            assert isinstance(type, Type)
+            assert isinstance(type.id, str)
+
             return Value(type, value)
         #string, true, false, nil
         elif ctx.prefix():
             identifier = self.visit(ctx.prefix())
-            return self.scope.get(identifier)
+            ret = self.scope.get(identifier)
+            assert isinstance(ret.type, Type)
+            assert isinstance(ret.type.id, str)
+            return ret
         #power, unop?, muldivmod, addsub, concat, comp, and, or, unop?
         # elif ctx.tableconstructor():
         #     return self.visit(ctx.tableconstructor())

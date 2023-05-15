@@ -3,7 +3,7 @@ class Type:
         self.id: str = id
 
     def __repr__(self):
-        return f"{self.id}"
+        return f"Type<{self.id}>"
 
 class Value:
     def __init__(self, type: Type, value: any):
@@ -11,4 +11,4 @@ class Value:
         self.value: any = value
 
     def __repr__(self):
-        return f"{self.type}({self.value})"
+        return f"{self.type.id}({self.value})"

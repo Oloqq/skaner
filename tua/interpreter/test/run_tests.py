@@ -29,6 +29,7 @@ def run_test(dir: str, debug: bool, case: str) -> TestResult:
         print("Skipping test case: " + case)
         return TestResult.SKIPPED
 
+    print()
     print("Running test case: " + case)
     program = test["program"]
     expected = test.get("output", "")
@@ -39,11 +40,13 @@ def run_test(dir: str, debug: bool, case: str) -> TestResult:
     # Redirect the stdout to the StringIO object
     sys.stdout = stdout_capture
 
+    error_output = ""
     try:
         run_interpreter(InputStream(program), debug)
         threw = False
     except SemanticError as e:
         threw = True
+        error_output = str(e)
 
     # Get the captured output
     output = stdout_capture.getvalue() or ""
@@ -61,10 +64,16 @@ def run_test(dir: str, debug: bool, case: str) -> TestResult:
             print(f"Test was expected to fail: {case}")
         else:
             print(f"Test failed: {case}")
-        print("Expected:")
-        print(expected)
-        print("Got:")
-        print(output)
+
+        if threw and error_output:
+            print(output)
+            print("Error output:", error_output)
+        else:
+            print("Expected:")
+            print(expected)
+            print("Got:")
+            print(output)
+        print()
         return TestResult.FAILURE
     return TestResult.SUCCESS
 
