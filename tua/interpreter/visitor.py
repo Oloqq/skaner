@@ -1,8 +1,9 @@
 from .generated.TuaVisitor import TuaVisitor
 from .generated.TuaParser import TuaParser
 from .log import log
-from .scope import ScopeStack, Atom
+from .scope import ScopeStack
 from .tualist import TuaList
+from .variables import Value, Type
 
 class InternalError(Exception):
     pass
@@ -44,12 +45,14 @@ class Tua(TuaVisitor):
 
     def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
         log.info("Newvariable")
-        lhs, type = self.visit(ctx.nametype())
-        rhs = self.visit(ctx.exp())
+        lhs, type_annotated = self.visit(ctx.nametype())
+        rhs: Value = self.visit(ctx.exp())
+        if rhs.type.id != type_annotated:
+            raise SemanticError("Type mismatch")
         # if isinstance(type, TuaList):
             # pass # TODO assert rhs was a tableconstructor
             # type = type.full_type_str()
-        self.scope.new_atom(lhs, type, rhs)
+        self.scope.new_atom(lhs, rhs)
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
         log.info("Assignment")
@@ -118,18 +121,18 @@ class Tua(TuaVisitor):
         return self.visitChildren(ctx)
 
 
-    def visitExp(self, ctx:TuaParser.ExpContext):
+    def visitExp(self, ctx:TuaParser.ExpContext) -> Value:
         log.info("Exp")
         if ctx.number():
             value, type = self.visit(ctx.number())
-            return Atom(None, type, value)
+            return Value(type, value)
         #string, true, false, nil
         elif ctx.prefix():
             identifier = self.visit(ctx.prefix())
             return self.scope.get(identifier)
         #power, unop?, muldivmod, addsub, concat, comp, and, or, unop?
-        elif ctx.tableconstructor():
-            return self.visit(ctx.tableconstructor())
+        # elif ctx.tableconstructor():
+        #     return self.visit(ctx.tableconstructor())
         else:
             raise InternalError
 
@@ -152,10 +155,10 @@ class Tua(TuaVisitor):
     def visitFunctioncall(self, ctx:TuaParser.FunctioncallContext):
         log.info(f"Functioncall")
         name = ctx.getToken(TuaParser.NAME, 0).getText()
-        args: list[Atom] = self.visit(ctx.explist())
+        args: list[Value] = self.visit(ctx.explist())
         passed = []
         for arg in args:
-            if arg.type == "int":
+            if arg.type.id == "int":
                 # print(arg, arg.value)
                 # print(arg.value, arg.name, arg.type)
                 passed.append(arg.value) # copy values of primitive types
@@ -172,7 +175,7 @@ class Tua(TuaVisitor):
             raise NotImplementedError
 
 
-    def visitExplist(self, ctx:TuaParser.ExplistContext) -> list[Atom]:
+    def visitExplist(self, ctx:TuaParser.ExplistContext) -> list[Value]:
         log.info("Explist")
         vals = []
         for c in ctx.getChildren():
@@ -235,14 +238,15 @@ class Tua(TuaVisitor):
         return self.visitChildren(ctx)
 
 
-    def visitString(self, ctx:TuaParser.StringContext):
-        return ctx.getText()[1:-1] # skip quotes
+    def visitString(self, ctx:TuaParser.StringContext) -> Value:
+        content =  ctx.getText()[1:-1] # skip quotes
+        return Value(Type("string"), content)
 
 
-    def visitNumber(self, ctx:TuaParser.NumberContext):
+    def visitNumber(self, ctx:TuaParser.NumberContext) -> Type:
         if ctx.INT():
-            return int(ctx.getText()), "int"
+            return int(ctx.getText()), Type("int")
         elif ctx.FLOAT():
-            return float(ctx.getText()), "float"
+            return float(ctx.getText()), Type("float")
         else:
             raise InternalError("Unknown number type")

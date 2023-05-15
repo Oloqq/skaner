@@ -1,21 +1,8 @@
 from pprint import pformat
 from .tualist import TuaList
+from .variables import Value, Type
 
-# any identifiable value: variable, function, element of list, etc.
-# literal is an atom with no name (name = None)
-class Atom:
-    def __init__(self, name, type, value) -> None:
-        self.name: str|None = name
-        self.type: str = type
-        self.value: any = value
-
-    def __repr__(self):
-        return f"Atom({self.name}: {self.type} = {self.value})"
-
-    def is_literal(self) -> bool:
-        return self.name == None
-
-Scope = dict[str, Atom]
+Scope = dict[str, Value]
 
 class ScopeStack:
     def __init__(self):
@@ -34,10 +21,10 @@ class ScopeStack:
         self.scopes.pop()
         self.current = self.scopes[-1]
 
-    def get(self, identifier: str) -> Atom:
+    def get(self, identifier: str) -> Value:
         return self.current[identifier]
 
-    def set_exiting_atom(self, identifier: str, rhs: Atom):
+    def set_exiting_atom(self, identifier: str, rhs: Value):
         # TODO assert it exists?
         # existing_atom = self.current.get(identifier)
 
@@ -45,6 +32,6 @@ class ScopeStack:
 
         self.current[identifier].value = rhs.value
 
-    def new_atom(self, identifier: str, type: str, rhs: Atom):
-        value = rhs.value if rhs.is_literal() else rhs
-        self.current[identifier] = Atom(identifier, type, value)
+    def new_atom(self, identifier: str, val: Value):
+        # value = rhs.value if rhs.is_literal() else rhs
+        self.current[identifier] = val
