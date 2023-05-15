@@ -21,11 +21,6 @@ class Tua(TuaVisitor):
         }
         self.cnt = 0 # for temporary testing
 
-    def builtin_print(self, *args):
-        print(*args)
-
-    def builtin_dump_stack(self, *args):
-        print("Stack:", *args)
 
     def visitProgram(self, ctx:TuaParser.ProgramContext):
         log.info("Program")
@@ -162,13 +157,7 @@ class Tua(TuaVisitor):
             return []
 
         args: list[Value] = self.visit(ctx.explist())
-        passed = []
-        for arg in args:
-            if arg.type.id == "int":
-                passed.append(arg.value) # copy values of primitive types
-            else:
-                # passed.append(arg) # pass references to non-primitive types
-                raise NotImplementedError
+        passed = list(map(lambda arg: arg.copy(), args))
         return passed
 
     def visitFunctioncall(self, ctx:TuaParser.FunctioncallContext):

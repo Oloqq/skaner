@@ -1,8 +1,7 @@
-program:
-  print("yee")
+program: |
+  print(1)
 
-output:
-  yooo
+output: |
+  2
 
 fail: true
-skip: true # TEMP skipping bcs string isnt implemented in exp
