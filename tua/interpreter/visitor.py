@@ -3,6 +3,9 @@ from .generated.TuaParser import TuaParser
 from .log import log
 from .scope import ScopeStack, Atom
 
+class InternalError(Exception):
+    pass
+
 class Tua(TuaVisitor):
     def __init__(self):
         self.scope: ScopeStack = ScopeStack()
@@ -65,9 +68,18 @@ class Tua(TuaVisitor):
 
     def visitType(self, ctx:TuaParser.TypeContext):
         log.info("Type")
-        name = ctx.getToken(TuaParser.NAME, 0).getText()
-        # TODO implement non-NAME productions
-        return name
+        if ctx.NAME():
+            return ctx.NAME().getText()
+        elif ctx.NIL():
+            return "nil"
+        elif ctx.listType():
+            raise NotImplementedError
+        elif ctx.unionType():
+            raise NotImplementedError
+        elif ctx.tableType():
+            raise NotImplementedError
+        else:
+            raise InternalError
 
 
     def visitTableType(self, ctx:TuaParser.TableTypeContext):
@@ -148,7 +160,7 @@ class Tua(TuaVisitor):
             raise NotImplementedError
 
 
-    def visitExplist(self, ctx:TuaParser.ExplistContext):
+    def visitExplist(self, ctx:TuaParser.ExplistContext) -> list[Atom]:
         log.info("Explist")
         vals = []
         for c in ctx.getChildren():
@@ -221,4 +233,4 @@ class Tua(TuaVisitor):
         elif ctx.FLOAT():
             return float(ctx.getText()), "float"
         else:
-            log.error("Unknown number type")
+            raise InternalError("Unknown number type")

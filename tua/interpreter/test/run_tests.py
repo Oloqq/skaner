@@ -5,21 +5,28 @@ import yaml
 from ..main import run_interpreter
 from antlr4 import InputStream
 import click
+from enum import Enum
 
-def run_test(dir: str, case: str) -> bool|None:
+class TestResult(Enum):
+    SUCCESS = 0
+    FAILURE = 1
+    SKIPPED = 2
+    NOT_FOUND = 3
+
+def run_test(dir: str, case: str) -> TestResult:
     if not case.endswith(".yaml"):
-        return
+        return TestResult.NOT_FOUND
 
     try:
         with open(dir + "\\" + case, "r") as f:
             test = yaml.safe_load(f)
     except FileNotFoundError as e:
         print(f"Test case not found: {case}")
-        return
+        return TestResult.NOT_FOUND
 
     if test.get("skip", False):
         print("Skipping test case: " + case)
-        return
+        return TestResult.SKIPPED
 
     print("Running test case: " + case)
     program = test["program"]
@@ -57,21 +64,32 @@ def run_test(dir: str, case: str) -> bool|None:
         print(expected)
         print("Got:")
         print(output)
-        return False
-    return True
+        return TestResult.FAILURE
+    return TestResult.SUCCESS
 
 def run_all_tests(dir: str):
     print("Running all tests...")
 
     failed = []
+    not_found = []
+    skipped = []
     testcases = os.listdir(dir)
 
     for case in testcases:
-        if run_test(dir, case) == False:
+        res = run_test(dir, case)
+        if res == TestResult.FAILURE:
             failed.append(case)
+        elif res == TestResult.NOT_FOUND:
+            not_found.append(case)
+        elif res == TestResult.SKIPPED:
+            skipped.append(case)
 
     if len(failed) == 0:
         print("All tests passed!")
+        if len(skipped) > 0:
+            print(f"Skipped tests ({len(skipped)}):")
+            for case in skipped:
+                print(case)
     else:
         print(f"Failed tests ({len(failed)}):")
         for case in failed:
