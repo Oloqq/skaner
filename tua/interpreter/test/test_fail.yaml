@@ -5,3 +5,4 @@ output:
   yooo
 
 fail: true
+skip: true

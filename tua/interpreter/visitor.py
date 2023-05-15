@@ -44,15 +44,11 @@ class Tua(TuaVisitor):
 
     def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
         log.info("Newvariable")
-        print("vba")
         lhs, type = self.visit(ctx.nametype())
-        print("vba")
         rhs = self.visit(ctx.exp())
-        print("vba")
-        if isinstance(type, TuaList):
-            pass # TODO assert rhs was a tableconstructor
-            type = type.full_type_str()
-        print(lhs, type, rhs)
+        # if isinstance(type, TuaList):
+            # pass # TODO assert rhs was a tableconstructor
+            # type = type.full_type_str()
         self.scope.new_atom(lhs, type, rhs)
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
@@ -124,14 +120,18 @@ class Tua(TuaVisitor):
 
     def visitExp(self, ctx:TuaParser.ExpContext):
         log.info("Exp")
-        if ctx.prefix():
-            identifier = self.visit(ctx.prefix())
-            return self.scope.get(identifier)
-        elif ctx.number():
+        if ctx.number():
             value, type = self.visit(ctx.number())
             return Atom(None, type, value)
+        #string, true, false, nil
+        elif ctx.prefix():
+            identifier = self.visit(ctx.prefix())
+            return self.scope.get(identifier)
+        #power, unop?, muldivmod, addsub, concat, comp, and, or, unop?
+        elif ctx.tableconstructor():
+            return self.visit(ctx.tableconstructor())
         else:
-            raise NotImplementedError
+            raise InternalError
 
 
     def visitFunctionbody(self, ctx:TuaParser.FunctionbodyContext):
