@@ -1,0 +1,12 @@
+program: |
+  function bruh() -> nil
+    print(1)
+  end
+  dump_stack()
+  bruh()
+  bruh()
+
+output: |
+  Stack:  ScopeStack([{}, {'bruh': function = Function<Type<nil>%[]>)}])
+  1
+  1

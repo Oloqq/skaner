@@ -3,7 +3,7 @@ from .generated.TuaParser import TuaParser
 from .log import log
 from .scope import ScopeStack
 from .tualist import TuaList
-from .variables import Value, Type
+from .variables import Value, Type, Function, Param
 
 class InternalError(Exception):
     pass
@@ -37,7 +37,20 @@ class Tua(TuaVisitor):
 
     def visitStat(self, ctx:TuaParser.StatContext):
         log.info("Stat")
-        return self.visitChildren(ctx)
+        if ctx.newvariable() or ctx.assignment() or ctx.functioncall(): # TODO make sure this functioncall does not mess up functioncall in for x,y in ...
+            return self.visitChildren(ctx)
+        # do block end
+        # while
+        # if
+        # for x=...
+        # for x, y in ...
+        elif ctx.functionbody():
+            name = ctx.getToken(TuaParser.NAME, 0).getText()
+            params, returns, block = self.visit(ctx.functionbody())
+            func = Function(name, returns, params, block)
+            self.scope.new_identifier(name, Value(Type("function"), func))
+        else:
+            raise NotImplementedError
 
     def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
         log.info("Newvariable")
@@ -47,13 +60,13 @@ class Tua(TuaVisitor):
         rhs: Value = self.visit(ctx.exp())
         if rhs.type.id != type_annotated.id:
             raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({type_annotated.id})")
-        self.scope.new_atom(lhs, rhs)
+        self.scope.new_identifier(lhs, rhs)
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
         log.info("Assignment")
         identifier = self.visit(ctx.var())
         value = self.visit(ctx.exp())
-        self.scope.set_existing_atom(identifier, value)
+        self.scope.change_value(identifier, value)
 
     def visitVar(self, ctx:TuaParser.VarContext) -> str:
         log.info("Var")
@@ -138,9 +151,10 @@ class Tua(TuaVisitor):
             raise InternalError
 
 
-    def visitFunctionbody(self, ctx:TuaParser.FunctionbodyContext):
+    def visitFunctionbody(self, ctx:TuaParser.FunctionbodyContext) -> tuple[list[Type], Type, TuaParser.BlockContext]:
         log.info("Functionbody")
-        return self.visitChildren(ctx)
+        params = [] # TEMP
+        return params, Type("nil"), ctx.block()
 
 
     def visitLaststat(self, ctx:TuaParser.LaststatContext):
@@ -165,11 +179,14 @@ class Tua(TuaVisitor):
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         args = self.get_args(ctx)
 
-        if name in self.builtins:
+        if name in self.builtins: # TODO order of the checks should be swapped, or overriding builtins banned, to be decided
             return self.builtins[name](self, *args)
         else:
-            # return value returned by function
-            raise NotImplementedError
+            func = self.scope.get(name)
+            if func.type.id != "function":
+                raise SemanticError(f"Trying to call non-function {name}")
+            func.value.execute(self, *args)
+            return None
 
 
     def visitExplist(self, ctx:TuaParser.ExplistContext) -> list[Value]:

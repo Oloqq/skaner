@@ -24,7 +24,7 @@ class ScopeStack:
     def get(self, identifier: str) -> Value:
         return self.current[identifier]
 
-    def set_existing_atom(self, identifier: str, rhs: Value):
+    def change_value(self, identifier: str, rhs: Value):
         # TODO assert it exists?
         # existing_atom = self.current.get(identifier)
 
@@ -32,6 +32,6 @@ class ScopeStack:
 
         self.current[identifier].value = rhs.value
 
-    def new_atom(self, identifier: str, val: Value):
+    def new_identifier(self, identifier: str, val: Value):
         # value = rhs.value if rhs.is_literal() else rhs
         self.current[identifier] = val
