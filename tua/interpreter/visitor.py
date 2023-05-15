@@ -2,8 +2,12 @@ from .generated.TuaVisitor import TuaVisitor
 from .generated.TuaParser import TuaParser
 from .log import log
 from .scope import ScopeStack, Atom
+from .tualist import TuaList
 
 class InternalError(Exception):
+    pass
+
+class SemanticError(Exception):
     pass
 
 class Tua(TuaVisitor):
@@ -40,8 +44,15 @@ class Tua(TuaVisitor):
 
     def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
         log.info("Newvariable")
+        print("vba")
         lhs, type = self.visit(ctx.nametype())
+        print("vba")
         rhs = self.visit(ctx.exp())
+        print("vba")
+        if isinstance(type, TuaList):
+            pass # TODO assert rhs was a tableconstructor
+            type = type.full_type_str()
+        print(lhs, type, rhs)
         self.scope.new_atom(lhs, type, rhs)
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
@@ -61,19 +72,19 @@ class Tua(TuaVisitor):
 
     def visitNametype(self, ctx:TuaParser.NametypeContext):
         log.info("Nametype")
-        name = ctx.getToken(TuaParser.NAME, 0).getText()
+        name = ctx.NAME().getText()
         type = self.visit(ctx.type_())
         return (name, type)
 
 
-    def visitType(self, ctx:TuaParser.TypeContext):
+    def visitType(self, ctx:TuaParser.TypeContext) -> str|TuaList:
         log.info("Type")
         if ctx.NAME():
             return ctx.NAME().getText()
         elif ctx.NIL():
             return "nil"
         elif ctx.listType():
-            raise NotImplementedError
+            return self.visit(ctx.listType())
         elif ctx.unionType():
             raise NotImplementedError
         elif ctx.tableType():
@@ -92,9 +103,10 @@ class Tua(TuaVisitor):
         return self.visitChildren(ctx)
 
 
-    def visitListType(self, ctx:TuaParser.ListTypeContext):
+    def visitListType(self, ctx:TuaParser.ListTypeContext) -> TuaList:
         log.info("ListType")
-        return self.visitChildren(ctx)
+        elem_type = self.visit(ctx.type_())
+        return TuaList(elem_type)
 
 
     def visitPrefix(self, ctx:TuaParser.PrefixContext):

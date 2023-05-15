@@ -6,6 +6,7 @@ from ..main import run_interpreter
 from antlr4 import InputStream
 import click
 from enum import Enum
+from ..visitor import SemanticError
 
 class TestResult(Enum):
     SUCCESS = 0
@@ -13,7 +14,7 @@ class TestResult(Enum):
     SKIPPED = 2
     NOT_FOUND = 3
 
-def run_test(dir: str, case: str) -> TestResult:
+def run_test(dir: str, debug: bool, case: str) -> TestResult:
     if not case.endswith(".yaml"):
         return TestResult.NOT_FOUND
 
@@ -39,9 +40,9 @@ def run_test(dir: str, case: str) -> TestResult:
     sys.stdout = stdout_capture
 
     try:
-        run_interpreter(InputStream(program), False)
+        run_interpreter(InputStream(program), debug)
         threw = False
-    except Exception as e:
+    except SemanticError as e:
         threw = True
 
     # Get the captured output
@@ -67,7 +68,7 @@ def run_test(dir: str, case: str) -> TestResult:
         return TestResult.FAILURE
     return TestResult.SUCCESS
 
-def run_all_tests(dir: str):
+def run_all_tests(dir: str, debug: bool):
     print("Running all tests...")
 
     failed = []
@@ -76,7 +77,7 @@ def run_all_tests(dir: str):
     testcases = os.listdir(dir)
 
     for case in testcases:
-        res = run_test(dir, case)
+        res = run_test(dir, debug, case)
         if res == TestResult.FAILURE:
             failed.append(case)
         elif res == TestResult.NOT_FOUND:
@@ -97,13 +98,14 @@ def run_all_tests(dir: str):
 
 @click.command()
 @click.argument("testcase", nargs=-1)
-def run_tests(testcase):
+@click.option("--debug", "-d", is_flag=True, help="Enable debug logging")
+def run_tests(testcase, debug):
     current_file_path = os.path.realpath(__file__)
     dir = current_file_path.replace("/", "\\").rpartition("\\")[0]
     if not testcase:
-        run_all_tests(dir)
+        run_all_tests(dir, debug)
     else:
         for t in testcase:
             if not t.endswith(".yaml"):
                 t += ".yaml"
-            run_test(dir, t)
+            run_test(dir, debug, t)
