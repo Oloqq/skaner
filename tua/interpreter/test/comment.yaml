@@ -1,0 +1,7 @@
+program: |
+  --comment
+  x: int = 17 --comment
+  print(x)
+
+output: |
+  17
