@@ -212,12 +212,12 @@ fragment EscapeSequence
     | '\\' '\r'? '\n'
     ;
 
-SingleLineInputCharacter
-    : ~[\r\n]
+fragment SingleLineInputCharacter
+    : ~[\r\n\u0085\u2028\u2029]
     ;
 
-COMMENT
-    : '--' SingleLineInputCharacter* -> skip
+LINE_COMMENT
+    : '--' SingleLineInputCharacter* -> channel(HIDDEN)
     ;
 
 WHITESPACE
