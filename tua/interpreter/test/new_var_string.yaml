@@ -1,0 +1,12 @@
+program: |
+  x:string = "yee"
+  print(x)
+
+  x = "0123"
+  print(x)
+
+output: |
+  yee
+  0123
+
+skip: false

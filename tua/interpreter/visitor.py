@@ -137,7 +137,9 @@ class Tua(TuaVisitor):
             assert isinstance(type.id, str)
 
             return Value(type, value)
-        #string, true, false, nil
+        elif ctx.string():
+            return self.visit(ctx.string())
+        #true, false, nil
         elif ctx.prefix():
             identifier = self.visit(ctx.prefix())
             ret = self.scope.get(identifier)

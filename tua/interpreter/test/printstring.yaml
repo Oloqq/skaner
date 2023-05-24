@@ -4,4 +4,4 @@ program: |
 output: |
   yee
 
-skip: true
+skip: false
