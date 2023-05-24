@@ -212,6 +212,14 @@ fragment EscapeSequence
     | '\\' '\r'? '\n'
     ;
 
+SingleLineInputCharacter
+    : ~[\r\n]
+    ;
+
+COMMENT
+    : '--' SingleLineInputCharacter* -> skip
+    ;
+
 WHITESPACE
     : [ \t\u000C\r\n]+ -> skip
     ;
