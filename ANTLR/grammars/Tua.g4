@@ -81,7 +81,6 @@ exp
     | exp binopComparison exp
     | exp binopAnd exp
     | exp binopOr exp
-    | unop exp
     | tableconstructor
     ;
 
