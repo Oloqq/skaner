@@ -1,0 +1,6 @@
+program: |
+  x: List[string] = {"ala", "ma"}
+  dump_stack()
+
+output: |
+  Stack:  ScopeStack([{}, {'x': List[string] = ['ala', 'ma']}])
