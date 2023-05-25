@@ -16,6 +16,7 @@ class Tua(TuaVisitor):
         self.scope: ScopeStack = ScopeStack()
         from . import builtins
         self.builtins = {
+            # "type": builtins.type_, 
             "print": builtins.print_,
             "dump_stack": builtins.dump_stack,
         }
@@ -201,14 +202,24 @@ class Tua(TuaVisitor):
 
     def visitTableconstructor(self, ctx:TuaParser.TableconstructorContext) -> Value:
         log.info("Tableconstructor")
-        ret = Value(Type("List[int]"), [self.cnt, self.cnt + 1]) # TEMP
-        self.cnt += 2
-        return ret
+        if ctx.fieldlist():
+            fields = self.visit(ctx.fieldlist())
+        else:
+            fields = []
+
+        return Value(Type("List[int]"), fields)
+        # ret = Value(Type("List[int]"), [self.cnt, self.cnt + 1]) # TEMP
+        # self.cnt += 2
+        # return ret
 
 
     def visitFieldlist(self, ctx:TuaParser.FieldlistContext):
         log.info("Fieldlist")
-        return self.visitChildren(ctx)
+        children = []
+        for c in ctx.getChildren():
+            if isinstance(c, TuaParser.FieldContext):
+                children.append(self.visit(c).value)
+        return children
 
 
     def visitField(self, ctx:TuaParser.FieldContext):
