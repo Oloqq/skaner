@@ -73,8 +73,8 @@ class Tua(TuaVisitor):
         log.info("Var")
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         if ctx.suffix():
-            # suffix = self.visit(ctx.suffix())
-            raise NotImplementedError
+            suffix = self.visit(ctx.suffix())
+            return f"{name}{suffix}"
         return name
 
 
@@ -127,6 +127,9 @@ class Tua(TuaVisitor):
 
     def visitSuffix(self, ctx:TuaParser.SuffixContext):
         log.info("Suffix")
+        if ctx.exp():
+            arg: Value = self.visit(ctx.exp())
+            return arg.value
         return self.visitChildren(ctx)
 
 
@@ -149,6 +152,8 @@ class Tua(TuaVisitor):
             return ret
         #power, unop?, muldivmod, addsub, concat, comp, and, or, unop?
         elif ctx.tableconstructor():
+            values = self.visit(ctx.tableconstructor())
+
             return self.visit(ctx.tableconstructor())
         else:
             raise InternalError
@@ -207,10 +212,8 @@ class Tua(TuaVisitor):
         else:
             fields = []
 
+        # how to get type?
         return Value(Type("List[int]"), fields)
-        # ret = Value(Type("List[int]"), [self.cnt, self.cnt + 1]) # TEMP
-        # self.cnt += 2
-        # return ret
 
 
     def visitFieldlist(self, ctx:TuaParser.FieldlistContext):
