@@ -28,9 +28,19 @@ class ScopeStack:
         # TODO assert it exists?
         # existing_atom = self.current.get(identifier)
 
-        # TODO assert rhs.type == self.current[identifier].type?
+        if identifier in self.current.keys():
+            existing_atom = self.current[identifier]
+            if existing_atom.type.id == rhs.type.id:
+                self.current[identifier].value = rhs.value
+            else:
+                print("Type mismatch")
+        else:
+            print("Variable does not exist")
 
-        self.current[identifier].value = rhs.value
+        # TODO 
+        # assert rhs.type != self.current[identifier].type
+
+        # self.current[identifier].value = rhs.value
 
     def new_identifier(self, identifier: str, val: Value):
         # value = rhs.value if rhs.is_literal() else rhs
