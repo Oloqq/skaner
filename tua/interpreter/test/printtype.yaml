@@ -1,8 +1,0 @@
-program: |
-  x: int = 3
-  print(type(x))
-
-output: |
-  Type<int>
-
-skip: true

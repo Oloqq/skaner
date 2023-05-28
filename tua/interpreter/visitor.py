@@ -16,7 +16,6 @@ class Tua(TuaVisitor):
         self.scope: ScopeStack = ScopeStack()
         from . import builtins
         self.builtins = {
-            # "type": builtins.type_, 
             "print": builtins.print_,
             "dump_stack": builtins.dump_stack,
         }
@@ -118,6 +117,7 @@ class Tua(TuaVisitor):
         log.info("Suffix")
         if ctx.exp():
             arg: Value = self.visit(ctx.exp())
+            print(arg)
             return arg.value
         return self.visitChildren(ctx)
 
