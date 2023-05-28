@@ -68,7 +68,7 @@ class Tua(TuaVisitor):
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
         log.info("Assignment")
         identifier = self.visit(ctx.var())
-        value = self.visit(ctx.exp())
+        value = self.visit(ctx.exp()) 
         self.scope.change_value(identifier, value)
 
     def visitVar(self, ctx:TuaParser.VarContext) -> str:
@@ -131,7 +131,6 @@ class Tua(TuaVisitor):
         log.info("Suffix")
         if ctx.exp():
             arg: Value = self.visit(ctx.exp())
-            print(arg)
             return arg.value
         return self.visitChildren(ctx)
 
