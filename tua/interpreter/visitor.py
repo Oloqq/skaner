@@ -60,7 +60,10 @@ class Tua(TuaVisitor):
         lhs, type_annotated = self.visit(ctx.nametype())
         rhs: Value = self.visit(ctx.exp())
         if rhs.type.id != type_annotated.id:
-            raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({type_annotated.id})")
+            if rhs.type.id == "List[]":
+                rhs.type.id = type_annotated.id
+            else:
+                raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({type_annotated.id})")
         self.scope.new_identifier(lhs, rhs)
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
@@ -152,8 +155,6 @@ class Tua(TuaVisitor):
             return ret
         #power, unop?, muldivmod, addsub, concat, comp, and, or, unop?
         elif ctx.tableconstructor():
-            values = self.visit(ctx.tableconstructor())
-
             return self.visit(ctx.tableconstructor())
         else:
             raise InternalError
@@ -207,22 +208,27 @@ class Tua(TuaVisitor):
 
     def visitTableconstructor(self, ctx:TuaParser.TableconstructorContext) -> Value:
         log.info("Tableconstructor")
+        type = "" 
         if ctx.fieldlist():
-            fields = self.visit(ctx.fieldlist())
+            fields, type = self.visit(ctx.fieldlist())
         else:
-            fields = []
-
-        # how to get type?
-        return Value(Type("List[int]"), fields)
+            fields = []        
+        return Value(Type(f'List[{type}]'), fields) 
 
 
     def visitFieldlist(self, ctx:TuaParser.FieldlistContext):
         log.info("Fieldlist")
         children = []
+        types = []
         for c in ctx.getChildren():
             if isinstance(c, TuaParser.FieldContext):
-                children.append(self.visit(c).value)
-        return children
+                child = self.visit(c)
+                types.append(child.type.id)
+                children.append(child.value)
+        types = set(types)
+        if len(types) > 1:
+            raise SemanticError(f"Fieldlist contains multiple types: {types}")
+        return children, types.pop()
 
 
     def visitField(self, ctx:TuaParser.FieldContext):
