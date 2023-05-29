@@ -12,12 +12,12 @@ stat
     : newvariable
     | assignment
     | functioncall
-    | 'do' block 'end'
-    | 'while' exp 'do' block 'end'
-    | 'if' exp 'then' block ('elseif' exp 'then' block)* ('else' block)? 'end'
-    | 'for' NAME '=' exp ',' exp (',' exp)? 'do' block 'end' // over an integer range
-    | 'for' NAME ',' NAME 'in' functioncall 'do' block 'end' // where functioncall is an iterator like pairs
-    | 'function' NAME functionbody
+    | dostat
+    | whilestat
+    | ifstat
+    | forintstat // over an integer range
+    | foriteratorstat // where functioncall is an iterator like pairs
+    | functiondef
     ;
 
 assignment
@@ -86,6 +86,30 @@ exp
 
 functionbody
     : '(' typednamelist? ')' '->' type block 'end'
+    ;
+
+dostat
+    : 'do' block 'end'
+    ;
+
+whilestat
+    : 'while' exp 'do' block 'end'
+    ;
+
+ifstat
+    : 'if' exp 'then' block ('elseif' exp 'then' block)* ('else' block)? 'end'
+    ;
+
+forintstat
+    : 'for' NAME '=' exp ',' exp (',' exp)? 'do' block 'end'
+    ;
+
+foriteratorstat
+    : 'for' NAME ',' NAME 'in' functioncall 'do' block 'end'
+    ;
+
+functiondef
+    : 'function' NAME functionbody
     ;
 
 laststat
