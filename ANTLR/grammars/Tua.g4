@@ -66,11 +66,10 @@ suffix
     ;
 
 exp
-    : '('exp')'
+    : '(' exp ')'
     | number
     | string
-    | TRUE
-    | FALSE
+    | bool
     | NIL
     | prefix
     | <assoc=right> exp binopPower exp
@@ -195,11 +194,11 @@ number
     | FLOAT
     ;
 
-NAME
-    : [a-zA-Z_][a-zA-Z_0-9]*
+bool
+    : TRUE
+    | FALSE
     ;
-
-
+    
 FALSE
     : 'false'
     ;
@@ -207,9 +206,12 @@ FALSE
 TRUE
     : 'true'
     ;
-
 NIL
     : 'nil'
+    ;
+
+NAME
+    : [a-zA-Z_][a-zA-Z_0-9]*
     ;
 
 INT

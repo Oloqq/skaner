@@ -1,7 +1,17 @@
 program: |
   if true then
+    print("ur loser")
+  end
+  if false then
+    print(":-|")
+  elseif false then
     print("xd")
+  elseif false then
+    print("lol")
+  else
+    print("...")
   end
 
 output: |
-  xd
+  ur loser
+  ...

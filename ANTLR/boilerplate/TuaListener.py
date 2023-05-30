@@ -350,5 +350,14 @@ class TuaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by TuaParser#bool.
+    def enterBool(self, ctx:TuaParser.BoolContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#bool.
+    def exitBool(self, ctx:TuaParser.BoolContext):
+        pass
+
+
 
 del TuaParser

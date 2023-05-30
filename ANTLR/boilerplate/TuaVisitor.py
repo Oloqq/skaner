@@ -199,5 +199,10 @@ class TuaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by TuaParser#bool.
+    def visitBool(self, ctx:TuaParser.BoolContext):
+        return self.visitChildren(ctx)
+
+
 
 del TuaParser

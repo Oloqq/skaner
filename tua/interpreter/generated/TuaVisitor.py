@@ -84,6 +84,36 @@ class TuaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by TuaParser#dostat.
+    def visitDostat(self, ctx:TuaParser.DostatContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by TuaParser#whilestat.
+    def visitWhilestat(self, ctx:TuaParser.WhilestatContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by TuaParser#ifstat.
+    def visitIfstat(self, ctx:TuaParser.IfstatContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by TuaParser#forintstat.
+    def visitForintstat(self, ctx:TuaParser.ForintstatContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by TuaParser#foriteratorstat.
+    def visitForiteratorstat(self, ctx:TuaParser.ForiteratorstatContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by TuaParser#functiondef.
+    def visitFunctiondef(self, ctx:TuaParser.FunctiondefContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by TuaParser#laststat.
     def visitLaststat(self, ctx:TuaParser.LaststatContext):
         return self.visitChildren(ctx)
@@ -166,6 +196,11 @@ class TuaVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TuaParser#number.
     def visitNumber(self, ctx:TuaParser.NumberContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by TuaParser#bool.
+    def visitBool(self, ctx:TuaParser.BoolContext):
         return self.visitChildren(ctx)
 
 

@@ -143,6 +143,60 @@ class TuaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by TuaParser#dostat.
+    def enterDostat(self, ctx:TuaParser.DostatContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#dostat.
+    def exitDostat(self, ctx:TuaParser.DostatContext):
+        pass
+
+
+    # Enter a parse tree produced by TuaParser#whilestat.
+    def enterWhilestat(self, ctx:TuaParser.WhilestatContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#whilestat.
+    def exitWhilestat(self, ctx:TuaParser.WhilestatContext):
+        pass
+
+
+    # Enter a parse tree produced by TuaParser#ifstat.
+    def enterIfstat(self, ctx:TuaParser.IfstatContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#ifstat.
+    def exitIfstat(self, ctx:TuaParser.IfstatContext):
+        pass
+
+
+    # Enter a parse tree produced by TuaParser#forintstat.
+    def enterForintstat(self, ctx:TuaParser.ForintstatContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#forintstat.
+    def exitForintstat(self, ctx:TuaParser.ForintstatContext):
+        pass
+
+
+    # Enter a parse tree produced by TuaParser#foriteratorstat.
+    def enterForiteratorstat(self, ctx:TuaParser.ForiteratorstatContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#foriteratorstat.
+    def exitForiteratorstat(self, ctx:TuaParser.ForiteratorstatContext):
+        pass
+
+
+    # Enter a parse tree produced by TuaParser#functiondef.
+    def enterFunctiondef(self, ctx:TuaParser.FunctiondefContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#functiondef.
+    def exitFunctiondef(self, ctx:TuaParser.FunctiondefContext):
+        pass
+
+
     # Enter a parse tree produced by TuaParser#laststat.
     def enterLaststat(self, ctx:TuaParser.LaststatContext):
         pass
@@ -293,6 +347,15 @@ class TuaListener(ParseTreeListener):
 
     # Exit a parse tree produced by TuaParser#number.
     def exitNumber(self, ctx:TuaParser.NumberContext):
+        pass
+
+
+    # Enter a parse tree produced by TuaParser#bool.
+    def enterBool(self, ctx:TuaParser.BoolContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#bool.
+    def exitBool(self, ctx:TuaParser.BoolContext):
         pass
 
 
