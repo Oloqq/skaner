@@ -1,0 +1,12 @@
+program: |
+  y: bool = true
+  y = false
+  x: bool = true
+  if y then
+    print("meow")
+  elseif x then
+    print("woof")
+  end
+
+output: |
+  woof

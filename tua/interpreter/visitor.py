@@ -38,11 +38,10 @@ class Tua(TuaVisitor):
 
     def visitStat(self, ctx:TuaParser.StatContext):
         log.info("Stat")
-        if ctx.newvariable() or ctx.assignment() or ctx.functioncall(): # TODO make sure this functioncall does not mess up functioncall in for x,y in ...
+        if ctx.newvariable() or ctx.assignment() or ctx.functioncall() or ctx.ifstat(): # TODO make sure this functioncall does not mess up functioncall in for x,y in ...
             return self.visitChildren(ctx)
         # do block end
         # while
-        # if
         # for x=...
         # for x, y in ...
         elif ctx.functionbody():
@@ -147,7 +146,11 @@ class Tua(TuaVisitor):
             return Value(type, value)
         elif ctx.string():
             return self.visit(ctx.string())
-        #true, false, nil
+        # should the assertions be added?
+        elif ctx.bool_():
+            value, type = self.visit(ctx.bool_())
+            return Value(type, value)
+        # nil
         elif ctx.prefix():
             identifier = self.visit(ctx.prefix())
             ret = self.scope.get(identifier)
@@ -165,6 +168,39 @@ class Tua(TuaVisitor):
         log.info("Functionbody")
         params = [] # TEMP
         return params, Type("nil"), ctx.block()
+    
+
+    def visitDostat(self, ctx:TuaParser.DostatContext):
+        return self.visitChildren(ctx)
+
+
+    def visitWhilestat(self, ctx:TuaParser.WhilestatContext):
+        return self.visitChildren(ctx)
+
+
+    def visitIfstat(self, ctx:TuaParser.IfstatContext):
+        n_exps = len(ctx.exp())
+        n_blocks = len(ctx.block())
+
+        # if and elseifs
+        for i in range(n_exps):
+            if self.visit(ctx.exp(i)).value:
+                return self.visit(ctx.block(i))
+
+        # else
+        if n_blocks > n_exps:
+            return self.visit(ctx.block(n_blocks - 1))
+
+    def visitForintstat(self, ctx:TuaParser.ForintstatContext):
+        return self.visitChildren(ctx)
+
+
+    def visitForiteratorstat(self, ctx:TuaParser.ForiteratorstatContext):
+        return self.visitChildren(ctx)
+
+
+    def visitFunctiondef(self, ctx:TuaParser.FunctiondefContext):
+        return self.visitChildren(ctx)
 
 
     def visitLaststat(self, ctx:TuaParser.LaststatContext):
@@ -291,3 +327,10 @@ class Tua(TuaVisitor):
             return float(ctx.getText()), Type("float")
         else:
             raise InternalError("Unknown number type")
+        
+
+    def visitBool(self, ctx:TuaParser.BoolContext):
+        if ctx.TRUE():
+            return True, Type("bool")
+        if ctx.FALSE():
+            return False, Type("bool")
