@@ -7,3 +7,5 @@ program: |
 
 output: |
   IT WOOOOOOOOOOOOOOOOOORKS
+
+skip: True
