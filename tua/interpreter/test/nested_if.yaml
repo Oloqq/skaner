@@ -1,0 +1,12 @@
+program: |
+  if true then
+    x: bool = true
+    if false then
+      x = false
+    elseif x then
+      print("lol")
+    end
+  end
+
+output: |
+  lol
