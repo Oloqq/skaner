@@ -3,7 +3,7 @@ program: |
   print(x)
 
 output: |
-  {0, 2}
+  [0, 2]
 
-#[0, 2]
-skip: true #not so important
+#[int = 0, int = 2]
+skip: false #not so important
