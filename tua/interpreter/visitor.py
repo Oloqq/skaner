@@ -4,6 +4,7 @@ from .log import log
 from .scope import ScopeStack
 from .tualist import TuaList
 from .variables import Value, Type, Function, Param
+from .tualist import TuaList
 
 class InternalError(Exception):
     pass
@@ -129,6 +130,7 @@ class Tua(TuaVisitor):
 
     def visitSuffix(self, ctx:TuaParser.SuffixContext):
         log.info("Suffix")
+        # how to handle list access? when return( eg. print(x[0]) )/assign( eg. x[1] = 5 ) value 
         if ctx.exp():
             arg: Value = self.visit(ctx.exp())
             return arg.value
@@ -211,8 +213,10 @@ class Tua(TuaVisitor):
         if ctx.fieldlist():
             fields, type = self.visit(ctx.fieldlist())
         else:
-            fields = []        
-        return Value(Type(f'List[{type}]'), fields) 
+            fields = []   
+        tualist = TuaList(type)   
+        tualist.content = fields  
+        return Value(Type(tualist.full_type_str()), tualist.content) 
 
 
     def visitFieldlist(self, ctx:TuaParser.FieldlistContext):
