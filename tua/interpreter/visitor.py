@@ -37,20 +37,7 @@ class Tua(TuaVisitor):
 
 
     def visitStat(self, ctx:TuaParser.StatContext):
-        log.info("Stat")
-        if ctx.newvariable() or ctx.assignment() or ctx.functioncall() or ctx.ifstat(): # TODO make sure this functioncall does not mess up functioncall in for x,y in ...
-            return self.visitChildren(ctx)
-        # do block end
-        # while
-        # for x=...
-        # for x, y in ...
-        elif ctx.functionbody():
-            name = ctx.getToken(TuaParser.NAME, 0).getText()
-            params, returns, block = self.visit(ctx.functionbody())
-            func = Function(name, returns, params, block)
-            self.scope.new_identifier(name, Value(Type("function"), func))
-        else:
-            raise NotImplementedError
+        self.visitChildren(ctx)
 
     def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
         log.info("Newvariable")
@@ -168,7 +155,7 @@ class Tua(TuaVisitor):
         log.info("Functionbody")
         params = [] # TEMP
         return params, Type("nil"), ctx.block()
-    
+
 
     def visitDostat(self, ctx:TuaParser.DostatContext):
         return self.visitChildren(ctx)
@@ -200,7 +187,10 @@ class Tua(TuaVisitor):
 
 
     def visitFunctiondef(self, ctx:TuaParser.FunctiondefContext):
-        return self.visitChildren(ctx)
+        name = ctx.getToken(TuaParser.NAME, 0).getText()
+        params, returns, block = self.visit(ctx.functionbody())
+        func = Function(name, returns, params, block)
+        self.scope.new_identifier(name, Value(Type("function"), func))
 
 
     def visitLaststat(self, ctx:TuaParser.LaststatContext):
@@ -327,7 +317,7 @@ class Tua(TuaVisitor):
             return float(ctx.getText()), Type("float")
         else:
             raise InternalError("Unknown number type")
-        
+
 
     def visitBool(self, ctx:TuaParser.BoolContext):
         if ctx.TRUE():
