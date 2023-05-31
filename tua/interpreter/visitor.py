@@ -149,9 +149,50 @@ class Tua(TuaVisitor):
             assert isinstance(ret.type, Type)
             assert isinstance(ret.type.id, str)
             return ret
-        #power, unop?, muldivmod, addsub, concat, comp, and, or, unop?
         elif ctx.tableconstructor():
-            return self.visit(ctx.tableconstructor())
+                return self.visit(ctx.tableconstructor())  
+        #power, unop?, muldivmod, addsub, concat, comp, and, or, unop?
+        elif ctx.binopComparison():
+            operators = {
+                '==' : lambda x, y : x == y,
+                '~=' : lambda x, y : x != y,
+                '<=' : lambda x, y : x <= y,
+                '>=' : lambda x, y : x >= y,
+                '<' : lambda x, y : x < y,
+                '>' : lambda x, y : x > y,
+            }
+
+            val_left = self.visit(ctx.exp(0)).value
+            val_right = self.visit(ctx.exp(1)).value
+            
+            op = self.visit(ctx.binopComparison())
+
+            return Value(Type("bool"), operators[op](val_left, val_right))
+        
+        elif ctx.binopAnd():
+            operators = {
+                'and' : lambda x, y : x and y,
+                '&' : lambda x, y : x & y, 
+            }
+
+            val_left = self.visit(ctx.exp(0)).value
+            val_right = self.visit(ctx.exp(1)).value
+            op = self.visit(ctx.binopAnd())
+
+            return Value(Type("bool"), operators[op](val_left, val_right))
+        
+        elif ctx.binopOr():
+            operators = {
+                'or' : lambda x, y : x or y,
+                '|' : lambda x, y : x | y, 
+            }
+
+            val_left = self.visit(ctx.exp(0)).value
+            val_right = self.visit(ctx.exp(1)).value
+            op = self.visit(ctx.binopOr())
+
+            return Value(Type("bool"), operators[op](val_left, val_right))
+        
         else:
             raise InternalError
 
@@ -254,42 +295,42 @@ class Tua(TuaVisitor):
 
     def visitBinopAddSub(self, ctx:TuaParser.BinopAddSubContext):
         log.info("BinopAddSub")
-        return self.visitChildren(ctx)
+        return ctx.getText();
 
 
     def visitBinopMulDivMod(self, ctx:TuaParser.BinopMulDivModContext):
         log.info("BinopMulDivMod")
-        return self.visitChildren(ctx)
+        return ctx.getText();
 
 
     def visitBinopComparison(self, ctx:TuaParser.BinopComparisonContext):
         log.info("BinopComparison")
-        return self.visitChildren(ctx)
+        return ctx.getText();
 
 
     def visitBinopConcat(self, ctx:TuaParser.BinopConcatContext):
         log.info("BinopConcat")
-        return self.visitChildren(ctx)
+        return ctx.getText();
 
 
     def visitBinopAnd(self, ctx:TuaParser.BinopAndContext):
         log.info("BinopAnd")
-        return self.visitChildren(ctx)
+        return ctx.getText();
 
 
     def visitBinopOr(self, ctx:TuaParser.BinopOrContext):
         log.info("BinopOr")
-        return self.visitChildren(ctx)
+        return ctx.getText();
 
 
     def visitBinopPower(self, ctx:TuaParser.BinopPowerContext):
         log.info("BinopPower")
-        return self.visitChildren(ctx)
+        return ctx.getText();
 
 
     def visitUnop(self, ctx:TuaParser.UnopContext):
         log.info("Unop")
-        return self.visitChildren(ctx)
+        return ctx.getText();
 
 
     def visitString(self, ctx:TuaParser.StringContext) -> Value:

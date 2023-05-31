@@ -1,0 +1,11 @@
+program: |
+  x: int = 6
+  y: int = 2
+  z: bool = y < x and x < y
+  print(z)
+  z = true and true
+  print(z)
+
+output: |
+  False
+  True

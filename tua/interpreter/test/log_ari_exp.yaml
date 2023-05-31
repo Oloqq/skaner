@@ -1,0 +1,9 @@
+program: |
+  x: int = 6
+  y: int = 7
+  if (x<(2+8) and y ~= x) then
+    print("IT WOOOOOOOOOOOOOOOOOORKS")
+  end
+
+output: |
+  IT WOOOOOOOOOOOOOOOOOORKS
