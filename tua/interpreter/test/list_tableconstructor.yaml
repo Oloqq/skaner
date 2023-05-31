@@ -1,0 +1,8 @@
+program: |
+  x: List[int] = {0, 2}
+  y: List[string] = {}
+
+  dump_stack()
+
+output: |
+  Stack:  ScopeStack([{}, {'x': List[int] = [int = 0, int = 2], 'y': List[string] = []}])

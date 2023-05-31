@@ -25,12 +25,22 @@ class ScopeStack:
         return self.current[identifier]
 
     def change_value(self, identifier: str, rhs: Value):
-        # TODO assert it exists?
-        # existing_atom = self.current.get(identifier)
 
-        # TODO assert rhs.type == self.current[identifier].type?
+        # TODO
+        # it only works for literals -> do list etc
 
-        self.current[identifier].value = rhs.value
+        if identifier in self.current.keys():
+            existing_atom = self.current[identifier]
+            # print(f'do {identifier}: {existing_atom} przypisać {rhs}')
+            
+            if existing_atom.type.id == rhs.type.id:
+                self.current[identifier].value = rhs.value
+            else:
+                print("Type mismatch")
+        else:
+            print("Variable does not exist")
+
+        # self.current[identifier].value = rhs.value
 
     def new_identifier(self, identifier: str, val: Value):
         # value = rhs.value if rhs.is_literal() else rhs

@@ -4,10 +4,18 @@ class TuaList:
         self.type: str = elem_type
 
     def __repr__(self):
-        return f"{self.full_type_str()} = {self.content_str()}]"
+        return f"{self.full_type_str()} = [{self.content_str()}]"
 
     def full_type_str(self):
         return f"List[{self.type}]"
 
     def content_str(self):
         return str(self.content)
+
+    def get(self, elem: int) -> any:
+        return self.content[elem]
+
+    def set(self, elem: int, val: any):
+        if type(val) == self.type:
+            self.content[elem] = val
+    

@@ -1,0 +1,10 @@
+program: |
+  x: int = 17
+  print(x)
+  x = "test"
+  print(x)
+
+output: |
+  17
+  Type mismatch
+  17

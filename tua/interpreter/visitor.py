@@ -4,6 +4,7 @@ from .log import log
 from .scope import ScopeStack
 from .tualist import TuaList
 from .variables import Value, Type, Function, Param
+from .tualist import TuaList
 
 class InternalError(Exception):
     pass
@@ -36,20 +37,7 @@ class Tua(TuaVisitor):
 
 
     def visitStat(self, ctx:TuaParser.StatContext):
-        log.info("Stat")
-        if ctx.newvariable() or ctx.assignment() or ctx.functioncall() or ctx.ifstat(): # TODO make sure this functioncall does not mess up functioncall in for x,y in ...
-            return self.visitChildren(ctx)
-        # do block end
-        # while
-        # for x=...
-        # for x, y in ...
-        elif ctx.functionbody():
-            name = ctx.getToken(TuaParser.NAME, 0).getText()
-            params, returns, block = self.visit(ctx.functionbody())
-            func = Function(name, returns, params, block)
-            self.scope.new_identifier(name, Value(Type("function"), func))
-        else:
-            raise NotImplementedError
+        self.visitChildren(ctx)
 
     def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
         log.info("Newvariable")
@@ -58,21 +46,24 @@ class Tua(TuaVisitor):
         lhs, type_annotated = self.visit(ctx.nametype())
         rhs: Value = self.visit(ctx.exp())
         if rhs.type.id != type_annotated.id:
-            raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({type_annotated.id})")
+            if rhs.type.id == "List[]":
+                rhs.type.id = type_annotated.id
+            else:
+                raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({type_annotated.id})")
         self.scope.new_identifier(lhs, rhs)
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
         log.info("Assignment")
         identifier = self.visit(ctx.var())
-        value = self.visit(ctx.exp())
+        value = self.visit(ctx.exp()) 
         self.scope.change_value(identifier, value)
 
     def visitVar(self, ctx:TuaParser.VarContext) -> str:
         log.info("Var")
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         if ctx.suffix():
-            # suffix = self.visit(ctx.suffix())
-            raise NotImplementedError
+            suffix = self.visit(ctx.suffix())
+            return f"{name}{suffix}"
         return name
 
 
@@ -125,6 +116,10 @@ class Tua(TuaVisitor):
 
     def visitSuffix(self, ctx:TuaParser.SuffixContext):
         log.info("Suffix")
+        # how to handle list access? when return( eg. print(x[0]) )/assign( eg. x[1] = 5 ) value 
+        if ctx.exp():
+            arg: Value = self.visit(ctx.exp())
+            return arg.value
         return self.visitChildren(ctx)
 
 
@@ -201,7 +196,7 @@ class Tua(TuaVisitor):
         log.info("Functionbody")
         params = [] # TEMP
         return params, Type("nil"), ctx.block()
-    
+
 
     def visitDostat(self, ctx:TuaParser.DostatContext):
         return self.visitChildren(ctx)
@@ -233,7 +228,10 @@ class Tua(TuaVisitor):
 
 
     def visitFunctiondef(self, ctx:TuaParser.FunctiondefContext):
-        return self.visitChildren(ctx)
+        name = ctx.getToken(TuaParser.NAME, 0).getText()
+        params, returns, block = self.visit(ctx.functionbody())
+        func = Function(name, returns, params, block)
+        self.scope.new_identifier(name, Value(Type("function"), func))
 
 
     def visitLaststat(self, ctx:TuaParser.LaststatContext):
@@ -278,14 +276,29 @@ class Tua(TuaVisitor):
 
     def visitTableconstructor(self, ctx:TuaParser.TableconstructorContext) -> Value:
         log.info("Tableconstructor")
-        ret = Value(Type("List[int]"), [self.cnt, self.cnt + 1]) # TEMP
-        self.cnt += 2
-        return ret
+        type = "" 
+        if ctx.fieldlist():
+            fields, type = self.visit(ctx.fieldlist())
+        else:
+            fields = []   
+        tualist = TuaList(type)   
+        tualist.content = fields  
+        return Value(Type(tualist.full_type_str()), tualist.content) 
 
 
     def visitFieldlist(self, ctx:TuaParser.FieldlistContext):
         log.info("Fieldlist")
-        return self.visitChildren(ctx)
+        children = []
+        types = []
+        for c in ctx.getChildren():
+            if isinstance(c, TuaParser.FieldContext):
+                child = self.visit(c)
+                types.append(child.type.id)
+                children.append(child)
+        types = set(types)
+        if len(types) > 1:
+            raise SemanticError(f"Fieldlist contains multiple types: {types}")
+        return children, types.pop()
 
 
     def visitField(self, ctx:TuaParser.FieldContext):
@@ -345,7 +358,7 @@ class Tua(TuaVisitor):
             return float(ctx.getText()), Type("float")
         else:
             raise InternalError("Unknown number type")
-        
+
 
     def visitBool(self, ctx:TuaParser.BoolContext):
         if ctx.TRUE():

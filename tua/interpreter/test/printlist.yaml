@@ -1,0 +1,9 @@
+program: |
+  x: List[int] = {0, 2}
+  print(x)
+
+output: |
+  [0, 2]
+
+#[int = 0, int = 2]
+skip: false #not so important
