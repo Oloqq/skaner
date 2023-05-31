@@ -5,4 +5,4 @@ program: |
   dump_stack()
 
 output: |
-  Stack:  ScopeStack([{}, {'x': List[int] = [0, 2], 'y': List[string] = []}])
+  Stack:  ScopeStack([{}, {'x': List[int] = [int = 0, int = 2], 'y': List[string] = []}])

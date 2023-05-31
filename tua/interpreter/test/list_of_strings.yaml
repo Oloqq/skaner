@@ -3,4 +3,4 @@ program: |
   dump_stack()
 
 output: |
-  Stack:  ScopeStack([{}, {'x': List[string] = ['ala', 'ma']}])
+  Stack:  ScopeStack([{}, {'x': List[string] = [string = ala, string = ma]}])

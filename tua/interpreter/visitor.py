@@ -227,7 +227,7 @@ class Tua(TuaVisitor):
             if isinstance(c, TuaParser.FieldContext):
                 child = self.visit(c)
                 types.append(child.type.id)
-                children.append(child.value)
+                children.append(child)
         types = set(types)
         if len(types) > 1:
             raise SemanticError(f"Fieldlist contains multiple types: {types}")
