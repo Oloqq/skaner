@@ -133,7 +133,8 @@ class Tua(TuaVisitor):
             return Value(type, value)
         elif ctx.string():
             return self.visit(ctx.string())
-        # should the assertions be added?
+        elif ctx.parexp():
+            return self.visit(ctx.parexp())
         elif ctx.bool_():
             value, type = self.visit(ctx.bool_())
             return Value(type, value)
@@ -190,6 +191,10 @@ class Tua(TuaVisitor):
         
         else:
             raise InternalError
+        
+
+    def visitParexp(self, ctx:TuaParser.ParexpContext):
+        return self.visit(ctx.exp())
 
 
     def visitFunctionbody(self, ctx:TuaParser.FunctionbodyContext) -> tuple[list[Type], Type, TuaParser.BlockContext]:
@@ -218,6 +223,7 @@ class Tua(TuaVisitor):
         # else
         if n_blocks > n_exps:
             return self.visit(ctx.block(n_blocks - 1))
+
 
     def visitForintstat(self, ctx:TuaParser.ForintstatContext):
         return self.visitChildren(ctx)

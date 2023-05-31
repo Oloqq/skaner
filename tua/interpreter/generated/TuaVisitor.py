@@ -79,6 +79,11 @@ class TuaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by TuaParser#parexp.
+    def visitParexp(self, ctx:TuaParser.ParexpContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by TuaParser#functionbody.
     def visitFunctionbody(self, ctx:TuaParser.FunctionbodyContext):
         return self.visitChildren(ctx)

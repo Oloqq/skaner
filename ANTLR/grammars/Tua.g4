@@ -66,7 +66,7 @@ suffix
     ;
 
 exp
-    : '(' exp ')'
+    : parexp
     | number
     | string
     | bool
@@ -81,6 +81,10 @@ exp
     | exp binopAnd exp
     | exp binopOr exp
     | tableconstructor
+    ;
+
+parexp
+    : '(' exp ')'
     ;
 
 functionbody

@@ -1,0 +1,6 @@
+program: |
+  x: bool = ((1 < 2) and (3 == 4 or false == false)) and (true and false)
+  print(x)
+
+output: |
+  False

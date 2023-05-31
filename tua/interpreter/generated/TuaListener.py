@@ -134,6 +134,15 @@ class TuaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by TuaParser#parexp.
+    def enterParexp(self, ctx:TuaParser.ParexpContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#parexp.
+    def exitParexp(self, ctx:TuaParser.ParexpContext):
+        pass
+
+
     # Enter a parse tree produced by TuaParser#functionbody.
     def enterFunctionbody(self, ctx:TuaParser.FunctionbodyContext):
         pass
