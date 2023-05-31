@@ -14,7 +14,7 @@ class TestResult(Enum):
     SKIPPED = 2
     NOT_FOUND = 3
 
-def run_test(dir: str, debug: bool, case: str) -> TestResult:
+def run_test(dir: str, debug: bool, case: str, verbose: bool = False) -> TestResult:
     if not case.endswith(".yaml"):
         return TestResult.NOT_FOUND
 
@@ -59,25 +59,34 @@ def run_test(dir: str, debug: bool, case: str) -> TestResult:
 
     is_failed = threw or output != expected
     should_fail = test.get("fail", False)
-    if is_failed != should_fail:
-        if should_fail:
-            print(f"Test was expected to fail: {case}")
-        else:
-            print(f"Test failed: {case}")
+    show_output = (threw and error_output) or verbose
 
-        if threw and error_output:
-            print(output)
-            print("Error output:", error_output)
-        else:
-            print("Expected:")
-            print(expected)
-            print("Got:")
-            print(output)
+    if is_failed and not should_fail:
+        print(f"Test failed: {case}")
+    elif not is_failed and should_fail:
+        print(f"Test was expected to fail: {case}")
+    elif show_output:
+        print(f"Test case: {case}")
+
+    if threw and error_output:
+        print(output)
+        print("Error output:", error_output)
         print()
         return TestResult.FAILURE
+    elif is_failed != should_fail:
+        print("Expected:")
+        print(expected)
+        print("Got:")
+        print(output)
+        print()
+        return TestResult.FAILURE
+    elif verbose:
+        print("Output:")
+        print(output)
+
     return TestResult.SUCCESS
 
-def run_all_tests(dir: str, debug: bool):
+def run_all_tests(dir: str, debug: bool, verbose: bool = False):
     print("Running all tests...")
 
     failed = []
@@ -86,7 +95,7 @@ def run_all_tests(dir: str, debug: bool):
     testcases = os.listdir(dir)
 
     for case in testcases:
-        res = run_test(dir, debug, case)
+        res = run_test(dir, debug, case, verbose)
         if res == TestResult.FAILURE:
             failed.append(case)
         elif res == TestResult.NOT_FOUND:
@@ -108,13 +117,14 @@ def run_all_tests(dir: str, debug: bool):
 @click.command()
 @click.argument("testcase", nargs=-1)
 @click.option("--debug", "-d", is_flag=True, help="Enable debug logging")
-def run_tests(testcase, debug):
+@click.option("--verbose", "-v", is_flag=True, help="Print output of successful tests")
+def run_tests(testcase, debug, verbose):
     current_file_path = os.path.realpath(__file__)
     dir = current_file_path.replace("/", "\\").rpartition("\\")[0]
     if not testcase:
-        run_all_tests(dir, debug)
+        run_all_tests(dir, debug, verbose)
     else:
         for t in testcase:
             if not t.endswith(".yaml"):
                 t += ".yaml"
-            run_test(dir, debug, t)
+            run_test(dir, debug, t, verbose)
