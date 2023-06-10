@@ -216,6 +216,16 @@ class Tua(TuaVisitor):
             
             raise SemanticError(f"Trying to use operator '{op}' on {val_left.type} and {val_right.type}")
 
+        elif ctx.binopConcat():
+            val_left = self.visit(ctx.exp(0))
+            val_right = self.visit(ctx.exp(1))
+
+            if val_left.type.id == "string" and val_right.type.id == "string":
+                return Value(Type("string"), val_left.value + val_right.value)
+            
+            raise SemanticError(f"Trying to use operator '..' on {val_left.type} and {val_right.type}")
+
+        
         elif ctx.binopComparison():
             operators = {
                 '==' : lambda x, y : x == y,

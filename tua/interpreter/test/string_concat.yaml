@@ -1,0 +1,8 @@
+program: |
+  x:string = 'Hello' .. " " .. "world"
+  print(x)
+  print(":" .. "DD")
+
+output: |
+  Hello world
+  :DD
