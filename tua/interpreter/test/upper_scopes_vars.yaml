@@ -1,0 +1,13 @@
+program: |
+  x: int = 2
+  if x <= 2 then
+    print(x)
+    y: int = x + 1
+    if y == 3 then
+      print(y)
+    end
+  end
+
+output: |
+  2
+  3

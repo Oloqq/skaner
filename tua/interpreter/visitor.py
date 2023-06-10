@@ -50,7 +50,11 @@ class Tua(TuaVisitor):
                 rhs.type.id = type_annotated.id
             else:
                 raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({type_annotated.id})")
-        self.scope.new_identifier(lhs, rhs)
+            
+        var_added_successfully = self.scope.new_identifier(lhs, rhs)
+
+        if not var_added_successfully:
+            raise SemanticError(f"Variable named '{lhs}' is already defined")
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
         log.info("Assignment")
@@ -142,6 +146,10 @@ class Tua(TuaVisitor):
         elif ctx.prefix():
             identifier = self.visit(ctx.prefix())
             ret = self.scope.get(identifier)
+            
+            if ret is None:
+                raise SemanticError(f"Name '{identifier}' is not defined")
+            
             assert isinstance(ret.type, Type)
             assert isinstance(ret.type.id, str)
             return ret

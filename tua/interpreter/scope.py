@@ -22,7 +22,11 @@ class ScopeStack:
         self.current = self.scopes[-1]
 
     def get(self, identifier: str) -> Value:
-        return self.current[identifier]
+        for scope in reversed(self.scopes):
+            if identifier in scope.keys():
+                return scope[identifier]
+        
+        return None
 
     def change_value(self, identifier: str, rhs: Value):
 
@@ -42,6 +46,13 @@ class ScopeStack:
 
         # self.current[identifier].value = rhs.value
 
-    def new_identifier(self, identifier: str, val: Value):
+    def new_identifier(self, identifier: str, val: Value) -> bool:
         # value = rhs.value if rhs.is_literal() else rhs
-        self.current[identifier] = val
+
+        # check if variable already exists
+        if self.get(identifier) is None:
+            self.current[identifier] = val
+            return True
+        
+        return False
+    
