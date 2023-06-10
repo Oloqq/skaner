@@ -21,11 +21,11 @@ class ScopeStack:
         self.scopes.pop()
         self.current = self.scopes[-1]
 
-    def get(self, identifier: str) -> Value:
+    def get(self, identifier: str) -> Value|None:
         for scope in reversed(self.scopes):
             if identifier in scope.keys():
                 return scope[identifier]
-        
+
         return None
 
     def change_value(self, identifier: str, rhs: Value):
@@ -37,16 +37,16 @@ class ScopeStack:
             if identifier in scope.keys():
                 existing_atom = scope[identifier]
                 # print(f'do {identifier}: {existing_atom} przypisać {rhs}')
-                
+
                 if existing_atom.type.id == rhs.type.id:
                     scope[identifier].value = rhs.value
                     return
                 else:
                     print("Type mismatch")
                     return
-        
-        print("Variable does not exist")
-        
+
+        print(f"Identifier '{identifier}' does not exist")
+
     def new_identifier(self, identifier: str, val: Value) -> bool:
         # value = rhs.value if rhs.is_literal() else rhs
 
@@ -54,6 +54,5 @@ class ScopeStack:
         if self.get(identifier) is None:
             self.current[identifier] = val
             return True
-        
+
         return False
-    

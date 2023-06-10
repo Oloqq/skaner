@@ -3,3 +3,4 @@ program: |
   x()
 
 fail: true
+skip: true

@@ -1,0 +1,10 @@
+program: |
+  c: string = "xd"
+  print(c == "xd")
+  print("nati" ~= "nati")
+  print(c ~= "nati")
+
+output: |
+  True
+  False
+  True

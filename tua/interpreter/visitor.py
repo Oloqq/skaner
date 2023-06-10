@@ -50,7 +50,7 @@ class Tua(TuaVisitor):
                 rhs.type.id = type_annotated.id
             else:
                 raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({type_annotated.id})")
-            
+
         var_added_successfully = self.scope.new_identifier(lhs, rhs)
 
         if not var_added_successfully:
@@ -59,7 +59,7 @@ class Tua(TuaVisitor):
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
         log.info("Assignment")
         identifier = self.visit(ctx.var())
-        value = self.visit(ctx.exp()) 
+        value = self.visit(ctx.exp())
         self.scope.change_value(identifier, value)
 
     def visitVar(self, ctx:TuaParser.VarContext) -> str:
@@ -120,7 +120,7 @@ class Tua(TuaVisitor):
 
     def visitSuffix(self, ctx:TuaParser.SuffixContext):
         log.info("Suffix")
-        # how to handle list access? when return( eg. print(x[0]) )/assign( eg. x[1] = 5 ) value 
+        # how to handle list access? when return( eg. print(x[0]) )/assign( eg. x[1] = 5 ) value
         if ctx.exp():
             arg: Value = self.visit(ctx.exp())
             return arg.value
@@ -146,27 +146,27 @@ class Tua(TuaVisitor):
         elif ctx.prefix():
             identifier = self.visit(ctx.prefix())
             ret = self.scope.get(identifier)
-            
+
             if ret is None:
                 raise SemanticError(f"Name '{identifier}' is not defined")
-            
+
             assert isinstance(ret.type, Type)
             assert isinstance(ret.type.id, str)
             return ret
-        
+
         elif ctx.binopPower():
             base = self.visit(ctx.exp(0))
             exp = self.visit(ctx.exp(1))
-            
+
             # check if the values are numbers
             if base.type.id in ("int", "float") and exp.type.id in ("int", "float"):
                 result = pow(base.value, exp.value)
                 type_ = Type("int") if isinstance(result, int) else Type("float")
 
                 return Value(type_, result)
-            
+
             raise SemanticError(f"Trying to use operator '^' on {base.type} and {exp.type}")
-                    
+
         elif ctx.unop():
             operators = {
                 '-' : lambda x : -x,
@@ -177,11 +177,14 @@ class Tua(TuaVisitor):
             op = self.visit(ctx.unop())
 
             # check if the correct operator was used on given type
-            if (isinstance(value.value, int) and not isinstance(value.value, bool) and op == '-') or (isinstance(value.value, float) and not isinstance(value.value, bool) and op == '-') or (isinstance(value.value, bool) and op == 'not'):
+
+            is_strict_num = isinstance(value.value, (int, float)) and not isinstance(value.value, bool)
+
+            if (op == '-' and is_strict_num) or (op == 'not' and isinstance(value.value, bool)):
                 return Value(value.type, operators[op](value.value))
-            
-            raise SemanticError(f"Trying to use operator '{op}' on {value.type}")            
-        
+
+            raise SemanticError(f"Trying to use operator '{op}' on {value.type}")
+
         elif ctx.binopMulDivMod():
             operators = {
                 '*' : lambda x, y : x * y,
@@ -192,7 +195,7 @@ class Tua(TuaVisitor):
 
             val_left = self.visit(ctx.exp(0))
             val_right = self.visit(ctx.exp(1))
-            
+
             op = self.visit(ctx.binopMulDivMod())
 
             # check if the values are numbers
@@ -201,8 +204,8 @@ class Tua(TuaVisitor):
                 type_ = Type("int") if isinstance(result, int) else Type("float")
 
                 return Value(type_, result)
-            
-            raise SemanticError(f"Trying to use operator '{op}' on {val_left.type} and {val_right.type}")            
+
+            raise SemanticError(f"Trying to use operator '{op}' on {val_left.type} and {val_right.type}")
 
         elif ctx.binopAddSub():
             operators = {
@@ -212,7 +215,7 @@ class Tua(TuaVisitor):
 
             val_left = self.visit(ctx.exp(0))
             val_right = self.visit(ctx.exp(1))
-            
+
             op = self.visit(ctx.binopAddSub())
 
             # check if the values are numbers
@@ -221,7 +224,7 @@ class Tua(TuaVisitor):
                 type_ = Type("int") if isinstance(result, int) else Type("float")
 
                 return Value(type_, result)
-            
+
             raise SemanticError(f"Trying to use operator '{op}' on {val_left.type} and {val_right.type}")
 
         elif ctx.binopConcat():
@@ -230,10 +233,10 @@ class Tua(TuaVisitor):
 
             if val_left.type.id == "string" and val_right.type.id == "string":
                 return Value(Type("string"), val_left.value + val_right.value)
-            
+
             raise SemanticError(f"Trying to use operator '..' on {val_left.type} and {val_right.type}")
 
-        
+
         elif ctx.binopComparison():
             operators = {
                 '==' : lambda x, y : x == y,
@@ -246,35 +249,35 @@ class Tua(TuaVisitor):
 
             val_left = self.visit(ctx.exp(0))
             val_right = self.visit(ctx.exp(1))
-            
+
             op = self.visit(ctx.binopComparison())
 
             # check if the correct operator was used on given types
             if (op in ('==', '~=') and val_left.type.id == val_right.type.id) or (op in ('<=', '>=', '<', '>') and val_left.type.id in ("int", "float", "string") and val_left.type.id == val_right.type.id):
                 return Value(Type("bool"), operators[op](val_left.value, val_right.value))
-            
+
             raise SemanticError(f"Trying to use operator '{op}' on {val_left.type} and {val_right.type}")
-        
+
         elif ctx.binopAnd():
             operators = {
                 'and' : lambda x, y : x and y,
-                '&' : lambda x, y : x & y, 
+                '&' : lambda x, y : x & y,
             }
 
             val_left = self.visit(ctx.exp(0))
             val_right = self.visit(ctx.exp(1))
             op = self.visit(ctx.binopAnd())
-            
+
             # check if the correct operator was used on given types
             if val_left.type.id == "bool" and val_right.type.id == "bool":
                 return Value(Type("bool"), operators[op](val_left.value, val_right.value))
 
             raise SemanticError(f"Trying to use operator '{op}' on {val_left.type} and {val_right.type}")
-        
+
         elif ctx.binopOr():
             operators = {
                 'or' : lambda x, y : x or y,
-                '|' : lambda x, y : x | y, 
+                '|' : lambda x, y : x | y,
             }
 
             val_left = self.visit(ctx.exp(0))
@@ -284,15 +287,15 @@ class Tua(TuaVisitor):
             # check if the correct operator was used on given types
             if val_left.type.id == "bool" and val_right.type.id == "bool":
                 return Value(Type("bool"), operators[op](val_left.value, val_right.value))
-            
+
             raise SemanticError(f"Trying to use operator '{op}' on {val_left.type} and {val_right.type}")
-        
+
         elif ctx.tableconstructor():
-            return self.visit(ctx.tableconstructor())  
-        
+            return self.visit(ctx.tableconstructor())
+
         else:
             raise InternalError
-        
+
 
     def visitParexp(self, ctx:TuaParser.ParexpContext):
         return self.visit(ctx.exp())
@@ -309,8 +312,8 @@ class Tua(TuaVisitor):
 
 
     def visitWhilestat(self, ctx:TuaParser.WhilestatContext):
-        condition = self.visit(ctx.exp()) 
-        
+        condition = self.visit(ctx.exp())
+
         while condition.value:
              self.visit(ctx.block())
              condition = self.visit(ctx.exp())
@@ -387,14 +390,14 @@ class Tua(TuaVisitor):
 
     def visitTableconstructor(self, ctx:TuaParser.TableconstructorContext) -> Value:
         log.info("Tableconstructor")
-        type = "" 
+        type = ""
         if ctx.fieldlist():
             fields, type = self.visit(ctx.fieldlist())
         else:
-            fields = []   
-        tualist = TuaList(type)   
-        tualist.content = fields  
-        return Value(Type(tualist.full_type_str()), tualist.content) 
+            fields = []
+        tualist = TuaList(type)
+        tualist.content = fields
+        return Value(Type(tualist.full_type_str()), tualist.content)
 
 
     def visitFieldlist(self, ctx:TuaParser.FieldlistContext):
