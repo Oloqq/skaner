@@ -125,7 +125,9 @@ class Tua(TuaVisitor):
 
     def visitExp(self, ctx:TuaParser.ExpContext) -> Value:
         log.info("Exp")
-        if ctx.number():
+        if ctx.parexp():
+            return self.visit(ctx.parexp())
+        elif ctx.number():
             value, type = self.visit(ctx.number())
             assert isinstance(type, Type)
             assert isinstance(type.id, str)
@@ -133,8 +135,6 @@ class Tua(TuaVisitor):
             return Value(type, value)
         elif ctx.string():
             return self.visit(ctx.string())
-        elif ctx.parexp():
-            return self.visit(ctx.parexp())
         elif ctx.bool_():
             value, type = self.visit(ctx.bool_())
             return Value(type, value)
@@ -145,9 +145,77 @@ class Tua(TuaVisitor):
             assert isinstance(ret.type, Type)
             assert isinstance(ret.type.id, str)
             return ret
-        elif ctx.tableconstructor():
-                return self.visit(ctx.tableconstructor())  
-        #power, unop?, muldivmod, addsub, concat, comp, and, or, unop?
+        
+        elif ctx.binopPower():
+            base = self.visit(ctx.exp(0))
+            exp = self.visit(ctx.exp(1))
+            
+            # check if the values are numbers
+            if base.type.id in ("int", "float") and exp.type.id in ("int", "float"):
+                result = pow(base.value, exp.value)
+                type_ = Type("int") if isinstance(result, int) else Type("float")
+
+                return Value(type_, result)
+            
+            raise SemanticError(f"Trying to use operator '^' on {base.type} and {exp.type}")
+                    
+        elif ctx.unop():
+            operators = {
+                '-' : lambda x : -x,
+                'not' : lambda x: not x
+            }
+
+            value = self.visit(ctx.exp(0))
+            op = self.visit(ctx.unop())
+
+            # check if the correct operator was used on given type
+            if (isinstance(value.value, int) and not isinstance(value.value, bool) and op == '-') or (isinstance(value.value, float) and not isinstance(value.value, bool) and op == '-') or (isinstance(value.value, bool) and op == 'not'):
+                return Value(value.type, operators[op](value.value))
+            
+            raise SemanticError(f"Trying to use operator '{op}' on {value.type}")            
+        
+        elif ctx.binopMulDivMod():
+            operators = {
+                '*' : lambda x, y : x * y,
+                '/' : lambda x, y : x / y,
+                '%' : lambda x, y : x % y,
+                '//' : lambda x, y : x // y
+            }
+
+            val_left = self.visit(ctx.exp(0))
+            val_right = self.visit(ctx.exp(1))
+            
+            op = self.visit(ctx.binopMulDivMod())
+
+            # check if the values are numbers
+            if val_left.type.id in ("int", "float") and val_right.type.id in ("int", "float"):
+                result = operators[op](val_left.value, val_right.value)
+                type_ = Type("int") if isinstance(result, int) else Type("float")
+
+                return Value(type_, result)
+            
+            raise SemanticError(f"Trying to use operator '{op}' on {val_left.type} and {val_right.type}")            
+
+        elif ctx.binopAddSub():
+            operators = {
+                '+' : lambda x, y : x + y,
+                '-' : lambda x, y : x - y,
+            }
+
+            val_left = self.visit(ctx.exp(0))
+            val_right = self.visit(ctx.exp(1))
+            
+            op = self.visit(ctx.binopAddSub())
+
+            # check if the values are numbers
+            if val_left.type.id in ("int", "float") and val_right.type.id in ("int", "float"):
+                result = operators[op](val_left.value, val_right.value)
+                type_ = Type("int") if isinstance(result, int) else Type("float")
+
+                return Value(type_, result)
+            
+            raise SemanticError(f"Trying to use operator '{op}' on {val_left.type} and {val_right.type}")
+
         elif ctx.binopComparison():
             operators = {
                 '==' : lambda x, y : x == y,
@@ -158,12 +226,16 @@ class Tua(TuaVisitor):
                 '>' : lambda x, y : x > y,
             }
 
-            val_left = self.visit(ctx.exp(0)).value
-            val_right = self.visit(ctx.exp(1)).value
+            val_left = self.visit(ctx.exp(0))
+            val_right = self.visit(ctx.exp(1))
             
             op = self.visit(ctx.binopComparison())
 
-            return Value(Type("bool"), operators[op](val_left, val_right))
+            # check if the correct operator was used on given types
+            if (op in ('==', '~=') and val_left.type.id == val_right.type.id) or (op in ('<=', '>=', '<', '>') and val_left.type.id in ("int", "float", "string") and val_left.type.id == val_right.type.id):
+                return Value(Type("bool"), operators[op](val_left.value, val_right.value))
+            
+            raise SemanticError(f"Trying to use operator '{op}' on {val_left.type} and {val_right.type}")
         
         elif ctx.binopAnd():
             operators = {
@@ -171,11 +243,15 @@ class Tua(TuaVisitor):
                 '&' : lambda x, y : x & y, 
             }
 
-            val_left = self.visit(ctx.exp(0)).value
-            val_right = self.visit(ctx.exp(1)).value
+            val_left = self.visit(ctx.exp(0))
+            val_right = self.visit(ctx.exp(1))
             op = self.visit(ctx.binopAnd())
+            
+            # check if the correct operator was used on given types
+            if val_left.type.id == "bool" and val_right.type.id == "bool":
+                return Value(Type("bool"), operators[op](val_left.value, val_right.value))
 
-            return Value(Type("bool"), operators[op](val_left, val_right))
+            raise SemanticError(f"Trying to use operator '{op}' on {val_left.type} and {val_right.type}")
         
         elif ctx.binopOr():
             operators = {
@@ -183,11 +259,18 @@ class Tua(TuaVisitor):
                 '|' : lambda x, y : x | y, 
             }
 
-            val_left = self.visit(ctx.exp(0)).value
-            val_right = self.visit(ctx.exp(1)).value
+            val_left = self.visit(ctx.exp(0))
+            val_right = self.visit(ctx.exp(1))
             op = self.visit(ctx.binopOr())
 
-            return Value(Type("bool"), operators[op](val_left, val_right))
+            # check if the correct operator was used on given types
+            if val_left.type.id == "bool" and val_right.type.id == "bool":
+                return Value(Type("bool"), operators[op](val_left.value, val_right.value))
+            
+            raise SemanticError(f"Trying to use operator '{op}' on {val_left.type} and {val_right.type}")
+        
+        elif ctx.tableconstructor():
+            return self.visit(ctx.tableconstructor())  
         
         else:
             raise InternalError
