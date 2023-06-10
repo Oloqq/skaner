@@ -309,7 +309,11 @@ class Tua(TuaVisitor):
 
 
     def visitWhilestat(self, ctx:TuaParser.WhilestatContext):
-        return self.visitChildren(ctx)
+        condition = self.visit(ctx.exp()) 
+        
+        while condition.value:
+             self.visit(ctx.block())
+             condition = self.visit(ctx.exp())
 
 
     def visitIfstat(self, ctx:TuaParser.IfstatContext):

@@ -33,19 +33,20 @@ class ScopeStack:
         # TODO
         # it only works for literals -> do list etc
 
-        if identifier in self.current.keys():
-            existing_atom = self.current[identifier]
-            # print(f'do {identifier}: {existing_atom} przypisać {rhs}')
-            
-            if existing_atom.type.id == rhs.type.id:
-                self.current[identifier].value = rhs.value
-            else:
-                print("Type mismatch")
-        else:
-            print("Variable does not exist")
-
-        # self.current[identifier].value = rhs.value
-
+        for scope in reversed(self.scopes):
+            if identifier in scope.keys():
+                existing_atom = scope[identifier]
+                # print(f'do {identifier}: {existing_atom} przypisać {rhs}')
+                
+                if existing_atom.type.id == rhs.type.id:
+                    scope[identifier].value = rhs.value
+                    return
+                else:
+                    print("Type mismatch")
+                    return
+        
+        print("Variable does not exist")
+        
     def new_identifier(self, identifier: str, val: Value) -> bool:
         # value = rhs.value if rhs.is_literal() else rhs
 

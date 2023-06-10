@@ -1,0 +1,19 @@
+program: |
+  x: int = 0
+  while x < 3 do
+    y: string = ""
+      while y ~= "aaa" do
+        y = y .. "a"
+      end
+    print(y)
+    x = x + 1
+    print(x)
+  end
+
+output: |
+  aaa
+  1
+  aaa
+  2
+  aaa
+  3
