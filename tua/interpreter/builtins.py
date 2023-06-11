@@ -10,6 +10,8 @@ def print_(_: Tua, *args: Value):
         printables = list(map(lambda arg: arg.value, args))
         print(*printables)
 
+def type_(_: Tua, arg: Value):
+    return arg.type.__repr__
 
 def dump_stack(visitor: Tua):
     print(f"Stack: ", visitor.scope)

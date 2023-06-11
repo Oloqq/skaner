@@ -19,6 +19,7 @@ class Tua(TuaVisitor):
         from . import builtins
         self.builtins = {
             "print": builtins.print_,
+            "type": builtins.type_,
             "dump_stack": builtins.dump_stack,
         }
         self.cnt = 0 # for temporary testing
@@ -167,7 +168,7 @@ class Tua(TuaVisitor):
             assert isinstance(ret.type, Type)
             assert isinstance(ret.type.id, str)
 
-            if index:
+            if index is not None:
                 if index < len(ret.value) and index >= 0:
                     return ret.value[index]
                 else:
@@ -390,6 +391,9 @@ class Tua(TuaVisitor):
         log.info(f"Functioncall")
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         args = self.get_args(ctx)
+
+        # TODO 
+        # print(type(exp)) <- recusive call
 
         if name in self.builtins: # TODO order of the checks should be swapped, or overriding builtins banned, to be decided
             return self.builtins[name](self, *args)

@@ -1,0 +1,20 @@
+program: |
+  x: int = 3
+  lista: List[string] = {'Ala', 'ma', 'kota'}
+
+  while x > 0 do
+    y: string = ""
+    y = lista[0]
+    id: int = 1
+    while y ~= 'Ala ma kota' do
+      y = y .. ' ' .. lista[id]
+      id = id + 1
+    end
+    print(y)
+    x = x - 1
+  end
+
+output: |
+  Ala ma kota
+  Ala ma kota
+  Ala ma kota
