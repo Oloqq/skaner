@@ -119,8 +119,10 @@ class Tua(TuaVisitor):
         log.info("Prefix")
         if ctx.var():
             return self.visit(ctx.var())
+        elif ctx.functioncall():
+            return self.visit(ctx.functioncall())
         else:
-            return NotImplementedError # functioncall
+            return NotImplementedError
 
 
     def visitSuffix(self, ctx:TuaParser.SuffixContext):
@@ -308,8 +310,13 @@ class Tua(TuaVisitor):
 
     def visitFunctionbody(self, ctx:TuaParser.FunctionbodyContext) -> tuple[list[Type], Type, TuaParser.BlockContext]:
         log.info("Functionbody")
-        params = [] # TEMP
-        return params, Type("nil"), ctx.block()
+
+        params = []
+        if ctx.typednamelist():
+            params = self.visit(ctx.typednamelist())
+
+        type_ = self.visit(ctx.type_())
+        return params, type_, ctx.block()
 
 
     def visitDostat(self, ctx:TuaParser.DostatContext):
@@ -360,7 +367,13 @@ class Tua(TuaVisitor):
 
     def visitTypednamelist(self, ctx:TuaParser.TypednamelistContext):
         log.info("Typednamelist")
-        return self.visitChildren(ctx)
+        nametypes = []
+
+        for c in ctx.nametype():
+            name, type = self.visit(c)
+            nametypes.append(Param(name, type))
+
+        return nametypes
 
     def get_args(self, ctx:TuaParser.FunctioncallContext) -> list[Value]:
         if not ctx.explist():
@@ -378,17 +391,40 @@ class Tua(TuaVisitor):
         if name in self.builtins: # TODO order of the checks should be swapped, or overriding builtins banned, to be decided
             return self.builtins[name](self, *args)
         else:
-            func = self.scope.get(name)
-            if func.type.id != "function":
+            funcval = self.scope.get(name)
+            if funcval.type.id != "function":
                 raise SemanticError(f"Trying to call non-function {name}")
-            func.value.execute(self, *args)
-            return None
+
+            func = funcval.value
+            # check the number of arguments
+            if len(args) != len(func.params):
+                raise SemanticError(f"Wrong number of arguments when calling function '{name}'")
+
+            function_scope = ScopeStack()
+            # add all arguments to function scope
+            for i in range(len(func.params)):
+                # check type of the argument
+                if args[i].type.id != func.params[i].type.id:
+                    raise SemanticError(f"When calling function '{name}' parameter '{func.params[i].name}' should be of type {func.params[i].type}, got {args[i].type} instead")
+                function_scope.new_identifier(func.params[i].name, args[i])
+
+            # TEMP !!!!!!!!!!!!!!!!!!! add current function to its scope
+            function_scope.new_identifier(name, funcval)
+
+            # quick disgusting solution for scopestacks problem
+            program_scope = self.scope
+            self.scope = function_scope
+            returns = self.visitBlock(func.body)
+            self.scope = program_scope
+            return returns
+
+            # return func.value.execute(self, self.scope, *args)
 
 
     def visitExplist(self, ctx:TuaParser.ExplistContext) -> list[Value]:
         log.info("Explist")
         vals = []
-        for c in ctx.getChildren():
+        for c in ctx.exp():
             vals.append(self.visit(c))
         return vals
 
