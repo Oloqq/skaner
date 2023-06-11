@@ -12,8 +12,18 @@ def print_(_: Tua, *args: Value):
             printables.append(arg.value)
     print(*printables)
 
+# need to fix functioncall first <- recursion required
 def type_(_: Tua, arg: Value):
     return arg.type.__repr__
+
+# it probably works but have to fix functioncall first
+def len_(_: Tua, arg: Value):
+    if "List" in arg.type.id:
+        return len(arg.value)
+    elif arg.type.id == "string":
+        return len(arg.value)
+    else:
+        raise TypeError(f"Object of type '{arg.type.id}' has no len()")
 
 def dump_stack(visitor: Tua):
     print(f"Stack: ", visitor.scope)

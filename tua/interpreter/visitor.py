@@ -20,6 +20,7 @@ class Tua(TuaVisitor):
         self.builtins = {
             "print": builtins.print_,
             "type": builtins.type_,
+            "len": builtins.len_,
             "dump_stack": builtins.dump_stack,
         }
         self.cnt = 0 # for temporary testing
@@ -120,9 +121,34 @@ class Tua(TuaVisitor):
 
     def visitPrefix(self, ctx:TuaParser.PrefixContext) -> Value:
         log.info("Prefix")
-        if ctx.var():            
-            return self.visit(ctx.var())
+        if ctx.var():    
+            identifier = self.visit(ctx.var())
+            ret = self.scope.get(identifier)
+
+            index = None
+            pattern = r"\[\d+\]$"
+
+            if re.search(pattern, identifier):
+                identifier, sep1, after = identifier.partition('[')
+                index, sep2, after = after.partition(']')
+                index = int(index)
+
+                ret = self.scope.get(identifier)
+                if ret is None:
+                    raise SemanticError(f"Name '{identifier}' is not defined")
+
+                assert isinstance(ret.type, Type)
+                assert isinstance(ret.type.id, str)
+
+                if index is not None:
+                    if index < len(ret.value) and index >= 0:
+                        return ret.value[index]
+                    else:
+                        raise SemanticError(f"Index out of range: {index} for {identifier}")
+            else:
+                return ret
         else:
+            #return self.visit(ctx.functioncall())
             return NotImplementedError # functioncall
 
 
@@ -152,30 +178,7 @@ class Tua(TuaVisitor):
             return Value(type, value)
         # nil
         elif ctx.prefix():
-            identifier = self.visit(ctx.prefix())
-            index = None
-
-            pattern = r"\[\d+\]$"
-            if re.search(pattern, identifier):
-                identifier, sep1, after = identifier.partition('[')
-                index, sep2, after = after.partition(']')
-                index = int(index)
-
-            ret = self.scope.get(identifier)
-            if ret is None:
-                raise SemanticError(f"Name '{identifier}' is not defined")
-
-            assert isinstance(ret.type, Type)
-            assert isinstance(ret.type.id, str)
-
-            if index is not None:
-                if index < len(ret.value) and index >= 0:
-                    return ret.value[index]
-                else:
-                    raise SemanticError(f"Index out of range: {index} for {identifier}")
-            else:
-                return ret
-
+            return self.visit(ctx.prefix())
         elif ctx.binopPower():
             base = self.visit(ctx.exp(0))
             exp = self.visit(ctx.exp(1))
