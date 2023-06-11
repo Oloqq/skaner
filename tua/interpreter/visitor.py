@@ -31,13 +31,15 @@ class Tua(TuaVisitor):
     def visitBlock(self, ctx:TuaParser.BlockContext):
         log.info("Block")
         self.scope.push()
-        result = self.visitChildren(ctx)
+        for c in ctx.getChildren():
+            results = self.visit(c)
+            if results is not None:
+                return results
         self.scope.pop()
-        return result
 
 
     def visitStat(self, ctx:TuaParser.StatContext):
-        self.visitChildren(ctx)
+        return self.visitChildren(ctx)
 
     def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
         log.info("Newvariable")
@@ -113,7 +115,13 @@ class Tua(TuaVisitor):
     def visitPrefix(self, ctx:TuaParser.PrefixContext):
         log.info("Prefix")
         if ctx.var():
-            return self.visit(ctx.var())
+            identifier = self.visit(ctx.var())
+            ret = self.scope.get(identifier)
+
+            if ret is None:
+                raise SemanticError(f"Name '{identifier}' is not defined")
+
+            return ret
         elif ctx.functioncall():
             return self.visit(ctx.functioncall())
         else:
@@ -146,15 +154,7 @@ class Tua(TuaVisitor):
             return Value(type, value)
         # nil
         elif ctx.prefix():
-            identifier = self.visit(ctx.prefix())
-            ret = self.scope.get(identifier)
-
-            if ret is None:
-                raise SemanticError(f"Name '{identifier}' is not defined")
-
-            assert isinstance(ret.type, Type)
-            assert isinstance(ret.type.id, str)
-            return ret
+            return self.visit(ctx.prefix())
 
         elif ctx.binopPower():
             base = self.visit(ctx.exp(0))
@@ -315,15 +315,17 @@ class Tua(TuaVisitor):
 
 
     def visitDostat(self, ctx:TuaParser.DostatContext):
-        return self.visitChildren(ctx)
+        return self.visit(ctx.block())
 
 
     def visitWhilestat(self, ctx:TuaParser.WhilestatContext):
         condition = self.visit(ctx.exp())
 
         while condition.value:
-             self.visit(ctx.block())
-             condition = self.visit(ctx.exp())
+            results = self.visit(ctx.block())
+            if results is not None:
+                return results
+            condition = self.visit(ctx.exp())
 
 
     def visitIfstat(self, ctx:TuaParser.IfstatContext):
@@ -357,6 +359,27 @@ class Tua(TuaVisitor):
 
     def visitLaststat(self, ctx:TuaParser.LaststatContext):
         log.info("Laststat")
+
+        if ctx.return_():
+            return self.visit(ctx.return_())
+        else:
+            raise NotImplementedError # break, continue
+
+    def visitReturn(self, ctx:TuaParser.ReturnContext):
+        if ctx.explist():
+            result = self.visit(ctx.explist())
+            # just for now - returns only the first element from explist
+            return result[0]
+
+        # how to return if nothin is returned ??
+        return None
+
+
+    def visitBreak(self, ctx:TuaParser.BreakContext):
+        return self.visitChildren(ctx)
+
+
+    def visitContinue(self, ctx:TuaParser.ContinueContext):
         return self.visitChildren(ctx)
 
 
@@ -387,8 +410,12 @@ class Tua(TuaVisitor):
             return self.builtins[name](self, *args)
         else:
             funcval = self.scope.get(name)
+
+            if funcval is None:
+                raise SemanticError(f"Function '{name}' is not defined")
+
             if funcval.type.id != "function":
-                raise SemanticError(f"Trying to call non-function {name}")
+                raise SemanticError(f"Trying to call non-function '{name}'")
 
             func = funcval.value
             # check the number of arguments
@@ -406,11 +433,12 @@ class Tua(TuaVisitor):
             # TEMP !!!!!!!!!!!!!!!!!!! add current function to its scope
             function_scope.new_identifier(name, funcval)
 
-            # quick disgusting solution for scopestacks problem
+            # quick disgusting solution for scopestacks problem (changing program scope to function scope for its execution. then it comes back to normal :))
             program_scope = self.scope
             self.scope = function_scope
-            returns = self.visitBlock(func.body)
+            returns = self.visit(func.body)
             self.scope = program_scope
+
             return returns
 
             # return func.value.execute(self, self.scope, *args)

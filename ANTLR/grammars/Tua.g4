@@ -116,7 +116,19 @@ functiondef
     ;
 
 laststat
-    : ('return' explist? | 'break' | 'continue') ';'?
+    : (return | break | continue) ';'?
+    ;
+
+return
+    : 'return' explist?
+    ;
+
+break
+    : 'break'
+    ;
+
+continue
+    : 'continue'
     ;
 
 typednamelist
@@ -202,7 +214,7 @@ bool
     : TRUE
     | FALSE
     ;
-    
+
 FALSE
     : 'false'
     ;

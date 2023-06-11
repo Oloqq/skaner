@@ -1,0 +1,21 @@
+program: |
+  function add(x: float, y: float) -> float
+    return x + y
+  end
+
+  print(add(2.0, 3.0))
+
+  function sub(x: float, y: float) -> float
+    if(x < y) then
+      return y - x
+    end
+    return x - y
+  end
+
+  x: float = 20.0
+  y: float = 5.0
+  print(add(x, y) * sub(y, x))
+
+output: |
+  5.0
+  375.0

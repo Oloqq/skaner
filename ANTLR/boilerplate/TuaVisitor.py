@@ -124,6 +124,21 @@ class TuaVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by TuaParser#return.
+    def visitReturn(self, ctx:TuaParser.ReturnContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by TuaParser#break.
+    def visitBreak(self, ctx:TuaParser.BreakContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by TuaParser#continue.
+    def visitContinue(self, ctx:TuaParser.ContinueContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by TuaParser#typednamelist.
     def visitTypednamelist(self, ctx:TuaParser.TypednamelistContext):
         return self.visitChildren(ctx)

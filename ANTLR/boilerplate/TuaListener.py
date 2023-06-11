@@ -215,6 +215,33 @@ class TuaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by TuaParser#return.
+    def enterReturn(self, ctx:TuaParser.ReturnContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#return.
+    def exitReturn(self, ctx:TuaParser.ReturnContext):
+        pass
+
+
+    # Enter a parse tree produced by TuaParser#break.
+    def enterBreak(self, ctx:TuaParser.BreakContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#break.
+    def exitBreak(self, ctx:TuaParser.BreakContext):
+        pass
+
+
+    # Enter a parse tree produced by TuaParser#continue.
+    def enterContinue(self, ctx:TuaParser.ContinueContext):
+        pass
+
+    # Exit a parse tree produced by TuaParser#continue.
+    def exitContinue(self, ctx:TuaParser.ContinueContext):
+        pass
+
+
     # Enter a parse tree produced by TuaParser#typednamelist.
     def enterTypednamelist(self, ctx:TuaParser.TypednamelistContext):
         pass
