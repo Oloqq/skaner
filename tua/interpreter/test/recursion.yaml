@@ -1,0 +1,17 @@
+program: |
+  function fact(n: int) -> int
+    if n <= 1 then
+      return 1
+    else
+      return n * fact(n - 1)
+    end
+  end
+
+  print(fact(1))
+  print(fact(3))
+  print(fact(10))
+
+output: |
+  1
+  6
+  3628800

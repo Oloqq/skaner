@@ -10,12 +10,12 @@ Every time we change the grammar we need to run "antlr4 -Dlanguage=JavaScript -l
 ```
 antlr4-parse <grammar_path> chunk -tree <br />
 antlr4-parse <grammar_path> chunk -tokens -trace <br />
-antlr4-parse <grammar_path> chunk -gui
+antlr4-parse antlr/grammars/Tua.g4 program -gui
 ```
 
 example:
 ```bash
-antlr4-parse grammars\Lua.g4 chunk -tree       
+antlr4-parse grammars\Lua.g4 chunk -tree
 x = 10
 y = x + 5
 ^Z
