@@ -1,0 +1,9 @@
+program: |
+  x: int = 17
+  y: int = 6
+
+  dump_stack()
+  print(x, y)
+
+output: |
+  17 6

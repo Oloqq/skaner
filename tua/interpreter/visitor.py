@@ -110,9 +110,14 @@ class Tua(TuaVisitor):
         return Type(f"List[{elem_type.id}]")
 
 
-    def visitPrefix(self, ctx:TuaParser.PrefixContext):
+    def visitPrefix(self, ctx:TuaParser.PrefixContext) -> Value:
         log.info("Prefix")
         if ctx.var():
+            # identifier = self.visit(ctx.var())
+            # print(identifier)
+            # ret = self.scope.get(identifier)
+            # print(f"prefix: {identifier} -> {ret}")
+            # return ret
             return self.visit(ctx.var())
         else:
             return NotImplementedError # functioncall
@@ -123,6 +128,7 @@ class Tua(TuaVisitor):
         # how to handle list access? when return( eg. print(x[0]) )/assign( eg. x[1] = 5 ) value
         if ctx.exp():
             arg: Value = self.visit(ctx.exp())
+            #print(arg)
             return arg.value
         return self.visitChildren(ctx)
 
@@ -384,7 +390,8 @@ class Tua(TuaVisitor):
         log.info("Explist")
         vals = []
         for c in ctx.getChildren():
-            vals.append(self.visit(c))
+            if isinstance(c, TuaParser.ExpContext):
+                vals.append(self.visit(c))
         return vals
 
 
