@@ -58,8 +58,12 @@ class Tua(TuaVisitor):
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
         log.info("Assignment")
+
         identifier = self.visit(ctx.var())
+        print(f'visitAssignment: identifier {identifier}')
+
         value = self.visit(ctx.exp())
+        print(f'visitAssignment: value {value}')
         self.scope.change_value(identifier, value)
 
     def visitVar(self, ctx:TuaParser.VarContext) -> str:
@@ -67,7 +71,9 @@ class Tua(TuaVisitor):
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         if ctx.suffix():
             suffix = self.visit(ctx.suffix())
-            return f"{name}{suffix}"
+            print(f"visitVar: name[suffix] {name}[{suffix}]")
+            return f"{name}[{suffix}]"
+        print(f"visitVar: name {name}")
         return name
 
 
@@ -125,10 +131,9 @@ class Tua(TuaVisitor):
 
     def visitSuffix(self, ctx:TuaParser.SuffixContext):
         log.info("Suffix")
-        # how to handle list access? when return( eg. print(x[0]) )/assign( eg. x[1] = 5 ) value
         if ctx.exp():
             arg: Value = self.visit(ctx.exp())
-            #print(arg)
+            print(f'visitSuffix: arg {arg}')
             return arg.value
         return self.visitChildren(ctx)
 
