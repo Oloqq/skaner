@@ -1,8 +1,6 @@
 program: |
   x: List[int] = {0, 2}
   print(x[1])
-  --x[1] = 8
-  --print(x[1])
 
 output: |
   2

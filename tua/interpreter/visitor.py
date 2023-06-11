@@ -417,9 +417,7 @@ class Tua(TuaVisitor):
             fields, type = self.visit(ctx.fieldlist())
         else:
             fields = []
-        tualist = TuaList(type)
-        tualist.content = fields
-        return Value(Type(tualist.full_type_str()), tualist.content)
+        return Value(Type(f'List[{type}]'), fields)
 
 
     def visitFieldlist(self, ctx:TuaParser.FieldlistContext):

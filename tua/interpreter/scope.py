@@ -1,6 +1,7 @@
 from pprint import pformat
 from .tualist import TuaList
 from .variables import Value, Type
+import re
 
 Scope = dict[str, Value]
 
@@ -29,21 +30,36 @@ class ScopeStack:
         return None
 
     def change_value(self, identifier: str, rhs: Value):
+        index = None
+        pattern = r"\[\d+\]$"
 
-        # TODO
-        # it only works for literals -> do list etc
+        if re.search(pattern, identifier):
+            identifier, sep1, after = identifier.partition('[')
+            index, sep2, after = after.partition(']')
+            index = int(index)
 
         for scope in reversed(self.scopes):
             if identifier in scope.keys():
                 existing_atom = scope[identifier]
-                # print(f'do {identifier}: {existing_atom} przypisać {rhs}')
-
-                if existing_atom.type.id == rhs.type.id:
-                    scope[identifier].value = rhs.value
-                    return
+                
+                if index is not None:
+                    if index > len(existing_atom.value) or index < 0:
+                        print(f"Index {index} out of bounds")
+                        return
+                    if existing_atom.type.id == f'List[{rhs.type.id}]':
+                        existing_atom.value[index].value = rhs.value
+                        return
+                    else:
+                        print("Type mismatch")
+                        return
                 else:
-                    print("Type mismatch")
-                    return
+                    if existing_atom.type.id == rhs.type.id:
+                        scope[identifier].value = rhs.value
+                        return
+                    else:
+                        print("Type mismatch")
+                        return
+
 
         print(f"Identifier '{identifier}' does not exist")
 
