@@ -34,6 +34,7 @@ class Tua(TuaVisitor):
         for c in ctx.getChildren():
             results = self.visit(c)
             if results is not None:
+                self.scope.pop()
                 return results
         self.scope.pop()
 
@@ -353,6 +354,7 @@ class Tua(TuaVisitor):
     def visitFunctiondef(self, ctx:TuaParser.FunctiondefContext):
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         params, returns, block = self.visit(ctx.functionbody())
+        # check if the returned value is of correct type !
         func = Function(name, returns, params, block)
         self.scope.new_identifier(name, Value(Type("function"), func))
 
@@ -368,11 +370,10 @@ class Tua(TuaVisitor):
     def visitReturn(self, ctx:TuaParser.ReturnContext):
         if ctx.explist():
             result = self.visit(ctx.explist())
-            # just for now - returns only the first element from explist
+            # returns only the first element from explist
             return result[0]
 
-        # how to return if nothin is returned ??
-        return None
+        return Value(Type("nil"), None)
 
 
     def visitBreak(self, ctx:TuaParser.BreakContext):
@@ -409,39 +410,42 @@ class Tua(TuaVisitor):
         if name in self.builtins: # TODO order of the checks should be swapped, or overriding builtins banned, to be decided
             return self.builtins[name](self, *args)
         else:
-            funcval = self.scope.get(name)
+            func = self.scope.get(name)
 
-            if funcval is None:
+            if func is None:
                 raise SemanticError(f"Function '{name}' is not defined")
 
-            if funcval.type.id != "function":
+            if func.type.id != "function":
                 raise SemanticError(f"Trying to call non-function '{name}'")
 
-            func = funcval.value
+            funcval = func.value
             # check the number of arguments
-            if len(args) != len(func.params):
+            if len(args) != len(funcval.params):
                 raise SemanticError(f"Wrong number of arguments when calling function '{name}'")
 
             function_scope = ScopeStack()
             # add all arguments to function scope
-            for i in range(len(func.params)):
+            for i in range(len(funcval.params)):
                 # check type of the argument
-                if args[i].type.id != func.params[i].type.id:
-                    raise SemanticError(f"When calling function '{name}' parameter '{func.params[i].name}' should be of type {func.params[i].type}, got {args[i].type} instead")
-                function_scope.new_identifier(func.params[i].name, args[i])
+                if args[i].type.id != funcval.params[i].type.id:
+                    raise SemanticError(f"When calling function '{name}' parameter '{funcval.params[i].name}' should be of type {funcval.params[i].type}, got {args[i].type} instead")
+                function_scope.new_identifier(funcval.params[i].name, args[i])
 
-            # TEMP !!!!!!!!!!!!!!!!!!! add current function to its scope
-            function_scope.new_identifier(name, funcval)
+            # add current function to its scope
+            function_scope.new_identifier(name, func)
 
             # quick disgusting solution for scopestacks problem (changing program scope to function scope for its execution. then it comes back to normal :))
             program_scope = self.scope
             self.scope = function_scope
-            returns = self.visit(func.body)
+            returns = self.visit(funcval.body)
             self.scope = program_scope
 
-            return returns
+            # following code does not work, because block of code is escaped if something other than None is returned.
+            # it should probably be fixed bc we want to return Value(nil) from function, when there is no return stat
+            # if returns is None:
+            #     returns = Value(Type("nil"), None)
 
-            # return func.value.execute(self, self.scope, *args)
+            return returns
 
 
     def visitExplist(self, ctx:TuaParser.ExplistContext) -> list[Value]:
