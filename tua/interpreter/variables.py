@@ -43,7 +43,7 @@ class Function:
     def __init__(self, name: str, returns: Type, params: list[Param], body: TuaParser.BlockContext):
         self.name: str = name
         self.returns: Type = returns
-        self.params: list[str] = params
+        self.params: list[Param] = params
         self.body: TuaParser.BlockContext = body
 
     def __repr__(self):

@@ -1,0 +1,12 @@
+program: |
+  function add(x: int, y: int) -> int
+    z: int = x + y
+    print(z)
+    if z <= 5 then
+      add(x + 1, y + 1)
+    end
+  end
+  add(2,3)
+output: |
+  5
+  7
