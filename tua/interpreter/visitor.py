@@ -5,6 +5,7 @@ from .scope import ScopeStack
 from .tualist import TuaList
 from .variables import Value, Type, Function, Param
 from .tualist import TuaList
+import re
 
 class InternalError(Exception):
     pass
@@ -60,10 +61,10 @@ class Tua(TuaVisitor):
         log.info("Assignment")
 
         identifier = self.visit(ctx.var())
-        print(f'visitAssignment: identifier {identifier}')
+        # print(f'visitAssignment: identifier {identifier}')
 
         value = self.visit(ctx.exp())
-        print(f'visitAssignment: value {value}')
+        # print(f'visitAssignment: value {value}')
         self.scope.change_value(identifier, value)
 
     def visitVar(self, ctx:TuaParser.VarContext) -> str:
@@ -71,9 +72,9 @@ class Tua(TuaVisitor):
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         if ctx.suffix():
             suffix = self.visit(ctx.suffix())
-            print(f"visitVar: name[suffix] {name}[{suffix}]")
+            # print(f"visitVar: name[suffix] {name}[{suffix}]")
             return f"{name}[{suffix}]"
-        print(f"visitVar: name {name}")
+        # print(f"visitVar: name {name}")
         return name
 
 
@@ -118,12 +119,7 @@ class Tua(TuaVisitor):
 
     def visitPrefix(self, ctx:TuaParser.PrefixContext) -> Value:
         log.info("Prefix")
-        if ctx.var():
-            # identifier = self.visit(ctx.var())
-            # print(identifier)
-            # ret = self.scope.get(identifier)
-            # print(f"prefix: {identifier} -> {ret}")
-            # return ret
+        if ctx.var():            
             return self.visit(ctx.var())
         else:
             return NotImplementedError # functioncall
@@ -132,8 +128,8 @@ class Tua(TuaVisitor):
     def visitSuffix(self, ctx:TuaParser.SuffixContext):
         log.info("Suffix")
         if ctx.exp():
-            arg: Value = self.visit(ctx.exp())
-            print(f'visitSuffix: arg {arg}')
+            arg: Value = self.visit(ctx.exp(0))
+            # print(f'visitSuffix: {arg.value}')
             return arg.value
         return self.visitChildren(ctx)
 
@@ -156,14 +152,28 @@ class Tua(TuaVisitor):
         # nil
         elif ctx.prefix():
             identifier = self.visit(ctx.prefix())
-            ret = self.scope.get(identifier)
+            index = None
 
+            pattern = r"\[\d+\]$"
+            if re.search(pattern, identifier):
+                identifier, sep1, after = identifier.partition('[')
+                index, sep2, after = after.partition(']')
+                index = int(index)
+
+            ret = self.scope.get(identifier)
             if ret is None:
                 raise SemanticError(f"Name '{identifier}' is not defined")
 
             assert isinstance(ret.type, Type)
             assert isinstance(ret.type.id, str)
-            return ret
+
+            if index:
+                if index < len(ret.value) and index >= 0:
+                    return ret.value[index]
+                else:
+                    raise SemanticError(f"Index out of range: {index} for {identifier}")
+            else:
+                return ret
 
         elif ctx.binopPower():
             base = self.visit(ctx.exp(0))
