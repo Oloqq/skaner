@@ -5,6 +5,6 @@ program: |
   print(c ~= "nati")
 
 output: |
-  True
-  False
-  True
+  true
+  false
+  true

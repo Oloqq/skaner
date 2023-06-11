@@ -1,0 +1,8 @@
+program: |
+  y: bool = true
+  print(y)
+  dump_stack()
+
+output: |
+  true
+  Stack:  ScopeStack([{}, {'y': bool = True}])

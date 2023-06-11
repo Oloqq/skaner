@@ -3,12 +3,14 @@ from .variables import Value
 
 def print_(_: Tua, *args: Value):
     printables = []
-    if len(args) > 0 and "List" in args[0].type.id:
-        printables = list(map(lambda arg: arg.value, args[0].value))
-        print(printables)    
-    else: 
-        printables = list(map(lambda arg: arg.value, args))
-        print(*printables)
+    for arg in args:
+        if arg.type.id == "bool":
+            printables.append(str(arg.value).lower())
+        elif "List" in arg.type.id:
+            printables.append(list(map(lambda e: e.value, arg.value)))
+        else:
+            printables.append(arg.value)
+    print(*printables)
 
 def type_(_: Tua, arg: Value):
     return arg.type.__repr__

@@ -3,4 +3,4 @@ program: |
   print(x)
 
 output: |
-  False
+  false
