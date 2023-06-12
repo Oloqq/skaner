@@ -1,13 +1,19 @@
 program: |
   function add(x: int, y: int) -> int
     z: int = x + y
-    if z <= 5 then
-      add(x + 1, y + 1)
+    if z == 5 then
+      return add(x + 1, y + 1)
     end
     return z
   end
+  add(1,2)
   print(add(2,3))
   print(add(10,20))
+  x: int = add(2,10)
+  print(x + 4.0)
+  print(add(5,0))
 output: |
-  5
+  7
   30
+  16.0
+  7

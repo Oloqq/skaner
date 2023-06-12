@@ -49,7 +49,10 @@ class Tua(TuaVisitor):
 
 
     def visitStat(self, ctx:TuaParser.StatContext):
-        return self.visitChildren(ctx)
+        if not ctx.functioncall():
+            return self.visitChildren(ctx)
+
+        self.visitChildren(ctx)
 
     def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
         log.info("Newvariable")
