@@ -443,11 +443,9 @@ class Tua(TuaVisitor):
             returns = self.visit(funcval.body)
             self.scope = program_scope
 
-            # following code does not work, because block of code is escaped if something other than None is returned.
-            # it should probably be fixed bc we want to return Value(nil) from function, when there is no return stat
-            # if returns is None:
-            #     returns = Value(Type("nil"), None)
-
+            if returns is None:
+                returns = Value(Type("nil"), None)
+                
             return returns
 
 
