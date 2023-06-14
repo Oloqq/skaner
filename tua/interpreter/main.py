@@ -8,21 +8,22 @@ import logging
 
 import click
 
+def multiline_triggered(line: str) -> bool:
+    words = line.split(" ")
+    return words[0] == "function" or words[-1] in ["then", "do"]
+
 def run_interpreter_line_by_line():
-    # Initialize the visitor.
     visitor = Tua()
 
-    buffer = []
-    # multiline_mode = False
-    code = input(">>>")
-    lexer = TuaLexer(InputStream(code))
-    tokens = CommonTokenStream(lexer)
-    parser = TuaParser(tokens)
-    tree = parser.program()
-    visitor.visit(tree)
+    print(">>>", end="")
 
-    # for line in iter(input, ''):
-    #     buffer.append(line)
+    for line in iter(input, ''):
+        code = line
+        lexer = TuaLexer(InputStream(code))
+        tokens = CommonTokenStream(lexer)
+        parser = TuaParser(tokens)
+        tree = parser.program()
+        visitor.visit(tree)
 
         # Check if the current line ends with a trigger word,
         # indicating that we're entering multi-line mode.
@@ -46,7 +47,7 @@ def run_interpreter_line_by_line():
         #     buffer.clear()
         #     multiline_mode = False
 
-        # print('>>> ', end='')
+        print('>>> ', end='')
 
 def run_interpreter_full_program(input_file):
     # Initialize the lexer and parser.
