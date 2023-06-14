@@ -49,10 +49,8 @@ def run_interpreter_line_by_line():
 
         print('>>> ', end='')
 
-def run_interpreter_full_program(input_file):
+def run_interpreter_full_program(program: FileStream|InputStream):
     # Initialize the lexer and parser.
-    program = FileStream(input_file)
-
     lexer = TuaLexer(program)
     tokens = CommonTokenStream(lexer)
     parser = TuaParser(tokens)
@@ -67,7 +65,7 @@ def run_interpreter_full_program(input_file):
 def run_interpreter(input_file, debug):
     init_log(logging.DEBUG if debug else logging.WARNING)
     if input_file != None:
-        run_interpreter_full_program(input_file)    
+        run_interpreter_full_program(FileStream(input_file))    
     else:
         run_interpreter_line_by_line()
 
