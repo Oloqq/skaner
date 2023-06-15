@@ -1,10 +1,11 @@
 class TuaList:
-    def __init__(self, elem_type: str):
-        self.content: list[any] = []
+    def __init__(self, content: list[any], elem_type: str ):
+        self.content: list[any] = content
         self.type: str = elem_type
+        self.length: int = len(content)
 
     def __repr__(self):
-        return f"{self.full_type_str()} = [{self.content_str()}]"
+        return f"{self.content_str()}"
 
     def full_type_str(self):
         return f"List[{self.type}]"
@@ -18,4 +19,8 @@ class TuaList:
     def set(self, elem: int, val: any):
         if type(val) == self.type:
             self.content[elem] = val
+
+    def append(self, val: any):
+        if type(val) == self.type:
+            self.content.append(val)
     

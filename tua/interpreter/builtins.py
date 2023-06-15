@@ -7,7 +7,7 @@ def print_(_: Tua, *args: Value):
         if arg.type.id == "bool":
             printables.append(str(arg.value).lower())
         elif "List" in arg.type.id:
-            printables.append(list(map(lambda e: e.value, arg.value)))
+            printables.append(list(map(lambda e: e.value, arg.value.content)))
         else:
             printables.append(arg.value)
     print(*printables)

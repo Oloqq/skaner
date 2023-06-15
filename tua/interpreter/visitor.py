@@ -4,7 +4,6 @@ from .log import log
 from .scope import ScopeStack
 from .tualist import TuaList
 from .variables import Value, Type, Function, Param
-from .tualist import TuaList
 
 class InternalError(Exception):
     pass
@@ -141,8 +140,8 @@ class Tua(TuaVisitor):
                 raise SemanticError(f"Name '{identifier}' is not defined")
 
             if suffix is not None :
-                if suffix < len(ret.value) and suffix >= 0: 
-                    return ret.value[suffix]
+                if suffix < ret.value.length and suffix >= 0: 
+                    return ret.value.get(suffix)
                 else:
                     raise SemanticError(f"Index out of range: {suffix} for {identifier}")
             else: 
@@ -487,10 +486,9 @@ class Tua(TuaVisitor):
             fields, type = self.visit(ctx.fieldlist())
         else:
             fields = []
-        
-        #var tualist = TuaList(type, fields)
+        tualist = TuaList(fields, type)
     
-        return Value(Type(f'List[{type}]'), fields)
+        return Value(Type(tualist.full_type_str()), tualist)
 
 
     def visitFieldlist(self, ctx:TuaParser.FieldlistContext):

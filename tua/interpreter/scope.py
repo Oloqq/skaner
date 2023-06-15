@@ -49,11 +49,11 @@ class ScopeStack:
             if identifier in scope.keys():
                 existing_atom = scope[identifier]
                 
-                if suffix > len(existing_atom.value) or suffix < 0:
+                if suffix > existing_atom.value.length or suffix < 0:
                     print(f"Index {suffix} out of bounds")
                     return
                 if existing_atom.type.id == f'List[{rhs.type.id}]':
-                    existing_atom.value[suffix].value = rhs.value
+                    existing_atom.value.content[suffix].value = rhs.value
                     return
                 else:
                     print("Type mismatch")
