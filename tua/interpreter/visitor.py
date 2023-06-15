@@ -48,6 +48,7 @@ class Tua(TuaVisitor):
         return None
 
 
+
     def visitStat(self, ctx:TuaParser.StatContext):
         if not ctx.functioncall():
             return self.visitChildren(ctx)
@@ -454,7 +455,7 @@ class Tua(TuaVisitor):
 
             if returns is None:
                 returns = Value(Type("nil"), None)
-                
+
             return returns
 
 
