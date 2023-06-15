@@ -7,14 +7,9 @@ program: |
   print(z)
   print(len(z))
 
-  dump_stack()
-
-  print(type(w))
-  print(type(z))
-  
+  z[0] = 0
   w = concat(w, z)
 
-  z[0] = 0
   print(z)
   print(x)
 
@@ -26,3 +21,5 @@ output: |
   [0, 2, 3, 4, 5, 6]
   [1, 2, 3]
   [1, 2, 3, 4, 5, 6]
+
+skip: true

@@ -2,6 +2,7 @@ from .visitor import Tua
 from .variables import Value, Type
 from .tualist import TuaList
 
+
 def print_(_: Tua, *args: Value):
     printables = []
     for arg in args:
@@ -15,8 +16,10 @@ def print_(_: Tua, *args: Value):
             printables.append(arg.value)
     print(*printables)
 
+
 def type_(_: Tua, arg: Value):
     return Value(Type("string"), arg.type.__repr__())
+
 
 def len_(_: Tua, arg: Value):
     if "List" in arg.type.id:
@@ -38,8 +41,10 @@ def concat_(_: Tua, list1: Value, list2: Value):
     for elem in list2.value.content:
         new_list.append(elem.copy())
 
-    tualist = TuaList(new_list, list1.value.type)
+    type = list1.type.id[5:-1]
+    tualist = TuaList(new_list, type)
     return Value(Type(tualist.full_type_str()), tualist)
+
 
 def dump_stack(visitor: Tua):
     print(f"Stack: ", visitor.scope)

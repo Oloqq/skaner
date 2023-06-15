@@ -431,9 +431,6 @@ class Tua(TuaVisitor):
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         args = self.get_args(ctx)
 
-        # TODO 
-        # print(type(exp)) <- recusive call
-
         if name in self.builtins: # TODO order of the checks should be swapped, or overriding builtins banned, to be decided
             return self.builtins[name](self, *args)
         else:

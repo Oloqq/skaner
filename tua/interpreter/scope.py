@@ -33,7 +33,6 @@ class ScopeStack:
         for scope in reversed(self.scopes):
             if identifier in scope.keys():
                 existing_atom = scope[identifier]
-                
                 if existing_atom.type.id == rhs.type.id:
                     scope[identifier].value = rhs.value
                     return
@@ -52,6 +51,7 @@ class ScopeStack:
                 if suffix > existing_atom.value.length() or suffix < 0:
                     print(f"Index {suffix} out of bounds")
                     return
+
                 if existing_atom.type.id == f'List[{rhs.type.id}]':
                     existing_atom.value.content[suffix].value = rhs.value
                     return
