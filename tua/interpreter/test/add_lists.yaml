@@ -5,21 +5,23 @@ program: |
   w: List[int] = {}
 
   print(z)
-  print(len(z))
 
-  z[0] = 0
   w = concat(w, z)
-
+  z[0] = 0
+  
   print(z)
   print(x)
 
   print(w)
 
+  w[3] = 200
+  print(w)
+  print(z)
+
 output: |
   [1, 2, 3, 4, 5, 6]
-  6
   [0, 2, 3, 4, 5, 6]
   [1, 2, 3]
   [1, 2, 3, 4, 5, 6]
-
-skip: true
+  [1, 2, 3, 200, 5, 6]
+  [0, 2, 3, 4, 5, 6]
