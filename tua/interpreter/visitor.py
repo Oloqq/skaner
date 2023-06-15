@@ -178,15 +178,7 @@ class Tua(TuaVisitor):
             return Value(type, value)
         # nil
         elif ctx.prefix():
-            identifier = self.visit(ctx.prefix())
-            ret = self.scope.get(identifier)
-
-            if ret is None:
-                raise SemanticError(f"Name '{identifier}' is not defined")
-
-            assert isinstance(ret.type, Type)
-            assert isinstance(ret.type.id, str)
-            return ret
+            return self.visit(ctx.prefix())
 
         elif ctx.binopPower():
             base = self.visit(ctx.exp(0))
@@ -483,7 +475,7 @@ class Tua(TuaVisitor):
     def visitExplist(self, ctx:TuaParser.ExplistContext) -> list[Value]:
         log.info("Explist")
         vals = []
-        for c in ctx.getChildren():
+        for c in ctx.exp():
             vals.append(self.visit(c))
         return vals
 
@@ -495,6 +487,9 @@ class Tua(TuaVisitor):
             fields, type = self.visit(ctx.fieldlist())
         else:
             fields = []
+        
+        #var tualist = TuaList(type, fields)
+    
         return Value(Type(f'List[{type}]'), fields)
 
 
