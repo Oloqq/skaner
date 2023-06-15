@@ -32,10 +32,10 @@ def concat_(_: Tua, list1: Value, list2: Value):
 
     new_list = []
     for elem in list1.value.content:
-        new_list.append(elem)
+        new_list.append(elem.copy())
     
     for elem in list2.value.content:
-        new_list.append(elem)
+        new_list.append(elem.copy())
 
     tualist = TuaList(new_list, list1.value.type)
     return Value(Type(tualist.full_type_str()), tualist)
