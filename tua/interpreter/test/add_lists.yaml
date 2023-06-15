@@ -2,26 +2,27 @@ program: |
   x: List[int] = {1, 2, 3}
   y: List[int] = {4, 5, 6}
   z: List[int] = concat(x, y)
+  w: List[int] = {}
 
   print(z)
   print(len(z))
+
+  dump_stack()
+
+  print(type(w))
+  print(type(z))
+  
+  w = concat(w, z)
 
   z[0] = 0
   print(z)
   print(x)
 
-  id: int = 0
-  while id < 3 do
-    z = concat(z, x)
-    id = id + 1
-    print(z)
-  end  
+  print(w)
 
 output: |
   [1, 2, 3, 4, 5, 6]
   6
   [0, 2, 3, 4, 5, 6]
   [1, 2, 3]
-  [0, 2, 3, 4, 5, 6, 1, 2, 3]
-  [0, 2, 3, 4, 5, 6, 1, 2, 3, 1, 2, 3]
-  [0, 2, 3, 4, 5, 6, 1, 2, 3, 1, 2, 3, 1, 2, 3]
+  [1, 2, 3, 4, 5, 6]

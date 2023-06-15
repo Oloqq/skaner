@@ -16,7 +16,7 @@ def print_(_: Tua, *args: Value):
     print(*printables)
 
 def type_(_: Tua, arg: Value):
-    return Value(arg.type, arg.type.__repr__())
+    return Value(Type("string"), arg.type.__repr__())
 
 def len_(_: Tua, arg: Value):
     if "List" in arg.type.id:
