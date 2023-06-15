@@ -27,7 +27,7 @@ def len_(_: Tua, arg: Value):
     elif arg.type.id == "string":
         return Value(Type("int"), len(arg.value))
     else:
-        raise TypeError(f"Object of type '{arg.type.id}' has no len()")
+        raise TypeError(f"Object of type '{arg.type.id}' has no len() function")
 
 
 def concat_(_: Tua, list1: Value, list2: Value):
@@ -42,9 +42,19 @@ def concat_(_: Tua, list1: Value, list2: Value):
         new_list.append(elem.copy())
 
     type = list1.type.id[5:-1]
-    tualist = TuaList(new_list, type)
+    tualist = TuaList(new_list, type) 
     return Value(Type(tualist.full_type_str()), tualist)
 
+
+def append_(_: Tua, list: Value, elem: Value):
+    if list.type.id != f"List[{elem.type.id}]" or "List" not in list.type.id:
+        raise TypeError(f"Cannot append {elem.type.id} to {list.type.id}")
+    list.value.append(elem)
+    
+def pop_(_: Tua, list: Value):
+    if "List" not in list.type.id:
+        raise TypeError(f"Cannot pop from {list.type.id}")
+    return list.value.pop()
 
 def dump_stack(visitor: Tua):
     print(f"Stack: ", visitor.scope)

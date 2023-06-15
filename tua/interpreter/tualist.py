@@ -1,6 +1,8 @@
+from .variables import Value
+
 class TuaList:
-    def __init__(self, content: list[any], elem_type: str ):
-        self.content: list[any] = content
+    def __init__(self, content: list[Value], elem_type: str ):
+        self.content: list[Value] = content
         self.type: str = elem_type
 
     def __repr__(self):
@@ -19,12 +21,15 @@ class TuaList:
         return self.content[elem]
 
     def set(self, elem: int, val: any):
-        if type(val) == self.type:
+        if val.type.id == self.type:
             self.content[elem] = val
 
-    def append(self, val: any):
-        if type(val) == self.type:
+    def append(self, val: Value):
+        if val.type.id == self.type:
             self.content.append(val)
+    
+    def pop(self):
+        return self.content.pop()
             
 
     

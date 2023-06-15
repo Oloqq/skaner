@@ -1,0 +1,14 @@
+program: |
+  x: List[int] = {1, 2, 3}
+  y: List[int] = {}
+
+  append(x, 4)
+
+  append(y, 4)
+  append(y, 5)
+  print(x)
+  print(y)
+
+output: |
+  [1, 2, 3, 4]
+  [4, 5]

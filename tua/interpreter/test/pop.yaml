@@ -1,0 +1,25 @@
+program: |
+  x: List[int] = {1, 2, 3}
+  print(x)
+  y: int = pop(x)
+
+  print(x)
+  print(y)
+
+  z: List[int] = {}
+  z = concat(z, x)
+
+  print(z)
+
+  z[0] = y
+  print(z)
+  print(x)
+
+output: |
+  [1, 2, 3]
+  [1, 2]
+  3
+  [1, 2]
+  [3, 2]
+  [1, 2]
+  

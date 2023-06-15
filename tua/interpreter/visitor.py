@@ -20,6 +20,8 @@ class Tua(TuaVisitor):
             "type": builtins.type_,
             "len": builtins.len_,
             "concat": builtins.concat_,
+            "append": builtins.append_,
+            "pop": builtins.pop_,
             "dump_stack": builtins.dump_stack,
         }
         self.cnt = 0 # for temporary testing
@@ -66,6 +68,7 @@ class Tua(TuaVisitor):
         if rhs.type.id != type_annotated.id:
             if rhs.type.id == "List[]":
                 rhs.type.id = type_annotated.id
+                rhs.value.type = type_annotated.id[5:-1]
             else:
                 raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({type_annotated.id})")
 
