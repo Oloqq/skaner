@@ -5,7 +5,6 @@ from .scope import ScopeStack
 from .tualist import TuaList
 from .variables import Value, Type, Function, Param
 from .tualist import TuaList
-import re
 
 class InternalError(Exception):
     pass
@@ -61,23 +60,20 @@ class Tua(TuaVisitor):
 
     def visitAssignment(self, ctx:TuaParser.AssignmentContext):
         log.info("Assignment")
-
-        identifier = self.visit(ctx.var())
-        # print(f'visitAssignment: identifier {identifier}')
-
+        identifier, suffix = self.visit(ctx.var())
         value = self.visit(ctx.exp())
-        # print(f'visitAssignment: value {value}')
-        self.scope.change_value(identifier, value)
+        if suffix is None:
+            self.scope.change_value(identifier, value)
+        else:
+            self.scope.change_value_with_suffix(identifier, value, suffix)
 
-    def visitVar(self, ctx:TuaParser.VarContext) -> str:
+    def visitVar(self, ctx:TuaParser.VarContext) -> tuple[str, any]:
         log.info("Var")
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         if ctx.suffix():
             suffix = self.visit(ctx.suffix())
-            # print(f"visitVar: name[suffix] {name}[{suffix}]")
-            return f"{name}[{suffix}]"
-        # print(f"visitVar: name {name}")
-        return name
+            return name, suffix
+        return name, None
 
 
     def visitNametype(self, ctx:TuaParser.NametypeContext) -> tuple[str, Type]:
@@ -122,30 +118,21 @@ class Tua(TuaVisitor):
     def visitPrefix(self, ctx:TuaParser.PrefixContext) -> Value:
         log.info("Prefix")
         if ctx.var():    
-            identifier = self.visit(ctx.var())
+            identifier, suffix = self.visit(ctx.var())
             ret = self.scope.get(identifier)
 
-            index = None
-            pattern = r"\[\d+\]$"
+            if ret is None:
+                raise SemanticError(f"Name '{identifier}' is not defined")
 
-            if re.search(pattern, identifier):
-                identifier, sep1, after = identifier.partition('[')
-                index, sep2, after = after.partition(']')
-                index = int(index)
+            assert isinstance(ret.type, Type)
+            assert isinstance(ret.type.id, str)
 
-                ret = self.scope.get(identifier)
-                if ret is None:
-                    raise SemanticError(f"Name '{identifier}' is not defined")
-
-                assert isinstance(ret.type, Type)
-                assert isinstance(ret.type.id, str)
-
-                if index is not None:
-                    if index < len(ret.value) and index >= 0:
-                        return ret.value[index]
-                    else:
-                        raise SemanticError(f"Index out of range: {index} for {identifier}")
-            else:
+            if suffix is not None :
+                if suffix < len(ret.value) and suffix >= 0: 
+                    return ret.value[suffix]
+                else:
+                    raise SemanticError(f"Index out of range: {suffix} for {identifier}")
+            else: 
                 return ret
         else:
             #return self.visit(ctx.functioncall())
@@ -156,7 +143,6 @@ class Tua(TuaVisitor):
         log.info("Suffix")
         if ctx.exp():
             arg: Value = self.visit(ctx.exp(0))
-            # print(f'visitSuffix: {arg.value}')
             return arg.value
         return self.visitChildren(ctx)
 

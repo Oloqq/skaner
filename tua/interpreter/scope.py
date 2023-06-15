@@ -1,7 +1,6 @@
 from pprint import pformat
 from .tualist import TuaList
 from .variables import Value, Type
-import re
 
 Scope = dict[str, Value]
 
@@ -29,39 +28,39 @@ class ScopeStack:
 
         return None
 
+
     def change_value(self, identifier: str, rhs: Value):
-        index = None
-        pattern = r"\[\d+\]$"
-
-        if re.search(pattern, identifier):
-            identifier, sep1, after = identifier.partition('[')
-            index, sep2, after = after.partition(']')
-            index = int(index)
-
         for scope in reversed(self.scopes):
             if identifier in scope.keys():
                 existing_atom = scope[identifier]
                 
-                if index is not None:
-                    if index > len(existing_atom.value) or index < 0:
-                        print(f"Index {index} out of bounds")
-                        return
-                    if existing_atom.type.id == f'List[{rhs.type.id}]':
-                        existing_atom.value[index].value = rhs.value
-                        return
-                    else:
-                        print("Type mismatch")
-                        return
+                if existing_atom.type.id == rhs.type.id:
+                    scope[identifier].value = rhs.value
+                    return
                 else:
-                    if existing_atom.type.id == rhs.type.id:
-                        scope[identifier].value = rhs.value
-                        return
-                    else:
-                        print("Type mismatch")
-                        return
-
+                    print("Type mismatch")
+                    return
 
         print(f"Identifier '{identifier}' does not exist")
+
+
+    def change_value_with_suffix(self, identifier: str, rhs: Value, suffix: any):
+        for scope in reversed(self.scopes):
+            if identifier in scope.keys():
+                existing_atom = scope[identifier]
+                
+                if suffix > len(existing_atom.value) or suffix < 0:
+                    print(f"Index {suffix} out of bounds")
+                    return
+                if existing_atom.type.id == f'List[{rhs.type.id}]':
+                    existing_atom.value[suffix].value = rhs.value
+                    return
+                else:
+                    print("Type mismatch")
+                    return
+
+        print(f"Identifier '{identifier}' does not exist")
+
 
     def new_identifier(self, identifier: str, val: Value) -> bool:
         # value = rhs.value if rhs.is_literal() else rhs
