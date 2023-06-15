@@ -1,0 +1,6 @@
+program: |
+  x: nil = nil
+  print(x)
+
+output: |
+  nil

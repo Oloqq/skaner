@@ -175,7 +175,8 @@ class Tua(TuaVisitor):
         elif ctx.bool_():
             value, type = self.visit(ctx.bool_())
             return Value(type, value)
-        # nil
+        elif ctx.NIL():
+            return Value(Type("nil"), None)
         elif ctx.prefix():
             return self.visit(ctx.prefix())
 

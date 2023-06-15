@@ -8,6 +8,8 @@ def print_(_: Tua, *args: Value):
             printables.append(str(arg.value).lower())
         elif "List" in arg.type.id:
             printables.append(list(map(lambda e: e.value, arg.value.content)))
+        elif arg.value is None:
+            printables.append("nil")
         else:
             printables.append(arg.value)
     print(*printables)

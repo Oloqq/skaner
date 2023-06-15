@@ -5,7 +5,7 @@ class TuaList:
         self.length: int = len(content)
 
     def __repr__(self):
-        return f"{self.content_str()}"
+        return self.content_str()
 
     def full_type_str(self):
         return f"List[{self.type}]"
