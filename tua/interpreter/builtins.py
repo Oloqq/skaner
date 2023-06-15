@@ -1,5 +1,6 @@
 from .visitor import Tua
 from .variables import Value, Type
+from .tualist import TuaList
 
 def print_(_: Tua, *args: Value):
     printables = []
@@ -17,14 +18,27 @@ def print_(_: Tua, *args: Value):
 def type_(_: Tua, arg: Value):
     return Value(arg.type, arg.type.__repr__())
 
-# it probably works but have to fix functioncall first
 def len_(_: Tua, arg: Value):
     if "List" in arg.type.id:
-        return Value(Type("int"), arg.value.length)
+        return Value(Type("int"), arg.value.length())
     elif arg.type.id == "string":
         return Value(Type("int"), len(arg.value))
     else:
         raise TypeError(f"Object of type '{arg.type.id}' has no len()")
+
+def concat_(_: Tua, list1: Value, list2: Value):
+    if list1.type.id != list2.type.id and "List" in list1.type.id and "List" in list2.type.id:
+        raise TypeError(f"Cannot concatenate {list1.type.id} and {list2.type.id}")
+
+    new_list = []
+    for elem in list1.value.content:
+        new_list.append(elem)
+    
+    for elem in list2.value.content:
+        new_list.append(elem)
+
+    tualist = TuaList(new_list, list1.value.type)
+    return Value(Type(tualist.full_type_str()), tualist)
 
 def dump_stack(visitor: Tua):
     print(f"Stack: ", visitor.scope)

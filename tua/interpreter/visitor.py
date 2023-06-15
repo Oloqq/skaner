@@ -19,6 +19,7 @@ class Tua(TuaVisitor):
             "print": builtins.print_,
             "type": builtins.type_,
             "len": builtins.len_,
+            "concat": builtins.concat_,
             "dump_stack": builtins.dump_stack,
         }
         self.cnt = 0 # for temporary testing
@@ -140,7 +141,7 @@ class Tua(TuaVisitor):
                 raise SemanticError(f"Name '{identifier}' is not defined")
 
             if suffix is not None :
-                if suffix < ret.value.length and suffix >= 0: 
+                if suffix < ret.value.length() and suffix >= 0: 
                     return ret.value.get(suffix)
                 else:
                     raise SemanticError(f"Index out of range: {suffix} for {identifier}")
