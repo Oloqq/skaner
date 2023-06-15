@@ -12,6 +12,7 @@ def print_(_: Tua, *args: Value):
             printables.append(arg.value)
     print(*printables)
 
+
 # need to fix functioncall first <- recursion required
 def type_(_: Tua, arg: Value):
     return arg.type.__repr__

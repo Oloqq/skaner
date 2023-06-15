@@ -35,15 +35,26 @@ class Tua(TuaVisitor):
         self.scope.push()
         self.depth += 1
 
-        result = self.visitChildren(ctx)
-        
+        for c in ctx.getChildren():
+            results = self.visit(c)
+            if results is not None:
+
+                self.depth -= 1
+                if self.depth > 0: # necessary for line by line execution
+                    self.scope.pop()
+                return results
+
         self.depth -= 1
         if self.depth > 0: # necessary for line by line execution
             self.scope.pop()
-        return result
+        return None
+
 
 
     def visitStat(self, ctx:TuaParser.StatContext):
+        if not ctx.functioncall():
+            return self.visitChildren(ctx)
+
         self.visitChildren(ctx)
 
     def visitNewvariable(self, ctx:TuaParser.NewvariableContext):
@@ -122,15 +133,12 @@ class Tua(TuaVisitor):
 
     def visitPrefix(self, ctx:TuaParser.PrefixContext) -> Value:
         log.info("Prefix")
-        if ctx.var():    
+        if ctx.var():
             identifier, suffix = self.visit(ctx.var())
             ret = self.scope.get(identifier)
 
             if ret is None:
                 raise SemanticError(f"Name '{identifier}' is not defined")
-
-            assert isinstance(ret.type, Type)
-            assert isinstance(ret.type.id, str)
 
             if suffix is not None :
                 if suffix < len(ret.value) and suffix >= 0: 
@@ -139,9 +147,10 @@ class Tua(TuaVisitor):
                     raise SemanticError(f"Index out of range: {suffix} for {identifier}")
             else: 
                 return ret
+        elif ctx.functioncall():
+            return self.visit(ctx.functioncall())
         else:
-            #return self.visit(ctx.functioncall())
-            return NotImplementedError # functioncall
+            return NotImplementedError
 
 
     def visitSuffix(self, ctx:TuaParser.SuffixContext):
@@ -169,7 +178,16 @@ class Tua(TuaVisitor):
             return Value(type, value)
         # nil
         elif ctx.prefix():
-            return self.visit(ctx.prefix())
+            identifier = self.visit(ctx.prefix())
+            ret = self.scope.get(identifier)
+
+            if ret is None:
+                raise SemanticError(f"Name '{identifier}' is not defined")
+
+            assert isinstance(ret.type, Type)
+            assert isinstance(ret.type.id, str)
+            return ret
+
         elif ctx.binopPower():
             base = self.visit(ctx.exp(0))
             exp = self.visit(ctx.exp(1))
@@ -319,20 +337,27 @@ class Tua(TuaVisitor):
 
     def visitFunctionbody(self, ctx:TuaParser.FunctionbodyContext) -> tuple[list[Type], Type, TuaParser.BlockContext]:
         log.info("Functionbody")
-        params = [] # TEMP
-        return params, Type("nil"), ctx.block()
+
+        params = []
+        if ctx.typednamelist():
+            params = self.visit(ctx.typednamelist())
+
+        type_ = self.visit(ctx.type_())
+        return params, type_, ctx.block()
 
 
     def visitDostat(self, ctx:TuaParser.DostatContext):
-        return self.visitChildren(ctx)
+        return self.visit(ctx.block())
 
 
     def visitWhilestat(self, ctx:TuaParser.WhilestatContext):
         condition = self.visit(ctx.exp())
 
         while condition.value:
-             self.visit(ctx.block())
-             condition = self.visit(ctx.exp())
+            results = self.visit(ctx.block())
+            if results is not None:
+                return results
+            condition = self.visit(ctx.exp())
 
 
     def visitIfstat(self, ctx:TuaParser.IfstatContext):
@@ -360,18 +385,45 @@ class Tua(TuaVisitor):
     def visitFunctiondef(self, ctx:TuaParser.FunctiondefContext):
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         params, returns, block = self.visit(ctx.functionbody())
+        # check if the returned value is of correct type !
         func = Function(name, returns, params, block)
         self.scope.new_identifier(name, Value(Type("function"), func))
 
 
     def visitLaststat(self, ctx:TuaParser.LaststatContext):
         log.info("Laststat")
+
+        if ctx.return_():
+            return self.visit(ctx.return_())
+        else:
+            raise NotImplementedError # break, continue
+
+    def visitReturn(self, ctx:TuaParser.ReturnContext):
+        if ctx.explist():
+            result = self.visit(ctx.explist())
+            # returns only the first element from explist
+            return result[0]
+
+        return Value(Type("nil"), None)
+
+
+    def visitBreak(self, ctx:TuaParser.BreakContext):
+        return self.visitChildren(ctx)
+
+
+    def visitContinue(self, ctx:TuaParser.ContinueContext):
         return self.visitChildren(ctx)
 
 
     def visitTypednamelist(self, ctx:TuaParser.TypednamelistContext):
         log.info("Typednamelist")
-        return self.visitChildren(ctx)
+        nametypes = []
+
+        for c in ctx.nametype():
+            name, type = self.visit(c)
+            nametypes.append(Param(name, type))
+
+        return nametypes
 
     def get_args(self, ctx:TuaParser.FunctioncallContext) -> list[Value]:
         if not ctx.explist():
@@ -393,18 +445,46 @@ class Tua(TuaVisitor):
             return self.builtins[name](self, *args)
         else:
             func = self.scope.get(name)
+
+            if func is None:
+                raise SemanticError(f"Function '{name}' is not defined")
+
             if func.type.id != "function":
-                raise SemanticError(f"Trying to call non-function {name}")
-            func.value.execute(self, *args)
-            return None
+                raise SemanticError(f"Trying to call non-function '{name}'")
+
+            funcval = func.value
+            # check the number of arguments
+            if len(args) != len(funcval.params):
+                raise SemanticError(f"Wrong number of arguments when calling function '{name}'")
+
+            function_scope = ScopeStack()
+            # add all arguments to function scope
+            for i in range(len(funcval.params)):
+                # check type of the argument
+                if args[i].type.id != funcval.params[i].type.id:
+                    raise SemanticError(f"When calling function '{name}' parameter '{funcval.params[i].name}' should be of type {funcval.params[i].type}, got {args[i].type} instead")
+                function_scope.new_identifier(funcval.params[i].name, args[i])
+
+            # add current function to its scope
+            function_scope.new_identifier(name, func)
+
+            # quick disgusting solution for scopestacks problem (changing program scope to function scope for its execution. then it comes back to normal :))
+            program_scope = self.scope
+            self.scope = function_scope
+            returns = self.visit(funcval.body)
+            self.scope = program_scope
+
+            if returns is None:
+                returns = Value(Type("nil"), None)
+
+            return returns
 
 
     def visitExplist(self, ctx:TuaParser.ExplistContext) -> list[Value]:
         log.info("Explist")
         vals = []
         for c in ctx.getChildren():
-            if isinstance(c, TuaParser.ExpContext):
-                vals.append(self.visit(c))
+            vals.append(self.visit(c))
         return vals
 
 

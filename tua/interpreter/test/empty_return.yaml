@@ -1,0 +1,13 @@
+program: |
+  function comp(x: int) -> nil
+    if x < 10 then
+      return
+    end
+    print(x)
+  end
+
+  comp(2)
+  comp(10)
+
+output: |
+  10
