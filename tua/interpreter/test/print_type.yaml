@@ -6,4 +6,4 @@ program: |
 output: |
   Type<int>
 
-skip: true
+# get_args wants to copy 'type(x)' but its not a Value object 

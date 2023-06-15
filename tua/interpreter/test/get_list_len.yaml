@@ -1,9 +1,6 @@
 program: |
   x: List[int] = {1, 2, 3}
-  y: int = len(x)
-  print(y)
+  print(len(x))
 
 output: |
   3
-
-skip: true

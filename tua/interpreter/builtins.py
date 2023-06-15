@@ -1,5 +1,5 @@
 from .visitor import Tua
-from .variables import Value
+from .variables import Value, Type
 
 def print_(_: Tua, *args: Value):
     printables = []
@@ -14,17 +14,15 @@ def print_(_: Tua, *args: Value):
             printables.append(arg.value)
     print(*printables)
 
-
-# need to fix functioncall first <- recursion required
 def type_(_: Tua, arg: Value):
-    return arg.type.__repr__
+    return Value(arg.type, arg.type.__repr__())
 
 # it probably works but have to fix functioncall first
 def len_(_: Tua, arg: Value):
     if "List" in arg.type.id:
-        return len(arg.value)
+        return Value(Type("int"), arg.value.length)
     elif arg.type.id == "string":
-        return len(arg.value)
+        return Value(Type("int"), len(arg.value))
     else:
         raise TypeError(f"Object of type '{arg.type.id}' has no len()")
 
