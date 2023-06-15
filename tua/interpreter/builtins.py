@@ -26,6 +26,7 @@ def len_(_: Tua, arg: Value):
     else:
         raise TypeError(f"Object of type '{arg.type.id}' has no len()")
 
+
 def concat_(_: Tua, list1: Value, list2: Value):
     if list1.type.id != list2.type.id and "List" in list1.type.id and "List" in list2.type.id:
         raise TypeError(f"Cannot concatenate {list1.type.id} and {list2.type.id}")

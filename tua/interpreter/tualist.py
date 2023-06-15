@@ -25,5 +25,6 @@ class TuaList:
     def append(self, val: any):
         if type(val) == self.type:
             self.content.append(val)
+            
 
     
