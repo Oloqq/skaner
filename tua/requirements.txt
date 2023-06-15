@@ -1,3 +1,3 @@
-antlr4-python3-runtime
+antlr4-python3-runtime==4.12.0
 pyaml
 typing_extensions

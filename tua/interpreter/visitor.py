@@ -23,7 +23,7 @@ class Tua(TuaVisitor):
             "dump_stack": builtins.dump_stack,
         }
         self.cnt = 0 # for temporary testing
-
+        self.depth = 0
 
     def visitProgram(self, ctx:TuaParser.ProgramContext):
         log.info("Program")
@@ -33,8 +33,13 @@ class Tua(TuaVisitor):
     def visitBlock(self, ctx:TuaParser.BlockContext):
         log.info("Block")
         self.scope.push()
+        self.depth += 1
+
         result = self.visitChildren(ctx)
-        self.scope.pop()
+        
+        self.depth -= 1
+        if self.depth > 0: # necessary for line by line execution
+            self.scope.pop()
         return result
 
 

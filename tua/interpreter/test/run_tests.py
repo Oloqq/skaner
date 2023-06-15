@@ -2,7 +2,7 @@ import os
 import sys
 from io import StringIO
 import yaml
-from ..main import run_interpreter
+from ..main import run_interpreter_full_program
 from antlr4 import InputStream
 import click
 from enum import Enum
@@ -42,7 +42,7 @@ def run_test(dir: str, debug: bool, case: str, verbose: bool = False) -> TestRes
 
     error_output = ""
     try:
-        run_interpreter(InputStream(program), debug)
+        run_interpreter_full_program(InputStream(program))
         threw = False
     except SemanticError as e:
         threw = True
