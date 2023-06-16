@@ -1,0 +1,11 @@
+program: |
+  y: List[string] = {"a", "b", "c"}
+  z: List[string] = {"d", "e", "f"}
+  x: List[List[string]] = {y}
+  w: List[List[string]] = {z}
+
+  a: List[List[string]] = concat(x, w)
+  print(a)
+
+output: |
+  [['a', 'b', 'c'], ['d', 'e', 'f']]
