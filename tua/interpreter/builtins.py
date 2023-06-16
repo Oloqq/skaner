@@ -8,6 +8,12 @@ def print_(_: Tua, *args: Value):
     for arg in args:
         if arg.type.id == "bool":
             printables.append(str(arg.value).lower())
+        # ugly but it's a temporary solution
+        elif "List[List[" in arg.type.id:
+            double_list = []
+            for elem in arg.value.content:
+                double_list.append(list(map(lambda e: e.value, elem.value.content)))
+            printables.append(double_list)
         elif "List" in arg.type.id:
             printables.append(list(map(lambda e: e.value, arg.value.content)))
         elif arg.value is None:

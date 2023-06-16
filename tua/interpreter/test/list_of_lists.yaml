@@ -1,0 +1,36 @@
+program: |
+  y: List[int] = {1, 2, 3}
+
+  -- y jest przekazywana jako referencja nie kopia
+  x: List[List[int]] = {y}
+
+  print(y)
+  print(x)
+
+  print(x[0])
+
+  z: List[int] = {100, 200, 300}
+
+  -- nie zamienia referencji do y 
+  -- kopiuje wartosc z do listy y
+  x[0] = z
+  print(x)
+
+  -- zmiana y zminia x (bo x[0] to referencja do y)
+  y[0] = 10
+  print(x)
+
+  
+output: |
+  [1, 2, 3]
+  [[1, 2, 3]]
+  [1, 2, 3]
+  [[100, 200, 300]]
+  [[10, 200, 300]]
+
+
+# x[0] = z
+# print(x)
+# [[100, 200, 300], [1, 2, 3]] <- czy tak powinno być czy [[100, 200, 300], [100, 200, 300]]?
+  
+
