@@ -1,0 +1,16 @@
+program: |
+  function sum(x: int, y: int) -> int
+    return sum_helper(x, y)
+  end
+
+  function exec_sum(x: int, y: int) -> int
+    function sum_helper(x: int, y: int) -> int
+      return x + y
+    end
+    return sum(x, y)
+  end
+
+  print(exec_sum(1,2))
+
+output: |
+  3
