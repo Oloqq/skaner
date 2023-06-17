@@ -377,6 +377,9 @@ class Tua(TuaVisitor):
         iterator_name = ctx.getToken(TuaParser.NAME, 0).getText()
         iterator_value = self.visit(ctx.exp(0));
 
+        if iterator_value.type.id != "int":
+            raise SemanticError(f"Iterator '{iterator_name}' must be of type int")
+
         iterator_added_successfully = self.scope.new_identifier(iterator_name, iterator_value)
 
         if not iterator_added_successfully:
@@ -491,7 +494,7 @@ class Tua(TuaVisitor):
             # add current function to its scope
             function_scope.new_identifier(name, func)
 
-            # quick disgusting solution for scopestacks problem (changing program scope to function scope for its execution. then it comes back to normal :))
+            # solution for scopestacks problem
             program_scope = self.scope
             self.scope = function_scope
             returns = self.visit(funcval.body)
