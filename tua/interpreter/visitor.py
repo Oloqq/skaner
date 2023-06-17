@@ -40,13 +40,13 @@ class Tua(TuaVisitor):
 
         for c in ctx.getChildren():
             results = self.visit(c)
-            if results:
+            if results is not None:
                 break
 
         self.depth -= 1
         if self.depth > 0: # necessary for line by line execution
             self.scope.pop()
-        return None
+        return results
 
 
 
