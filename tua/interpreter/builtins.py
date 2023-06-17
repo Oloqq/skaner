@@ -43,12 +43,12 @@ def concat_(_: Tua, list1: Value, list2: Value):
     new_list = []
     for elem in list1.value.content:
         new_list.append(elem.copy())
-    
+
     for elem in list2.value.content:
         new_list.append(elem.copy())
 
     type = list1.type.id[5:-1]
-    tualist = TuaList(new_list, type) 
+    tualist = TuaList(new_list, type)
     return Value(Type(tualist.full_type_str()), tualist)
 
 
@@ -56,11 +56,19 @@ def append_(_: Tua, list: Value, elem: Value):
     if list.type.id != f"List[{elem.type.id}]" or "List" not in list.type.id:
         raise TypeError(f"Cannot append {elem.type.id} to {list.type.id}")
     list.value.append(elem)
-    
+
 def pop_(_: Tua, list: Value):
     if "List" not in list.type.id:
         raise TypeError(f"Cannot pop from {list.type.id}")
     return list.value.pop()
+
+def ipairs_(_: Tua, list: Value):
+    if "List" not in list.type.id:
+        raise TypeError(f"Cannot iterate over value of type {list.type.id}")
+
+    # ipairs returns index
+    for i, value in enumerate(list.value.content):
+        yield i, value
 
 def dump_stack(visitor: Tua):
     print(f"Stack: ", visitor.scope)

@@ -1,0 +1,15 @@
+program: |
+  list: List[string] = {"Ala", "ma", "kota"}
+
+  for i, v in ipairs(list) do
+    print(i + 1, v)
+    v = ''
+  end
+
+  print(list)
+
+output: |
+  1 Ala
+  2 ma
+  3 kota
+  ['', '', '']

@@ -17,6 +17,7 @@ class Tua(TuaVisitor):
             "concat": builtins.concat_,
             "append": builtins.append_,
             "pop": builtins.pop_,
+            "ipairs": builtins.ipairs_,
             "dump_stack": builtins.dump_stack,
         }
         self.cnt = 0 # for temporary testing
@@ -402,8 +403,38 @@ class Tua(TuaVisitor):
 
 
     def visitForiteratorstat(self, ctx:TuaParser.ForiteratorstatContext):
-        return self.visitChildren(ctx)
-    #'for' NAME ',' NAME 'in' functioncall 'do' block 'end'
+        # 'for' NAME ',' NAME 'in' functioncall 'do' block 'end'
+        generator = self.visit(ctx.functioncall())
+
+        if not type(generator).__name__ == 'generator':
+            raise SemanticError(f"In generic for loop functioncall must return generator")
+
+        key_name = ctx.getToken(TuaParser.NAME, 0).getText()
+        value_name = ctx.getToken(TuaParser.NAME, 1).getText()
+
+        # check if the names can be used
+        if self.scope.get(key_name) != None:
+            raise SemanticError(f"Cannot use name '{key_name}' as iterator, because the identifier is already defined")
+
+        if self.scope.get(value_name) != None:
+            raise SemanticError(f"Cannot use name '{value_name}' as iterator, because the identifier is already defined")
+
+        for elem in generator:
+            # add new iterator variables every time, because values in table may be of different types
+            # right now keys are always integers
+            self.scope.new_identifier(key_name, Value(Type("int"), elem[0]))
+            self.scope.new_identifier(value_name, elem[1])
+
+            results = self.visit(ctx.block())
+
+            # delete iterator variables
+            self.scope.del_identifier(key_name)
+            self.scope.del_identifier(value_name)
+
+            if results is not None:
+                return results
+
+        return None
 
 
     def visitFunctiondef(self, ctx:TuaParser.FunctiondefContext):
@@ -462,7 +493,7 @@ class Tua(TuaVisitor):
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         args = self.get_args(ctx)
 
-        if name in self.builtins: # TODO order of the checks should be swapped, or overriding builtins banned, to be decided
+        if name in self.builtins:
             return self.builtins[name](self, *args)
         else:
             func = self.scope.get(name)
