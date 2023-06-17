@@ -1,6 +1,0 @@
-program: |
-  x: int = 1
-  x()
-
-fail: true
-skip: true

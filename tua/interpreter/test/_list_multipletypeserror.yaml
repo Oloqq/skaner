@@ -1,0 +1,5 @@
+program: |
+  z: List[float] = {3, 2.2}
+
+error: |
+  Fieldlist contains multiple types: ['float', 'int']

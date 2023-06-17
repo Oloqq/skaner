@@ -1,0 +1,5 @@
+program: |
+  x: int = 1
+  x()
+
+error: Trying to call non-function 'x'

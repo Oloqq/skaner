@@ -1,6 +1,7 @@
 from pprint import pformat
 from .tualist import TuaList
 from .variables import Value, Type
+from .errors import SemanticError
 
 Scope = dict[str, Value]
 
@@ -37,8 +38,7 @@ class ScopeStack:
                     scope[identifier].value = rhs.value
                     return
                 else:
-                    print("Type mismatch")
-                    return
+                    raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({existing_atom.type.id})")
 
         print(f"Identifier '{identifier}' does not exist")
 
@@ -47,7 +47,7 @@ class ScopeStack:
         for scope in reversed(self.scopes):
             if identifier in scope.keys():
                 existing_atom = scope[identifier]
-                
+
                 if suffix > existing_atom.value.length() or suffix < 0:
                     print(f"Index {suffix} out of bounds")
                     return
@@ -56,8 +56,7 @@ class ScopeStack:
                     existing_atom.value.content[suffix].value = rhs.value
                     return
                 else:
-                    print("Type mismatch")
-                    return
+                    raise SemanticError(f"Type mismatch: ({rhs.type.id}) ({existing_atom.type.id})")
 
         print(f"Identifier '{identifier}' does not exist")
 

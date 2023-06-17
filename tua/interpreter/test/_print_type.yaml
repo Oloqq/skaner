@@ -5,10 +5,6 @@ program: |
   y: List[int] = {}
   print(type(y))
 
-
-
 output: |
   Type<int>
   Type<List[int]>
-
-# get_args wants to copy 'type(x)' but its not a Value object 

@@ -1,8 +1,0 @@
-program: |
-  z: List[float] = {3, 2.2}
-
-output: |
-  Fieldlist contains multiple types: {'int', 'float'}
-
-fail: true #it returns error as above -> parsing to float in the future?
-skip: true

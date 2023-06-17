@@ -14,6 +14,27 @@ class TestResult(Enum):
     SKIPPED = 2
     NOT_FOUND = 3
 
+def execute(program) -> tuple[str, str]:
+    # Create a StringIO object to capture the stdout
+    stdout_capture = StringIO()
+
+    # Redirect the stdout to the StringIO object
+    sys.stdout = stdout_capture
+
+    error_output = ""
+    try:
+        run_interpreter_full_program(InputStream(program))
+    except (SemanticError, InternalError) as e:
+        error_output = str(e)
+
+    # Get the captured output
+    output = stdout_capture.getvalue() or ""
+
+    # Restore the original stdout
+    sys.stdout = sys.__stdout__
+
+    return output, error_output
+
 def run_test(dir: str, debug: bool, case: str, verbose: bool = False) -> TestResult:
     if not case.endswith(".yaml"):
         return TestResult.NOT_FOUND
@@ -33,56 +54,31 @@ def run_test(dir: str, debug: bool, case: str, verbose: bool = False) -> TestRes
     print("Running test case: " + case)
     program = test["program"]
     expected = test.get("output", "")
-
-    # Create a StringIO object to capture the stdout
-    stdout_capture = StringIO()
-
-    # Redirect the stdout to the StringIO object
-    sys.stdout = stdout_capture
-
-    error_output = ""
-    try:
-        run_interpreter_full_program(InputStream(program))
-        threw = False
-    except (SemanticError, InternalError) as e:
-        threw = True
-        error_output = str(e)
-
-    # Get the captured output
-    output = stdout_capture.getvalue() or ""
-
-    # Restore the original stdout
-    sys.stdout = sys.__stdout__
-
     if not expected.endswith("\n"):
         expected += "\n"
+    expected_error = test.get("error", "")
 
-    is_failed = threw or output != expected
-    should_fail = test.get("fail", False)
-    show_output = (threw and error_output) or verbose
-
-    if is_failed and not should_fail:
-        print(f"Test failed: {case}")
-    elif not is_failed and should_fail:
-        print(f"Test was expected to fail: {case}")
-    elif show_output:
-        print(f"Test case: {case}")
-
-    if threw and error_output:
-        print(output)
-        print("Error output:", error_output)
-        print()
-        return TestResult.FAILURE
-    elif is_failed != should_fail:
+    output, error = execute(program)
+    if not expected_error and output != expected:
+        print("Test failed. Output of the program not as expected")
         print("Expected:")
         print(expected)
         print("Got:")
         print(output)
         print()
         return TestResult.FAILURE
+    elif error != expected_error:
+        print("Test failed. Error message not as expected")
+        print("Expected:")
+        print(expected_error)
+        print("Got:")
+        print(error)
+        print()
+        return TestResult.FAILURE
     elif verbose:
-        print("Output:")
         print(output)
+        if error:
+            print(error)
 
     return TestResult.SUCCESS
 

@@ -1,7 +1,0 @@
-program: |
-  print(1)
-
-output: |
-  2
-
-fail: true
