@@ -144,11 +144,11 @@ class Tua(TuaVisitor):
                 raise SemanticError(f"Name '{identifier}' is not defined")
 
             if suffix is not None :
-                if suffix < ret.value.length() and suffix >= 0: 
+                if suffix < ret.value.length() and suffix >= 0:
                     return ret.value.get(suffix)
                 else:
                     raise SemanticError(f"Index out of range: {suffix} for {identifier}")
-            else: 
+            else:
                 return ret
         elif ctx.functioncall():
             return self.visit(ctx.functioncall())
@@ -355,6 +355,8 @@ class Tua(TuaVisitor):
                 return results
             condition = self.visit(ctx.exp())
 
+        return None
+
 
     def visitIfstat(self, ctx:TuaParser.IfstatContext):
         n_exps = len(ctx.exp())
@@ -371,11 +373,39 @@ class Tua(TuaVisitor):
 
 
     def visitForintstat(self, ctx:TuaParser.ForintstatContext):
-        return self.visitChildren(ctx)
+        # 'for' NAME '=' exp ',' exp (',' exp)? 'do' block 'end'
+        iterator_name = ctx.getToken(TuaParser.NAME, 0).getText()
+        iterator_value = self.visit(ctx.exp(0));
+
+        iterator_added_successfully = self.scope.new_identifier(iterator_name, iterator_value)
+
+        if not iterator_added_successfully:
+            raise SemanticError(f"Cannot use name '{iterator_name}' as iterator, because the identifier is already defined")
+
+        change = 1
+        if len(ctx.exp()) > 2:
+            value = self.visit(ctx.exp(2))
+            if value.type.id != "int":
+                raise SemanticError(f"Cannot increment value of type int using value of type {value.type.id}")
+            change = value.value
+
+        while self.visit(ctx.exp(1)).value:
+            results = self.visit(ctx.block())
+            if results is not None:
+                self.scope.del_identifier(iterator_name)
+                return results
+
+            iterator_value.value += change
+            self.scope.change_value(iterator_name, iterator_value)
+
+
+        self.scope.del_identifier(iterator_name)
+        return None
 
 
     def visitForiteratorstat(self, ctx:TuaParser.ForiteratorstatContext):
         return self.visitChildren(ctx)
+    #'for' NAME ',' NAME 'in' functioncall 'do' block 'end'
 
 
     def visitFunctiondef(self, ctx:TuaParser.FunctiondefContext):
@@ -489,7 +519,7 @@ class Tua(TuaVisitor):
         else:
             fields = []
         tualist = TuaList(fields, type)
-    
+
         return Value(Type(tualist.full_type_str()), tualist)
 
 

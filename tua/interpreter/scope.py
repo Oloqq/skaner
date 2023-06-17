@@ -47,7 +47,7 @@ class ScopeStack:
         for scope in reversed(self.scopes):
             if identifier in scope.keys():
                 existing_atom = scope[identifier]
-                
+
                 if suffix > existing_atom.value.length() or suffix < 0:
                     print(f"Index {suffix} out of bounds")
                     return
@@ -63,11 +63,18 @@ class ScopeStack:
 
 
     def new_identifier(self, identifier: str, val: Value) -> bool:
-        # value = rhs.value if rhs.is_literal() else rhs
-
         # check if variable already exists
         if self.get(identifier) is None:
             self.current[identifier] = val
             return True
+
+        return False
+
+
+    def del_identifier(self, identifier: str) -> bool:
+        for scope in reversed(self.scopes):
+            if identifier in scope.keys():
+                scope.pop(identifier)
+                return True
 
         return False
