@@ -491,8 +491,9 @@ class Tua(TuaVisitor):
                     raise SemanticError(f"When calling function '{name}' parameter '{funcval.params[i].name}' should be of type {funcval.params[i].type}, got {args[i].type} instead")
                 function_scope.new_identifier(funcval.params[i].name, args[i])
 
-            # add current function to its scope
-            function_scope.new_identifier(name, func)
+            # all functions are global - add them to scope
+            for function in self.scope.get_functions():
+                function_scope.new_identifier(function[0], function[1])
 
             # solution for scopestacks problem
             program_scope = self.scope

@@ -29,6 +29,17 @@ class ScopeStack:
         return None
 
 
+    def get_functions(self) -> list:
+        functions = []
+
+        for scope in reversed(self.scopes):
+            for elem in scope.items():
+                if elem[1].type.id == "function":
+                    functions.append([elem[0], elem[1]])
+
+        return functions
+
+
     def change_value(self, identifier: str, rhs: Value):
         for scope in reversed(self.scopes):
             if identifier in scope.keys():
