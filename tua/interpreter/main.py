@@ -8,6 +8,14 @@ import logging
 
 import click
 
+class CustomErrorListener:
+    def __init__(self):
+        self.errors = []
+
+    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
+        self.errors.append(f"Syntax error at line {line}, column {column}: {msg}")
+
+
 def multiline_triggered(line: str) -> bool:
     words = line.split(" ")
     return words[0] == "function" or words[-1] in ["then", "do"]
@@ -55,12 +63,19 @@ def run_interpreter_full_program(program: FileStream|InputStream):
     tokens = CommonTokenStream(lexer)
     parser = TuaParser(tokens)
 
+    # capture syntax errors
+    error_listener = CustomErrorListener()
+    parser.removeErrorListeners()
+    parser.addErrorListener(error_listener)
+
     # Build the parse tree and create the visitor.
     tree = parser.program()
-    visitor = Tua()
-
-    # Visit the parse tree using the visitor.
-    visitor.visit(tree)
+    if len(error_listener.errors) > 0:
+        print(error_listener.errors[0])
+    else:
+        visitor = Tua()
+        # Visit the parse tree using the visitor.
+        visitor.visit(tree)
 
 def run_interpreter(input_file, debug):
     init_log(logging.DEBUG if debug else logging.WARNING)
