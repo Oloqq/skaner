@@ -1,0 +1,24 @@
+program: |
+  function make_list(n: int) -> List[int]
+    list: List[int] = {}
+    for i = 0, i < n do
+      append(list, i)
+    end
+    return list
+  end
+
+  function print_list(x: List[int]) -> nil
+    for i = 0, i < len(x) do
+      print(x[i])
+    end
+  end
+
+  x: List[int] = make_list(5)
+  print_list(x)
+
+output: |
+  0
+  1
+  2
+  3
+  4
