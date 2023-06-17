@@ -36,15 +36,12 @@ class Tua(TuaVisitor):
         log.info("Block")
         self.scope.push()
         self.depth += 1
+        results = None
 
         for c in ctx.getChildren():
             results = self.visit(c)
-            if results is not None:
-
-                self.depth -= 1
-                if self.depth > 0: # necessary for line by line execution
-                    self.scope.pop()
-                return results
+            if results:
+                break
 
         self.depth -= 1
         if self.depth > 0: # necessary for line by line execution
@@ -143,12 +140,12 @@ class Tua(TuaVisitor):
             if ret is None:
                 raise SemanticError(f"Name '{identifier}' is not defined")
 
-            if suffix is not None :
-                if suffix < ret.value.length() and suffix >= 0: 
-                    return ret.value.get(suffix)
+            if suffix is not None:
+                if suffix < len(ret.value) and suffix >= 0:
+                    return ret.value[suffix]
                 else:
                     raise SemanticError(f"Index out of range: {suffix} for {identifier}")
-            else: 
+            else:
                 return ret
         elif ctx.functioncall():
             return self.visit(ctx.functioncall())
@@ -434,6 +431,9 @@ class Tua(TuaVisitor):
         name = ctx.getToken(TuaParser.NAME, 0).getText()
         args = self.get_args(ctx)
 
+        # TODO
+        # print(type(exp)) <- recusive call
+
         if name in self.builtins: # TODO order of the checks should be swapped, or overriding builtins banned, to be decided
             return self.builtins[name](self, *args)
         else:
@@ -488,9 +488,10 @@ class Tua(TuaVisitor):
             fields, type = self.visit(ctx.fieldlist())
         else:
             fields = []
-        tualist = TuaList(fields, type)
-    
-        return Value(Type(tualist.full_type_str()), tualist)
+
+        #var tualist = TuaList(type, fields)
+
+        return Value(Type(f'List[{type}]'), fields)
 
 
     def visitFieldlist(self, ctx:TuaParser.FieldlistContext):

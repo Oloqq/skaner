@@ -6,7 +6,7 @@ from ..main import run_interpreter_full_program
 from antlr4 import InputStream
 import click
 from enum import Enum
-from ..visitor import SemanticError
+from ..visitor import SemanticError, InternalError
 
 class TestResult(Enum):
     SUCCESS = 0
@@ -44,7 +44,7 @@ def run_test(dir: str, debug: bool, case: str, verbose: bool = False) -> TestRes
     try:
         run_interpreter_full_program(InputStream(program))
         threw = False
-    except SemanticError as e:
+    except (SemanticError, InternalError) as e:
         threw = True
         error_output = str(e)
 

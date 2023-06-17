@@ -1,5 +1,6 @@
 program: |
   y: bool = true
+  print(y)
   y = false
   x: bool = true
   if y then
@@ -9,4 +10,5 @@ program: |
   end
 
 output: |
+  true
   woof

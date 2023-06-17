@@ -1,0 +1,8 @@
+program: |
+  function suma() -> int
+      return 5
+  end
+
+  print(suma())
+output: |
+  5
