@@ -13,7 +13,7 @@ Projekt ma na celu stworzenie interpretera własnego języka programowania o naz
 
 2. Implementacja interpretera: Głównym zadaniem projektu jest stworzenie interpretera języka Tua, który będzie odpowiedzialny za analizę i wykonanie kodu napisanego w tym języku. Interpreter będzie obsługiwał podstawowe konstrukcje języka, takie jak instrukcje warunkowe, pętle, funkcje, zmienne i operacje logiczno-matematyczne.
 
-3. Testowanie: testy jednostkowe znajdują się w folderze tua/test. Pojedynczy test uruchamia się komendą //tuatest <testcase>//. Polecenie //tuatest// uruchomi wszystkie testy.
+3. Testowanie: testy jednostkowe znajdują się w folderze tua/test. Pojedynczy test uruchamia się komendą *tuatest \<testcase\>*. Polecenie *tuatest* uruchomi wszystkie testy.
 
 ## 3. Spis tokenów:
 
